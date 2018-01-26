@@ -1,12 +1,18 @@
 language: node_js
+
 node_js:
 - 8.9.4
+
 cache:
   directories:
   - node_modules
+
 before_install:
 - cd frontend
-script: "-npm run build"
+
+script: 
+  -npm run build
+
 deploy:
   provider: s3
   access_key_id: AKIAJLOBPV7PIJMR7CRA
@@ -18,6 +24,7 @@ deploy:
   on:
     repo: GLO3112-H18/ugram-team-06
     branch: dev
+
 notifications:
   slack:
     secure: Nsx4KfRTrDHX+nhXRjZIC68PKTZnblcSU3tIAIK1XTFgrLz7eWFmDpZs76k/DyxhUZrbSBrD08n/9/RTpCEDu55062yawg3WZWk/sdazQIErsghicb/7LUw2lBMDjArBUYDFvJ6km73AfUskkiINUZ2/QE5qELjhxzkvu6HSqV5e7IIaWQLeCu8YOIWocnjXlOOnGFW1Bgwn4Bp7CjX+1lZ8fni72E2oz46iuLVv/VYADaIBg2+YMcJXTUvpB/hDdwXso/a03KY9BpA8+AcHUn+ChEhizcRaaDDOAgPSM9iOlyPfzknJ/Lvj+RXl10f89gweJzociioGsQUdJRK171PDMGQ9j2lz2dFBnaL/EfFJbr7JmWV7fSOGPpbhocF/e1tj0oYxRlXq4dbbWjyGZ/MeAEKw1cwElGN/DeQgOijbvxxl0C5HGdYgY+oU7/tHTN2t/dMQ3pX/3E/iLlLzVLsDmPLfPkydj1xBHPhsOdLnCavT3PZTeC7i/nv+vOPt5YkoY4m38+aPbLyTygP/d9kkoKJBOAaZXLjqXMqsCVVYQvilSGb2Etb0rj63xxaRqquo4D+Hgv0wiIpO1W6mZCPY3IA8h1M5Yy+OMmsAR8BIqdzm3Fbzel8rvF/w3QVGwoRZXVm4tb5ST+ACBef/5bD02pmMUOAtAokxsXj8gCc=
