@@ -27,8 +27,7 @@ module.exports = {
     },
 	plugins: [
 	    new HtmlWebpackPlugin({
-			template: 'index.template.ejs',
-			inject: false
+			template: 'index.template.ejs'
 	    }),
 	    new ExtractTextPlugin('css/style.min.css'),
 	    new UglifyJsPlugin(),
