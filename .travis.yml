@@ -10,8 +10,11 @@ cache:
 before_install:
 - cd frontend
 
+before_script:
+- npm install -g webpack
+
 script: 
-  -./node_modules/webpack/bin/webpack.js
+  -npm run build
 
 deploy:
   provider: s3
