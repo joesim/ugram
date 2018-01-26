@@ -18,6 +18,7 @@ script:
 
 before_deploy:
   - git commit -am "build"
+  - ls
 
 deploy:
   provider: s3
@@ -25,7 +26,7 @@ deploy:
   secret_access_key:
     secure: MeYeFv4Luo2lnsvudFs9kGlHk+5KHMNWkQBh2Md4aDRXhXf0jVuEefMYIi7/oWDFo0KFTPt3sT+GDYuG8YRt001dHGT6lJ/viK2vbMSBRxKhjgbQfu2CyP+Hl0zs8VAnEWeB1B4zzdzj8umBBnc4egIqylxek4pEWK8BWS0fOUkbF44qplDD9QtGNPV0uL+nbjwnKBelUd9qtKomzdCJ1CCH97f0dnVikSzoulWbXBkK6SzdC+8/uQljBF1Yw5nyDPiwhsB2Eojim00G3nWfbKYNM6AgdKE/qaYrmv/eBzc1e/eOxCuilWQneCfHCNAwbF7IAOWhKk2bdmccUPRy0A/xo1vHuaoxBLnRjXQVNagOCwlXciGncZb8vCHpsdXyKSotjNPp2qn0zvENV79lhQj6MrTwcZKGyWz/q2iha5ZLS35Ww7P3FdPmUb9sEyH6FyjgcTEYnBzXTNCdKhCTc+x6PCq1qjhqWOUpe5L9qSBrLMr5A4DMMOzcIM172QL0TSjdfAlXezxTDanbQFPQZLlxMGAOKgWOMrozsUHjWm8/LMQatnIaAqzFzjc+UudJHzfunXRFMmDJ7p64VPR6ydF2LpT9Jx6TUT4yZKOUlxokHI3WpwqRaAiLNEKARf5mab3ePZ670nf7xonIK9Fy+mFODsaikO6m6Xcq6ug8fF4=
   bucket: ugram-dev
-  local-dir: frontend/build
+  local-dir: build
   acl: bucket_owner_full_control
   on:
     repo: GLO3112-H18/ugram-team-06
