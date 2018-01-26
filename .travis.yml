@@ -11,7 +11,7 @@ before_install:
 - cd frontend
 
 script: 
-  -npm run build
+  -./node_modules/webpack/bin/webpack.js
 
 deploy:
   provider: s3
