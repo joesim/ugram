@@ -16,6 +16,9 @@ before_script:
 script: 
   - npm run build
 
+before_deploy:
+  - git commit -a
+
 deploy:
   provider: s3
   access_key_id: AKIAJLOBPV7PIJMR7CRA
