@@ -10,10 +10,6 @@ before_script:
 script:
   -npm build
 
-cache:
-  directories:
-    - node_modules
-
 deploy:
   provider: s3
   access_key_id: AKIAJLOBPV7PIJMR7CRA
