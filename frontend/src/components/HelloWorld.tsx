@@ -1,14 +1,16 @@
-import * as React from 'react';
+import * as React from "react";
 
-export interface HelloWorldProps {
+export interface IHelloWorldProps {
     firstname: string;
     lastname: string;
 }
 
-export class HelloWorld extends React.Component<HelloWorldProps, any> {
-    render() {
-        return <h1>
+export class HelloWorld extends React.Component<IHelloWorldProps, any> {
+    public render() {
+        return (
+        <h1>
             Hello {this.props.firstname} {this.props.lastname}!
         </h1>
+        );
     }
 }
