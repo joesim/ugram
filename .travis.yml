@@ -9,7 +9,10 @@ before_script:
 
 script:
   -npm build
-  -deploy
+
+cache:
+  directories:
+    - node_modules
 
 deploy:
   provider: s3
