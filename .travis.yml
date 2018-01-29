@@ -18,6 +18,7 @@ script:
 
 deploy:
   provider: s3
+  skip_cleanup: true
   detect_encoding: true
   access_key_id: AKIAJLOBPV7PIJMR7CRA
   secret_access_key:
