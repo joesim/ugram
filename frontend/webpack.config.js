@@ -5,10 +5,6 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const  CompressionPlugin = require('compression-webpack-plugin');
 
 module.exports = function(env) {
-	if (typeof env == 'undefined') {
-		env = {};
-	}
-
 	config = {
 		entry: './src/Index.tsx',
 		devtool: "source-map",
@@ -42,7 +38,7 @@ module.exports = function(env) {
 		]
 	};
 
-	if (env.travis) {
+	if (env.production) {
 		config.plugins.push(
 			new CompressionPlugin({
 				asset: "[path][query]",
