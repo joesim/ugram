@@ -18,6 +18,7 @@ script:
 
 before_deploy:
   - git checkout -b temp
+  - git reset --hard
 
 deploy:
   provider: s3
