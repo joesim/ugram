@@ -1,5 +1,5 @@
 # Ugram
-[![Build Status](https://travis-ci.com/GLO3112-H18/ugram-team-06.svg?token=oFRzF26Q45xGBoB8qvZi&branch=dev)](https://travis-ci.com/GLO3112-H18/ugram-team-06)
+[![Build Status](https://travis-ci.com/GLO3112-H18/ugram-team-06.svg?token=oFRzF26Q45xGBoB8qvZi&branch=dev)](https://travis-ci.com/GLO3112-H18/ugram-team-06) [Site dev](http://ugram-dev.s3-website.ca-central-1.amazonaws.com)
 > Clone d'instagram pour le cours GLO3112.
 
 
@@ -20,7 +20,7 @@ npm install
 Pour démarrer le frontend de l'application à l'aide d'un serveur local:
 
 ```sh
-npm run build
+npm start
 ```
 
 # Backend:
