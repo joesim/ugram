@@ -1,6 +1,6 @@
 import { connect, Dispatch } from "react-redux";
 import * as actions from "../actions/";
-import AppBarUgram from "../components/Appbar";
+import AppBarUgram from "../components/AppBar";
 import { StoreState } from "../types";
 
 export function mapStateToProps({ appbar }: StoreState) {

@@ -3,15 +3,15 @@ import * as ReactDOM from "react-dom";
 
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 
-import AppBarUgram from "./ccontainers/AppBar";
 import {Home} from "./components/Home";
 import {Pictures} from "./components/Pictures";
 import {Profile} from "./components/Profile";
+import AppBarUgram from "./containers/AppBar";
 
 import {render} from "react-dom";
 import {connect, Provider} from "react-redux";
 
-import { BrowserRouter, Route, Switch, Link} from 'react-router-dom'
+import { BrowserRouter, Link, Route, Switch} from "react-router-dom";
 
 import {store} from "./store";
 
