@@ -17,6 +17,7 @@ script:
   - npm run build
 
 before_deploy:
+  - git checkout -b temp
   - git checkout -B master temp
   - git branch -d temp
 
