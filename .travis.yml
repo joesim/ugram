@@ -16,6 +16,13 @@ before_script:
 script: 
   - npm run build
 
+before_deploy:
+  - git reset --hard
+  - git checkout -b temp
+  - git checkout -B master temp
+  - git branch -d temp
+
+
 deploy:
   provider: s3
   detect_encoding: true
