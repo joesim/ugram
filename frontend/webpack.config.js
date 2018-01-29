@@ -32,11 +32,11 @@ module.exports = {
 	    new ExtractTextPlugin('css/style.min.css'),
 	    new UglifyJsPlugin(),
 	    new CompressionPlugin({
-		    asset: "[path].gz[query]",
-		    algorithm: 'gzip'
+		    asset: "[path][query]",
+			algorithm: 'gzip',
 	    }),
 	    new CopyWebpackPlugin([
 		    { from: 'assets/', to: 'assets/'}
 		])
-		]
+	]
 };
