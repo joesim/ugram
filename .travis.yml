@@ -17,7 +17,7 @@ script:
   - npm run build
 
 before_deploy:
-  - git checkout -f
+  - git symbolic-ref HEAD
 
 deploy:
   provider: s3
