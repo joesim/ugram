@@ -30,11 +30,13 @@ module.exports = {
 			template: 'index.template.ejs'
 	    }),
 	    new ExtractTextPlugin('css/style.min.css'),
-	    new UglifyJsPlugin(),
+		new UglifyJsPlugin(),
+		/*
 	    new CompressionPlugin({
 		    asset: "[path][query]",
 			algorithm: 'gzip',
-	    }),
+		}),
+		*/
 	    new CopyWebpackPlugin([
 		    { from: 'assets/', to: 'assets/'}
 		])
