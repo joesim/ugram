@@ -16,10 +16,6 @@ before_script:
 script: 
   - npm run build
 
-before_deploy:
-  - git commit -am "build"
-  - ls
-
 deploy:
   provider: s3
   detect_encoding: true
