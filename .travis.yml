@@ -17,8 +17,9 @@ script:
   - npm run build
 
 before_deploy:
-  - git checkout -b temp
-  - git reset --hard
+  - git checkout -B master temp
+  - git branch -d temp
+
 
 deploy:
   provider: s3
