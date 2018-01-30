@@ -5,8 +5,8 @@ import FontIcon from 'material-ui/FontIcon';
 import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
 
 const avatarStyle: Object = {
-    width: "125px",
-    height: "125px"
+    width: "150px",
+    height: "150px"
 }
 
 const rowUser: Object = {
@@ -30,10 +30,6 @@ const rowNoWrap: Object = {
     flexFlow: "row nowrap",
 }
 
-const avatarItem: Object = {
-    padding: "20px"
-}
-
 const infoItem: Object = {
     padding: "10px",
     alignSelf: "flex-start"
@@ -46,7 +42,7 @@ const rowUsername: Object = {
 
 const cardStyle: Object = {
     width: "100%",
-    margin: "20px",
+    marginTop: "20px",
     height: "500px"
 }
 
@@ -56,8 +52,8 @@ class Profile extends React.Component {
             <div className="container mt-25">
             <div className="flex-container">
                 <div style={rowUser}>
-                    <div style={avatarItem}>
-                        <Avatar className="text-xs-center" style={avatarStyle} src="https://memegenerator.net/img/images/600x600/1137321/xzibit-yo-dawg.jpg" />
+                    <div>
+                        <Avatar className="ml-30 mr-30" style={avatarStyle} src="https://memegenerator.net/img/images/600x600/1137321/xzibit-yo-dawg.jpg" />
                     </div>
                     <div style={infoItem}>
                         <div style={rowNoSpace} className="mb-10">
