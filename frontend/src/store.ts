@@ -1,11 +1,10 @@
-import { syncHistoryWithStore, routerReducer } from 'react-router-redux'
-import { Router, Route, browserHistory } from 'react-router'
-import {applyMiddleware, combineReducers, createStore} from "redux";
-import { appbar } from "./reducers";
+import { routerReducer } from "react-router-redux";
+import { combineReducers, createStore } from "redux";
+import * as Reducers from "./reducers";
 
 const store = createStore(
     combineReducers({
-        appbar,
+        ...Reducers,
         routing: routerReducer,
     }),
 );

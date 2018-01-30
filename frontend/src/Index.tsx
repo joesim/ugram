@@ -11,7 +11,7 @@ import AppBarUgram from "./containers/AppBar";
 import {render} from "react-dom";
 import {connect, Provider} from "react-redux";
 
-import { BrowserRouter, Link, Route, Switch} from "react-router-dom";
+import {BrowserRouter, HashRouter, Route, Switch} from "react-router-dom";
 
 import {store} from "./store";
 
@@ -22,12 +22,16 @@ ReactDOM.render(
         <MuiThemeProvider>
             <div>
                 <BrowserRouter>
-                    <div>
-                        <AppBarUgram/>
-                        <Route exact={true} path="/" title={"Home"} render={(props) => <Home/>} />
-                        <Route path="/pictures" title={"Pictures"} render={(props) => <Pictures/>} />
-                        <Route path="/profile" title={"Profile"} render={(props) => <Profile/>} />
-                    </div>
+                    <HashRouter>
+                        <div>
+                            <AppBarUgram/>
+                            <Switch>
+                                <Route exact={true} path="/" title={"Home"} render={(props) => <Home/>}/>
+                                <Route exact={true} path="/pictures" title="Pictures" render={(props) => <Pictures/>}/>
+                                <Route path="/profile" title={"Profile"} render={(props) => <Profile/>}/>
+                            </Switch>
+                        </div>
+                    </HashRouter>
                 </BrowserRouter>
             </div>
         </MuiThemeProvider>

@@ -5,3 +5,5 @@ frontend/node_modules
 \.DS_Store
 .vscode/*
 .idea
+npm-debug.log
+frontend/npm-debug.log
