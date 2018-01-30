@@ -2,7 +2,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const  CompressionPlugin = require('compression-webpack-plugin');
+const CompressionPlugin = require('compression-webpack-plugin');
+const webpack = require('webpack');
 
 module.exports = function(env) {
 	config = {
@@ -34,7 +35,12 @@ module.exports = function(env) {
 			new UglifyJsPlugin(),
 			new CopyWebpackPlugin([
 				{ from: 'assets/', to: 'assets/'}
-			])
+			]),
+			new webpack.DefinePlugin({
+                'process.env': {
+                    'NODE_ENV': JSON.stringify('production')
+                }
+			}),
 		]
 	};
 
