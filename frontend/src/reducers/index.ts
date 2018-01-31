@@ -1,3 +1,4 @@
 import { appbar } from "./AppBar";
+import { profileHasErrored, profileIsLoading, user} from "./Profile";
 
-export { appbar };
+export { appbar, profileHasErrored, profileIsLoading, user };

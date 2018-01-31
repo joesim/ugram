@@ -3,6 +3,7 @@ import Avatar from "material-ui/Avatar";
 import RaisedButton from 'material-ui/RaisedButton';
 import FontIcon from 'material-ui/FontIcon';
 import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
+import CircularProgress from 'material-ui/CircularProgress';
 
 const avatarStyle: Object = {
     width: "150px",
@@ -46,32 +47,67 @@ const cardStyle: Object = {
     height: "500px"
 }
 
-class Profile extends React.Component {
+interface Props {
+    user: any,
+    hasErrored: boolean,
+    isLoading: boolean,
+    fetchData: any,
+
+}
+
+class Profile extends React.Component<Props, any> {
+    public constructor(props) {
+		super(props)
+    }
+
+	public componentDidMount() {
+        this.props.fetchData();
+    }
+    
     public render(){
+
+        if (this.props.isLoading) {
+            return (
+                <div className="container mt-50">
+                    <CircularProgress size={80} thickness={5} />
+                </div>
+            )
+        }
+
+        if (this.props.hasErrored) {
+            return (
+                <div className="container mt-50">
+                    <p>
+                        Sorry! There was an error loading your profile.
+                    </p>
+                </div>
+            )
+        }
+
         return (
             <div className="container mt-25">
             <div className="flex-container">
                 <div style={rowUser}>
                     <div>
-                        <Avatar className="ml-30 mr-30" style={avatarStyle} src="https://memegenerator.net/img/images/600x600/1137321/xzibit-yo-dawg.jpg" />
+                        <Avatar className="ml-30 mr-30" style={avatarStyle} src={this.props.user.pictureUrl} />
                     </div>
                     <div style={infoItem}>
                         <div style={rowNoSpace} className="mb-10">
-                            <div className="h4 font-weight-bold">Lorem Ipsum</div>
-                            <p className="ml-10 mr-30">@xzibit</p>
+                            <div className="h4 font-weight-bold">{this.props.user.firstName} {this.props.user.lastName}</div>
+                            <p className="ml-10 mr-30">@{this.props.user.id}</p>
                             <RaisedButton labelPosition="before" label="Edit" primary={true} icon={<FontIcon className="material-icons">edit</FontIcon>}></RaisedButton>
                         </div>
                         <div style={rowUser}>
                             <div style={rowNoWrap} className="ml-30 mr-30">
                                 <FontIcon className="material-icons mr-10 ml-10">email</FontIcon>
                                 <div>
-                                    xzibit@hotmail.com
+                                    {this.props.user.email}
                                 </div>
                             </div>
                             <div style={rowNoWrap}>
                                 <FontIcon className="material-icons mr-10 ml-10">phone</FontIcon>
                                 <div>
-                                    +1 (418) 123-4567
+                                    {this.props.user.phoneNumber}
                                 </div>
                             </div>
                         </div>
@@ -92,4 +128,4 @@ class Profile extends React.Component {
 }
 
 
-export { Profile };
+export default Profile;

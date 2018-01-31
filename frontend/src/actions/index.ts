@@ -1,3 +1,3 @@
 import {AppBarAction, setVisibilityMenu} from "./AppBar";
-
-export { AppBarAction, setVisibilityMenu };
+import {EditProfileAction, editProfile, profileFetchData, profileHasErrored, profileIsLoading} from "./Profile";
+export { AppBarAction, setVisibilityMenu, EditProfileAction, editProfile, profileFetchData, profileHasErrored, profileIsLoading };
