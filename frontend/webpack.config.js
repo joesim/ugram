@@ -32,7 +32,9 @@ module.exports = function(env) {
 				template: 'index.template.ejs'
 			}),
 			new ExtractTextPlugin('css/style.min.css'),
-			new UglifyJsPlugin(),
+			new UglifyJsPlugin({
+				sourceMap: true
+			}),
 			new CopyWebpackPlugin([
 				{ from: 'assets/', to: 'assets/'}
 			]),
