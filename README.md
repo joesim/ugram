@@ -33,4 +33,4 @@ npm start
 3. Commiter ses changements (`git commit -am 'Add some fooBar'`)
 4. Pousser sa branche (`git push origin feature/fooBar`)
 5. Créer un pull request
-6. Si les tests passent et est accepté par un membre de l'équipe, la branche est prête à être merger
+6. Si les tests passent et le pull request est accepté par un membre de l'équipe, la branche est prête à être merger
