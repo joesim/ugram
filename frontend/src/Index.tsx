@@ -3,7 +3,7 @@ import * as ReactDOM from "react-dom";
 
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 
-import {Home} from "./components/Home";
+import Home from "./containers/Home";
 import {Pictures} from "./components/Pictures";
 import {Profile} from "./components/Profile";
 import AppBarUgram from "./containers/AppBar";
@@ -27,7 +27,7 @@ ReactDOM.render(
                             <AppBarUgram/>
                             <Switch>
                                 <Route exact={true} path="/" title={"Home"} render={(props) => <Home/>}/>
-                                <Route exact={true} path="/pictures" title="Pictures" render={(props) => <Pictures/>}/>
+                                <Route path="/pictures" title="Pictures" render={(props) => <Pictures/>}/>
                                 <Route path="/profile" title={"Profile"} render={(props) => <Profile/>}/>
                             </Switch>
                         </div>

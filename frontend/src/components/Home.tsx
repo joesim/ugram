@@ -1,16 +1,16 @@
 import * as React from "react";
-import { HashRouter, Link } from "react-router-dom";
+import {
+	HashRouter,
+	Link
+} from "react-router-dom";
+import PicturesPanel from "../containers/PicturesPanel";
 
-class Home extends React.Component {
-    public render() {
-        return (
-            <div>
-                Home
-                <HashRouter/>
-                <Link to="/pictures">Pictures</Link>
-            </div>
-        );
-    }
-}
+const Home = ({}) => {
+	return (
+		<div>
+			<PicturesPanel test={1}/>
+		</div>
+	);
+};
 
-export { Home };
+export default Home;
