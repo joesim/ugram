@@ -1,5 +1,5 @@
 import { connect, Dispatch } from "react-redux";
-import {profileFetchData} from "../actions/Profile";
+import {profileFetchData, editProfile} from "../actions/Profile";
 import { StoreState } from "../types";
 import Profile from "../components/Profile";
 
@@ -14,6 +14,7 @@ export function mapStateToProps( state ) {
 export function mapDispatchToProps(dispatch: any) {
     return {
         fetchData: () => dispatch(profileFetchData()),
+        editProfile: (user) => dispatch(editProfile(user))
     };
 }
 

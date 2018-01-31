@@ -20,13 +20,36 @@ const itemField = {
   boxSizing: "border-box",
 }
 
+interface Props {
+  editProfile: any,
+  user: any
+}
+
 export default class DialogEdit extends React.Component<any, any> {
   constructor(props: any) {
     super(props);
     this.state = {
-      open: false
+      open: false,
+      user: {
+        email: this.props.email,
+        firstName: this.props.firstName,
+        lastName: this.props.lastName,
+        phoneNumber: this.props.phoneNumber
+      }
     }
   }
+
+  componentDidMount(){
+    this.setState({
+      user: {
+        email: this.props.user.email,
+        firstName: this.props.user.firstName,
+        lastName: this.props.user.lastName,
+        phoneNumber: this.props.user.phoneNumber
+      }
+    })
+  }
+  
 
   handleOpen = () => {
     this.setState({ open: true });
@@ -34,6 +57,43 @@ export default class DialogEdit extends React.Component<any, any> {
 
   handleClose = () => {
     this.setState({ open: false });
+  };
+
+  handleSubmit = () => {
+    this.setState({ open: false });
+    this.props.onSubmit(this.state.user);
+  }
+
+  handleChangeEmail = (event) => {
+    const user = this.state.user;
+    user.email=event.target.value;
+    this.setState({
+      user,
+    });
+  };
+
+  handleChangeFirstName = (event) => {
+    const user = this.state.user;
+    user.firstName=event.target.value;
+    this.setState({
+      user,
+    });
+  };
+
+  handleChangeLastName = (event) => {
+    const user = this.state.user;
+    user.lastName=event.target.value;
+    this.setState({
+      user,
+    });
+  };
+
+  handleChangePhoneNumber = (event) => {
+    const user = this.state.user;
+    user.phoneNumber=event.target.value;
+    this.setState({
+      user,
+    });
   };
 
   render() {
@@ -47,7 +107,7 @@ export default class DialogEdit extends React.Component<any, any> {
         label="Submit"
         primary={true}
         keyboardFocused={true}
-        onClick={this.handleClose}
+        onClick={this.handleSubmit}
       />,
     ];
 
@@ -69,7 +129,7 @@ export default class DialogEdit extends React.Component<any, any> {
               First Name:
               </div>
             <div className="ml-15 mb-15" style={itemField}>
-            <TextField hintText={this.props.firstname}/>
+            <TextField value={this.state.user.firstName} onChange={this.handleChangeFirstName}/>
               </div>
           </div>
           <div className="flex-row-nowrap flex-align-items-center">
@@ -77,7 +137,7 @@ export default class DialogEdit extends React.Component<any, any> {
               Last name:
               </div>
             <div className="ml-15 mb-15" style={itemField}>
-            <TextField hintText={this.props.lastname}/>
+            <TextField value={this.state.user.lastName} onChange={this.handleChangeLastName}/>
               </div>
           </div>
           <div className="flex-row-nowrap flex-align-items-center">
@@ -85,7 +145,15 @@ export default class DialogEdit extends React.Component<any, any> {
               E-mail:
               </div>
             <div className="ml-15 mb-15" style={itemField}>
-            <TextField hintText={this.props.email}/>
+            <TextField value={this.state.user.email} onChange={this.handleChangeEmail}/>
+              </div>
+          </div>
+          <div className="flex-row-nowrap flex-align-items-center">
+            <div className="mb-15" style={itemLabel}>
+              Phone:
+              </div>
+            <div className="ml-15 mb-15" style={itemField}>
+            <TextField value={this.state.user.phoneNumber} onChange={this.handleChangePhoneNumber}/>
               </div>
           </div>
 

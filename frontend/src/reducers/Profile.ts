@@ -1,4 +1,4 @@
-import { EditProfileAction } from "../actions"; 
+
 import { GET_USER, EDIT_PROFILE, FETCH_ERROR } from "../constants";
 
 
@@ -26,7 +26,6 @@ export function user(state = {}, action) {
     switch (action.type) {
         case 'PROFILE_FETCH_DATA_SUCCESS':
             return action.user;
-
         default:
             return state;
     }

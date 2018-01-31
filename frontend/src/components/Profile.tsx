@@ -4,6 +4,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import FontIcon from 'material-ui/FontIcon';
 import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
 import CircularProgress from 'material-ui/CircularProgress';
+import DialogEdit from './DialogEdit';
 
 const avatarStyle: Object = {
     width: "150px",
@@ -52,16 +53,16 @@ interface Props {
     hasErrored: boolean,
     isLoading: boolean,
     fetchData: any,
-
+    editProfile: any
 }
 
 class Profile extends React.Component<Props, any> {
     public constructor(props) {
-		super(props)
+        super(props);
     }
 
-	public componentDidMount() {
-        this.props.fetchData();
+	public componentWillMount() {
+        console.log(this.props);
     }
     
     public render(){
@@ -69,7 +70,7 @@ class Profile extends React.Component<Props, any> {
         if (this.props.isLoading) {
             return (
                 <div className="container mt-50">
-                    <CircularProgress size={80} thickness={5} />
+                    <CircularProgress className="flex-justify-space" size={80} thickness={5} />
                 </div>
             )
         }
@@ -95,7 +96,7 @@ class Profile extends React.Component<Props, any> {
                         <div style={rowNoSpace} className="mb-10">
                             <div className="h4 font-weight-bold">{this.props.user.firstName} {this.props.user.lastName}</div>
                             <p className="ml-10 mr-30">@{this.props.user.id}</p>
-                            <RaisedButton labelPosition="before" label="Edit" primary={true} icon={<FontIcon className="material-icons">edit</FontIcon>}></RaisedButton>
+                            <DialogEdit user={this.props.user} onSubmit={this.props.editProfile} />
                         </div>
                         <div style={rowUser}>
                             <div style={rowNoWrap} className="ml-30 mr-30">
