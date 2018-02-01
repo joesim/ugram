@@ -37,78 +37,114 @@ class PicturesPanel extends React.Component<Props, any> {
 
 	public render() {
 
-		const titlesData = [];
+		let titlesData = [];
 
-		this.props.pictures_panel.pictures.items.forEach((pic) => {
-			titlesData.push({
-				img: pic.url,
-				title: "e",
-				author: "22",
-			})
+		this.props.pictures_panel.pictures.items.forEach((pic, index) => {
+			if (index >= 0) {
+				console.info(pic);
+				titlesData.push({
+					img: this.props.pictures_panel.pictures.items[1].url,
+					title: "e",
+					author: "22",
+				});
+				titlesData[0] = {
+					img: this.props.pictures_panel.pictures.items[0].url,
+					title: "e",
+					author: "22",
+				};
+			}
 		});
 
+		console.log(titlesData)
 
 		return (
-			<div className="flex-wrap-around">
-				{titlesData.map((tile) => (
-					<Card style={{ width: window.innerWidth / 3 - 15 }}
-					      className="card-picture"
-					>
-						<CardMedia overlay={ <CardTitle title={tile.title} subtitle={tile.author}/>}>
-							<img src={titlesData[0].img} />
-						</CardMedia>
-					</Card>
-				))}
+			<div>
+				{titlesData.map((tile) =>
+					<a href="">
+						<figure>
+							<img src={tile.img} alt="" />
+						</figure>
+					</a>
+				)}
+				<a href="https://s3-us-west-2.amazonaws.com/s.cdpn.io/123941/placeimg02.jpg">
+					<figure>
+						<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/123941/placeimg02.jpg" alt=""/>
+					</figure>
+				</a>
+				<a href="https://s3-us-west-2.amazonaws.com/s.cdpn.io/123941/placeimg03.jpg">
+					<figure>
+						<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/123941/placeimg03.jpg" alt=""/>
+					</figure>
+				</a>
+				<a href="https://s3-us-west-2.amazonaws.com/s.cdpn.io/123941/placeimg04.jpg">
+					<figure>
+						<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/123941/placeimg04.jpg" alt=""/>
+					</figure>
+				</a>
+				<a href="https://s3-us-west-2.amazonaws.com/s.cdpn.io/123941/placeimg05.jpg">
+					<figure>
+						<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/123941/placeimg05.jpg" alt=""/>
+					</figure>
+				</a>
+				<a href="https://s3-us-west-2.amazonaws.com/s.cdpn.io/123941/placeimg06.jpg">
+					<figure>
+						<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/123941/placeimg06.jpg" alt=""/>
+					</figure>
+				</a>
+				<a href="https://s3-us-west-2.amazonaws.com/s.cdpn.io/123941/placeimg07.jpg">
+					<figure>
+						<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/123941/placeimg07.jpg" alt=""/>
+					</figure>
+				</a>
+				<a href="https://s3-us-west-2.amazonaws.com/s.cdpn.io/123941/placeimg08.jpg">
+					<figure>
+						<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/123941/placeimg08.jpg" alt=""/>
+					</figure>
+				</a>
+				<a href="https://s3-us-west-2.amazonaws.com/s.cdpn.io/123941/placeimg09.jpg">
+					<figure>
+						<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/123941/placeimg09.jpg" alt=""/>
+					</figure>
+				</a>
+				<a href="https://s3-us-west-2.amazonaws.com/s.cdpn.io/123941/placeimg10.jpg">
+					<figure>
+						<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/123941/placeimg10.jpg" alt=""/>
+					</figure>
+				</a>
 			</div>
-		)
+	)
 	}
 };
 
 export default PicturesPanel;
 
-{/*<Paper zDepth={2}>*/
-}
-{/*<div className="root-grid-list">*/
-}
-{/*<Subheader>December</Subheader>*/
-}
-{/*<GridList*/
-}
-{/*cols={2}*/
-}
-{/*className="grid-list"*/
-}
-{/*>*/
-}
-{/*{titlesData.map((tile) => (*/
-}
-{/*<GridTile*/
-}
-{/*key={tile.img}*/
-}
-{/*title={tile.title}*/
-}
-{/*actionIcon={<IconButton><StarBorder color="white" /></IconButton>}*/
-}
-{/*actionPosition="left"*/
-}
-{/*titlePosition="top"*/
-}
-{/*titleBackground="linear-gradient(to bottom, rgba(0,0,0,0.7) 0%,rgba(0,0,0,0.3) 70%,rgba(0,0,0,0) 100%)"*/
-}
-{/*className="grid-tile"*/
-}
-{/*>*/
-}
-{/*<img src={tile.img} />*/
-}
-{/*</GridTile>*/
-}
-{/*))}*/
-}
-{/*</GridList>*/
-}
-{/*</div>*/
-}
-{/*</Paper>*/
-}
+{/*<Paper zDepth={2} className="paper-pictures">*/}
+{/*<div className="root-grid-list">*/}
+{/*<Subheader className="subheader-pictures"><b>December</b></Subheader>*/}
+{/*<GridList cols={1} className="grid-list">*/}
+{/*{titlesData.map((tile) => (*/}
+{/*<GridTile key={tile.img} title={tile.title}*/}
+{/*actionIcon={<IconButton><StarBorder color="white" /></IconButton>}*/}
+{/*actionPosition="left" titlePosition="top"*/}
+{/*titleBackground="linear-gradient(to bottom, rgba(0,0,0,0.7) 0%,rgba(0,0,0,0.3) 70%,rgba(0,0,0,0) 100%)">*/}
+{/*<img src={tile.img} />*/}
+{/*</GridTile>*/}
+{/*))}*/}
+{/*</GridList>*/}
+{/*</div>*/}
+{/*</Paper>*/}
+{/*<Paper zDepth={2} className="paper-pictures">*/}
+{/*<div className="root-grid-list">*/}
+{/*<Subheader className="subheader-pictures"><b>December</b></Subheader>*/}
+{/*<GridList cols={2.2} className="grid-list">*/}
+{/*{titlesData.map((tile) => (*/}
+{/*<GridTile key={tile.img} title={tile.title}*/}
+{/*actionIcon={<IconButton><StarBorder color="white" /></IconButton>}*/}
+{/*actionPosition="left" titlePosition="top"*/}
+{/*titleBackground="linear-gradient(to bottom, rgba(0,0,0,0.7) 0%,rgba(0,0,0,0.3) 70%,rgba(0,0,0,0) 100%)">*/}
+{/*<img src={tile.img} />*/}
+{/*</GridTile>*/}
+{/*))}*/}
+{/*</GridList>*/}
+{/*</div>*/}
+{/*</Paper>*/}
