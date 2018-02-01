@@ -1,56 +1,67 @@
 import * as constants from "../constants";
-import {FetchError} from "../types/index.js";
 import axios from "axios";
 
-
-export function fetchError(customMessage, error) : FetchError {
-	return {
-		type: "FETCH_ERROR",
-		customMessage,
-		error,
-	};
+export interface ProfileLoading {
+	type: constants.PROFILE_IS_LOADING,
+	isLoading: boolean
 }
 
-export function profileIsLoading(bool) {
+export interface ProfileError {
+	type: constants.PROFILE_HAS_ERRORED,
+	hasErrored: boolean,
+	errorMessage: string
+}
+
+export interface ProfileSuccess {
+	type: constants.PROFILE_FETCH_DATA_SUCCESS,
+	user: object
+}
+
+export type ProfilePanelActions = ProfileLoading | ProfileError | ProfileSuccess;
+
+function profileIsLoading(bool: boolean) {
     return {
-        type: 'PROFILE_IS_LOADING',
+        type: constants.PROFILE_IS_LOADING,
         isLoading: bool
     };
 }
 
-export function profileHasErrored(bool) {
+function profileHasErrored(bool: boolean, customMessage:string) {
 	return {
-        type: 'PROFILE_HAS_ERRORED',
-        hasErrored: bool
+        type: constants.PROFILE_HAS_ERRORED,
+		hasErrored: bool,
+		errorMessage: customMessage
     };
 }
 
-export function profileFetchDataSuccess(user) {
+function profileFetchDataSuccess(user: Object) {
 	return {
-		type: "PROFILE_FETCH_DATA_SUCCESS",
+		type: constants.PROFILE_FETCH_DATA_SUCCESS,
 		user,
 	};
 }
 
-export function profileFetchData() {
+export function profileFetchData(id: string) {
 	return (dispatch) => {
 		dispatch(profileIsLoading(true));
-		axios.get("http://api.ugram.net/users/team06")
+		axios.get("http://api.ugram.net/users/" + id)
 		.then((response) => {
 			dispatch(profileFetchDataSuccess(response.data))
 			dispatch(profileIsLoading(false));
 		})
-		.catch((error) => dispatch(fetchError("Get user", error.response)));
+		.catch((error) => {
+			dispatch(profileIsLoading(false));
+			dispatch(profileHasErrored(true, "Sorry! There was an error fetching this profile."));
+		});
 	};
 }
 
 
-export function editProfile(user) {
+export function editProfile(id: string, user: Object) {
 	return (dispatch) => {
 		dispatch(profileIsLoading(true));
-		let data = JSON.stringify(user);
-		console.log(user);
-		axios.put("http://api.ugram.net/users/team06", data, {
+		const data = JSON.stringify(user);
+		axios.put("http://api.ugram.net/users/" + id, data, {
 			headers: {
 				'Content-Type': 'application/json',
 				'Authorization': 'Bearer c547bd6c-a81d-4aad-8bb3-403a71ecba68'
@@ -60,7 +71,10 @@ export function editProfile(user) {
 			dispatch(profileFetchDataSuccess(response.data))
 			dispatch(profileIsLoading(false));
 		})
-		.catch((error) => dispatch(fetchError("Edit user", error.response)));
+		.catch((error) => {
+			dispatch(profileIsLoading(false));
+			dispatch(profileHasErrored(true, "Sorry! There was an error editing this profile."));
+		});
 	};
 }
 

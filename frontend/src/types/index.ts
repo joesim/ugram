@@ -10,10 +10,3 @@ export interface StoreState {
         location: any;
     };
 }
-
-export interface FetchError {
-	type: constants.FETCH_ERROR;
-	customMessage: string;
-	error: object;
-}
-

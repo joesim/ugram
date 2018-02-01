@@ -31,25 +31,13 @@ export default class DialogEdit extends React.Component<any, any> {
     this.state = {
       open: false,
       user: {
-        email: this.props.email,
-        firstName: this.props.firstName,
-        lastName: this.props.lastName,
-        phoneNumber: this.props.phoneNumber
-      }
-    }
-  }
-
-  componentDidMount(){
-    this.setState({
-      user: {
         email: this.props.user.email,
         firstName: this.props.user.firstName,
         lastName: this.props.user.lastName,
         phoneNumber: this.props.user.phoneNumber
       }
-    })
-  }
-  
+    }
+  }  
 
   handleOpen = () => {
     this.setState({ open: true });
@@ -61,7 +49,7 @@ export default class DialogEdit extends React.Component<any, any> {
 
   handleSubmit = () => {
     this.setState({ open: false });
-    this.props.onSubmit(this.state.user);
+    this.props.onSubmit(this.props.user.id, this.state.user);
   }
 
   handleChangeEmail = (event) => {
@@ -156,7 +144,6 @@ export default class DialogEdit extends React.Component<any, any> {
             <TextField value={this.state.user.phoneNumber} onChange={this.handleChangePhoneNumber}/>
               </div>
           </div>
-
         </Dialog>
       </div>
     );

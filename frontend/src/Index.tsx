@@ -18,8 +18,6 @@ import {store} from "./store";
 import * as userActions from "./actions/Profile"
 require("../scss/app.scss");
 
-store.dispatch(userActions.profileFetchData());
-
 ReactDOM.render(
     <Provider store={store}>
         <MuiThemeProvider>
@@ -31,7 +29,7 @@ ReactDOM.render(
                             <Switch>
                                 <Route exact={true} path="/" title={"Home"} render={(props) => <Home/>}/>
                                 <Route exact={true} path="/pictures" title="Pictures" render={(props) => <Pictures/>}/>
-                                <Route path="/profile" title={"Profile"} render={(props) => <Profile test={1}/>}/>
+                                <Route path="/users/:id" title={"Profile"} component={Profile}/>
                             </Switch>
                         </div>
                     </HashRouter>
