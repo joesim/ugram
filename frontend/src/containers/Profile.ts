@@ -8,8 +8,7 @@ import { Store } from "redux";
 export function mapStateToProps( state ) {
     return {
         user: state.user,
-        error: state.profileHasErrored,
-        isLoading: state.profileIsLoading,
+        error: state.profileHasErrored
     };
 }
 

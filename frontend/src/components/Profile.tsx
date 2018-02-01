@@ -3,12 +3,11 @@ import Avatar from "material-ui/Avatar";
 import RaisedButton from 'material-ui/RaisedButton';
 import FontIcon from 'material-ui/FontIcon';
 import { Card, CardActions, CardHeader, CardText } from 'material-ui/Card';
-import LinearProgress from 'material-ui/LinearProgress';
 import DialogEdit from './DialogEdit';
 
 const avatarStyle: Object = {
-    width: "150px",
-    height: "150px"
+    width: "120px",
+    height: "120px"
 }
 
 const rowUser: Object = {
@@ -43,19 +42,9 @@ const cardStyle: Object = {
     height: "500px"
 }
 
-const styleLoading: Object = {
-    position: "fixed",
-    top: "0",
-    left: "0",
-    backgroundColor: "rgba(189, 189, 189, 0)",
-    zIndex: "10000",
-    width: "100%",
-}
-
 interface Props {
     user: any,
     error: any,
-    isLoading: boolean,
     fetchData: any,
     editProfile: any,
     match: any
@@ -67,21 +56,14 @@ class Profile extends React.Component<Props, any> {
     }
 
     public componentDidMount() {
-        console.log(this.props.user != {});
         this.props.fetchData(this.props.match.params.id)
     }
 
     public render() {
 
-        let loadingBar = null;
-        if (this.props.isLoading) {
-            loadingBar =
-                <LinearProgress color="black" style={styleLoading} mode="indeterminate" />;
-
-        }
         let editButton = null;
-        if (!this.props.isLoading) {
-            editButton = <DialogEdit user={this.props.user} onSubmit={this.props.editProfile} />;
+        if (this.props.user.email!=undefined && this.props.user.firstName!=undefined && this.props.user.lastName!=undefined) {
+            editButton = <DialogEdit user={this.props.user} onSubmit={this.props.editProfile} />
         }
 
         if (this.props.error.hasErrored) {
@@ -95,8 +77,6 @@ class Profile extends React.Component<Props, any> {
         }
 
         return (
-            <div>
-                {loadingBar}
                 <div className="container mt-25">
                     <div className="flex-container">
                         <div style={rowUser}>
@@ -110,13 +90,13 @@ class Profile extends React.Component<Props, any> {
                                     {editButton}
                                 </div>
                                 <div style={rowUser}>
-                                    <div style={rowNoWrap} className="ml-30 mr-30">
+                                    <div style={rowNoWrap} className="ml-15 mr-15">
                                         <FontIcon className="material-icons mr-10 ml-10">email</FontIcon>
                                         <div>
                                             {this.props.user.email}
                                         </div>
                                     </div>
-                                    <div style={rowNoWrap}>
+                                    <div style={rowNoWrap} className="ml-15 mr-15">
                                         <FontIcon className="material-icons mr-10 ml-10">phone</FontIcon>
                                         <div>
                                             {this.props.user.phoneNumber}
@@ -134,7 +114,6 @@ class Profile extends React.Component<Props, any> {
                         </Card>
                     </div>
                 </div>
-            </div>
         );
 
     }

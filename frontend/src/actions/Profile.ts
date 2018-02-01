@@ -1,11 +1,6 @@
 import * as constants from "../constants";
 import axios from "axios";
 
-export interface ProfileLoading {
-	type: constants.PROFILE_IS_LOADING,
-	isLoading: boolean
-}
-
 export interface ProfileError {
 	type: constants.PROFILE_HAS_ERRORED,
 	hasErrored: boolean,
@@ -17,14 +12,8 @@ export interface ProfileSuccess {
 	user: object
 }
 
-export type ProfilePanelActions = ProfileLoading | ProfileError | ProfileSuccess;
+export type ProfilePanelActions = ProfileError | ProfileSuccess;
 
-function profileIsLoading(bool: boolean) {
-    return {
-        type: constants.PROFILE_IS_LOADING,
-        isLoading: bool
-    };
-}
 
 function profileHasErrored(bool: boolean, customMessage:string) {
 	return {
@@ -43,14 +32,11 @@ function profileFetchDataSuccess(user: Object) {
 
 export function profileFetchData(id: string) {
 	return (dispatch) => {
-		dispatch(profileIsLoading(true));
 		axios.get("http://api.ugram.net/users/" + id)
 		.then((response) => {
 			dispatch(profileFetchDataSuccess(response.data))
-			dispatch(profileIsLoading(false));
 		})
 		.catch((error) => {
-			dispatch(profileIsLoading(false));
 			dispatch(profileHasErrored(true, "Sorry! There was an error fetching this profile."));
 		});
 	};
@@ -59,7 +45,6 @@ export function profileFetchData(id: string) {
 
 export function editProfile(id: string, user: Object) {
 	return (dispatch) => {
-		dispatch(profileIsLoading(true));
 		const data = JSON.stringify(user);
 		axios.put("http://api.ugram.net/users/" + id, data, {
 			headers: {
@@ -69,10 +54,8 @@ export function editProfile(id: string, user: Object) {
 		})
 		.then((response) => {
 			dispatch(profileFetchDataSuccess(response.data))
-			dispatch(profileIsLoading(false));
 		})
 		.catch((error) => {
-			dispatch(profileIsLoading(false));
 			dispatch(profileHasErrored(true, "Sorry! There was an error editing this profile."));
 		});
 	};

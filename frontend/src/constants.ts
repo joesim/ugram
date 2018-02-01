@@ -10,9 +10,6 @@ export type FETCH_ERROR = typeof FETCH_ERROR;
 export const GET_USER = "GET_USER";
 export type GET_USER = typeof GET_USER;
 
-export const PROFILE_IS_LOADING = "PROFILE_IS_LOADING";
-export type PROFILE_IS_LOADING = typeof PROFILE_IS_LOADING
-
 export const PROFILE_HAS_ERRORED = "PROFILE_HAS_ERRORED";
 export type PROFILE_HAS_ERRORED = typeof PROFILE_HAS_ERRORED
 
