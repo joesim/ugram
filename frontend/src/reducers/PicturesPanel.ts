@@ -2,7 +2,9 @@ import { PicturesPanelAction } from "../actions";
 import { GET_PICTURES, FETCH_ERROR } from "../constants"
 
 const initialState = {
-	pictures: [],
+	pictures: {
+		items: [],
+	},
 	error: null
 };
 
