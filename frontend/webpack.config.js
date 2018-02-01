@@ -25,9 +25,6 @@ module.exports = function(env) {
 						use: [{loader: 'css-loader', options: { minimize: true }}, 'sass-loader']
 					})
 				},
-				{test: /\.scss$/, loaders: ["style-loader", "css-loader", "sass-loader"],
-					include: path.resolve(__dirname, '../')
-				}
 			]
 		},
 		plugins: [
