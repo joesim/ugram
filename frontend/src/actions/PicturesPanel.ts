@@ -31,17 +31,17 @@ function fetchError(customMessage, error) : FetchError {
 
 // API
 
-function fetchAllPictures() {
-	return axios.get("http://api.ugram.net/pictures");
+function fetchAllPictures(page, perPage) {
+	return axios.get(`http://api.ugram.net/pictures?page=${page}&perPage=${perPage}`);
 }
 
 //
 
-export function getAllPictures() {
+export function getAllPictures(page, perPage) {
 	return function (dispatch) {
-		return fetchAllPictures().then(
+		return fetchAllPictures(page, perPage).then(
 			pictures => dispatch(getPictures(pictures)),
-			error => dispatch(fetchError("Get all pictures", error.json()))
+			error => dispatch(fetchError("Get all pictures", error))
 		);
 	};
 }

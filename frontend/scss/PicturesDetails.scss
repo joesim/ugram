@@ -1,0 +1,22 @@
+.picture-details {
+	display: flex;
+	flex-direction: row;
+
+	.image {
+		width: 50%;
+
+		img {
+			width: 100%;
+		}
+	}
+
+	.details {
+		width: 50%;
+		padding: 8px;
+
+		.mention {
+			cursor: pointer;
+			color: #2B6AFF;
+		}
+	}
+}

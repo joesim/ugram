@@ -1,22 +1,8 @@
 import * as React from "react";
 import { isUndefined } from "util";
-import {
-	GridList,
-	GridTile
-} from 'material-ui/GridList';
-import Subheader from 'material-ui/Subheader';
-import IconButton from 'material-ui/IconButton';
-import StarBorder from 'material-ui/svg-icons/toggle/star-border';
-import Paper from 'material-ui/Paper';
-import {
-	Card,
-	CardActions,
-	CardHeader,
-	CardMedia,
-	CardTitle,
-	CardText
-} from 'material-ui/Card';
+import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
+import { PictureDetails } from './PictureDetails';
 
 interface Props {
 	pictures_panel: any,
@@ -28,123 +14,145 @@ class PicturesPanel extends React.Component<Props, any> {
 
 	public constructor(props) {
 		super(props)
+		this.state = {
+			page: 0,
+			perPage: 20,
+			loading: "",
+			open: false,
+			pictureDetails: null,
+		}
+		this.handleOnScroll = this.handleOnScroll.bind(this);
+		this.getColumnPictures = this.getColumnPictures.bind(this);
+		this.openDialog = this.openDialog.bind(this);
+		this.closeDialog = this.closeDialog.bind(this);
 	}
 
 	public componentDidMount() {
-		if (isUndefined(this.props.userToken))
-			this.props.getAllPictures()
+		if (isUndefined(this.props.userToken)) {
+			this.setState((prevState) => {
+				return {page: prevState.page + 1}
+			});
+			this.props.getAllPictures(this.state.page, this.state.perPage)
+		}
+		window.addEventListener("scroll", this.handleOnScroll);
+	}
+
+	public componentWillUnmount() {
+		window.removeEventListener("scroll", this.handleOnScroll);
+	}
+
+	private closeDialog() {
+		this.setState({open: false});
+	}
+
+	private openDialog(indexPicture) {
+		this.setState({open: true, pictureDetails: this.props.pictures_panel.pictures[indexPicture]})
+	}
+
+	private filterByDate(pictures) {
+		pictures.sort((a, b) => {
+			return b.createdDate - a.createdDate;
+		});
+
+		return pictures;
+	}
+
+	private handleOnScroll() {
+		let scrollTop = (document.documentElement && document.documentElement.scrollTop) || document.body.scrollTop;
+		let scrollHeight = (document.documentElement && document.documentElement.scrollHeight) || document.body.scrollHeight;
+		let clientHeight = document.documentElement.clientHeight || window.innerHeight;
+		let scrolledToBottom = Math.ceil(scrollTop + clientHeight) >= scrollHeight;
+
+		if (scrolledToBottom) {
+			this.setState((prevState) => {
+				return {page: prevState.page + 1}
+			});
+			this.props.getAllPictures(this.state.page, this.state.perPage)
+			this.setState({loading: ""});
+			setTimeout(() => {
+				this.setState({loading: "hidden"})
+			}, 2500)
+		}
+	}
+
+	private handleImgError(error) {
+		error.target.remove();
+	}
+
+	private getColumnPictures(pictures, startInd, step) {
+		const column = [];
+
+		for (let i = startInd; i < pictures.length; i += step) {
+			column.push(
+				<a onClick={() => {this.openDialog(i)}}>
+					<img className="picture" src={pictures[i].img} onError={this.handleImgError} style={{ width: "100%" }} />
+				</a>
+			)
+		}
+
+		return column;
 	}
 
 	public render() {
+		const actions = [
+			<FlatButton
+				label="Close"
+				primary={true}
+				onClick={this.closeDialog}
+			/>
+		];
 
-		let titlesData = [];
+		let pictures = [];
 
-		this.props.pictures_panel.pictures.items.forEach((pic, index) => {
-			if (index >= 0) {
-				console.info(pic);
-				titlesData.push({
-					img: this.props.pictures_panel.pictures.items[1].url,
-					title: "e",
-					author: "22",
-				});
-				titlesData[0] = {
-					img: this.props.pictures_panel.pictures.items[0].url,
-					title: "e",
-					author: "22",
-				};
-			}
+		this.props.pictures_panel.pictures.forEach((pic, index) => {
+			// console.log(pic);
+			pictures.push({
+				img: pic.url,
+				author: pic.userId,
+				createdDate: new Date(pic.createdDate),
+			});
 		});
 
-		console.log(titlesData)
+		pictures = this.filterByDate(pictures);
+
+		let col1 = this.getColumnPictures(pictures, 0, 3);
+		let col2 = this.getColumnPictures(pictures, 1, 3);
+		let col3 = this.getColumnPictures(pictures, 2, 3);
 
 		return (
-			<div>
-				{titlesData.map((tile) =>
-					<a href="">
-						<figure>
-							<img src={tile.img} alt="" />
-						</figure>
-					</a>
-				)}
-				<a href="https://s3-us-west-2.amazonaws.com/s.cdpn.io/123941/placeimg02.jpg">
-					<figure>
-						<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/123941/placeimg02.jpg" alt=""/>
-					</figure>
-				</a>
-				<a href="https://s3-us-west-2.amazonaws.com/s.cdpn.io/123941/placeimg03.jpg">
-					<figure>
-						<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/123941/placeimg03.jpg" alt=""/>
-					</figure>
-				</a>
-				<a href="https://s3-us-west-2.amazonaws.com/s.cdpn.io/123941/placeimg04.jpg">
-					<figure>
-						<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/123941/placeimg04.jpg" alt=""/>
-					</figure>
-				</a>
-				<a href="https://s3-us-west-2.amazonaws.com/s.cdpn.io/123941/placeimg05.jpg">
-					<figure>
-						<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/123941/placeimg05.jpg" alt=""/>
-					</figure>
-				</a>
-				<a href="https://s3-us-west-2.amazonaws.com/s.cdpn.io/123941/placeimg06.jpg">
-					<figure>
-						<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/123941/placeimg06.jpg" alt=""/>
-					</figure>
-				</a>
-				<a href="https://s3-us-west-2.amazonaws.com/s.cdpn.io/123941/placeimg07.jpg">
-					<figure>
-						<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/123941/placeimg07.jpg" alt=""/>
-					</figure>
-				</a>
-				<a href="https://s3-us-west-2.amazonaws.com/s.cdpn.io/123941/placeimg08.jpg">
-					<figure>
-						<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/123941/placeimg08.jpg" alt=""/>
-					</figure>
-				</a>
-				<a href="https://s3-us-west-2.amazonaws.com/s.cdpn.io/123941/placeimg09.jpg">
-					<figure>
-						<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/123941/placeimg09.jpg" alt=""/>
-					</figure>
-				</a>
-				<a href="https://s3-us-west-2.amazonaws.com/s.cdpn.io/123941/placeimg10.jpg">
-					<figure>
-						<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/123941/placeimg10.jpg" alt=""/>
-					</figure>
-				</a>
+			<div className="pictures-panel">
+				<div className="row">
+					<div className="column">
+						{col1}
+					</div>
+					<div className="column">
+						{col2}
+					</div>
+					<div className="column">
+						{col3}
+					</div>
+				</div>
+				<div className="loader">
+					<i className="material-icons rotating" style={{
+						visibility: this.state.loading,
+					}}>cached</i>
+				</div>
+				<Dialog
+					title="Picture details"
+					actions={actions}
+					contentStyle={{
+						width: "100%",
+						maxWidth: "none",
+					}}
+					modal={true}
+					open={this.state.open}
+				>
+					<PictureDetails picture={this.state.pictureDetails}/>
+				</Dialog>
 			</div>
-	)
+		)
 	}
 };
 
 export default PicturesPanel;
 
-{/*<Paper zDepth={2} className="paper-pictures">*/}
-{/*<div className="root-grid-list">*/}
-{/*<Subheader className="subheader-pictures"><b>December</b></Subheader>*/}
-{/*<GridList cols={1} className="grid-list">*/}
-{/*{titlesData.map((tile) => (*/}
-{/*<GridTile key={tile.img} title={tile.title}*/}
-{/*actionIcon={<IconButton><StarBorder color="white" /></IconButton>}*/}
-{/*actionPosition="left" titlePosition="top"*/}
-{/*titleBackground="linear-gradient(to bottom, rgba(0,0,0,0.7) 0%,rgba(0,0,0,0.3) 70%,rgba(0,0,0,0) 100%)">*/}
-{/*<img src={tile.img} />*/}
-{/*</GridTile>*/}
-{/*))}*/}
-{/*</GridList>*/}
-{/*</div>*/}
-{/*</Paper>*/}
-{/*<Paper zDepth={2} className="paper-pictures">*/}
-{/*<div className="root-grid-list">*/}
-{/*<Subheader className="subheader-pictures"><b>December</b></Subheader>*/}
-{/*<GridList cols={2.2} className="grid-list">*/}
-{/*{titlesData.map((tile) => (*/}
-{/*<GridTile key={tile.img} title={tile.title}*/}
-{/*actionIcon={<IconButton><StarBorder color="white" /></IconButton>}*/}
-{/*actionPosition="left" titlePosition="top"*/}
-{/*titleBackground="linear-gradient(to bottom, rgba(0,0,0,0.7) 0%,rgba(0,0,0,0.3) 70%,rgba(0,0,0,0) 100%)">*/}
-{/*<img src={tile.img} />*/}
-{/*</GridTile>*/}
-{/*))}*/}
-{/*</GridList>*/}
-{/*</div>*/}
-{/*</Paper>*/}

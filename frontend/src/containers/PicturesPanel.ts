@@ -11,7 +11,7 @@ export function mapStateToProps({ pictures_panel }) {
 
 export function mapDispatchToProps(dispatch: Dispatch<actions.PicturesPanelAction>) {
 	return {
-		getAllPictures: () => dispatch(actions.getAllPictures()),
+		getAllPictures: (page, perPage) => dispatch(actions.getAllPictures(page, perPage)),
 	};
 }
 
