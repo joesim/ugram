@@ -2,32 +2,11 @@
   display:flex;
 }
 
-.flex-row-wrap{
-  display: flex;
-  flex-flow: row wrap;
-}
-
-.flex-row-nowrap{
-  display: flex;
-  flex-flow: row nowrap;
-}
-
-.flex-justify-space{
-  justify-content: space-around;
-}
-
-.flex-align-items-center{
-  align-items: center;
-}
-
-.flex-align-self-start{
-  align-self: flex-start;
-}
 .container {
-    padding-right: 15px;
-    padding-left: 15px;
-    margin-right: auto;
-    margin-left: auto;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
 }
 
 @media (min-width: 768px) {

@@ -1,0 +1,14 @@
+.styleDialog {
+  max-width: 600px
+}
+  
+.itemLabel {
+  text-align: right;
+  flex: 1 0 15%;
+  box-sizing: border-box;
+}
+  
+.itemField {
+  flex: 1 0 50%;
+  box-sizing: border-box;
+}

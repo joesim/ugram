@@ -5,21 +5,6 @@ import RaisedButton from 'material-ui/RaisedButton';
 import FontIcon from 'material-ui/FontIcon';
 import TextField from 'material-ui/TextField';
 
-const styleDialog = {
-  maxWidth: "600px"
-}
-
-const itemLabel = {
-  textAlign: "right",
-  flex: "1 0 15%",
-  boxSizing: "border-box",
-}
-
-const itemField = {
-  flex: "1 0 50%",
-  boxSizing: "border-box",
-}
-
 interface Props {
   editProfile: any,
   user: any
@@ -98,10 +83,14 @@ export default class DialogEdit extends React.Component<any, any> {
         onClick={this.handleSubmit}
       />,
     ];
+    
+    const styleDialog = {
+      maxWidth: "600px"
+    }    
 
     return (
       <div>
-        <RaisedButton labelPosition="before" label="Edit" secondary={true} icon={<FontIcon className="material-icons">edit</FontIcon>} onClick={this.handleOpen} />
+        <RaisedButton className="ma-10" labelPosition="before" label="Edit" icon={<FontIcon className="material-icons">edit</FontIcon>} onClick={this.handleOpen} />
         <Dialog
           title="Edit Profile"
           actions={actions}
@@ -113,34 +102,34 @@ export default class DialogEdit extends React.Component<any, any> {
         >
 
           <div className="flex-row-nowrap flex-align-items-center">
-            <div className="mb-15" style={itemLabel}>
+            <div className="mb-15 itemLabel">
               First Name:
               </div>
-            <div className="ml-15 mb-15" style={itemField}>
+            <div className="ml-15 mb-15 itemField">
             <TextField value={this.state.user.firstName} onChange={this.handleChangeFirstName}/>
               </div>
           </div>
           <div className="flex-row-nowrap flex-align-items-center">
-            <div className="mb-15" style={itemLabel}>
+            <div className="mb-15 itemLabel">
               Last name:
               </div>
-            <div className="ml-15 mb-15" style={itemField}>
+            <div className="ml-15 mb-15 itemField">
             <TextField value={this.state.user.lastName} onChange={this.handleChangeLastName}/>
               </div>
           </div>
           <div className="flex-row-nowrap flex-align-items-center">
-            <div className="mb-15" style={itemLabel}>
+            <div className="mb-15 itemLabel">
               E-mail:
               </div>
-            <div className="ml-15 mb-15" style={itemField}>
+            <div className="ml-15 mb-15 itemField">
             <TextField value={this.state.user.email} onChange={this.handleChangeEmail}/>
               </div>
           </div>
           <div className="flex-row-nowrap flex-align-items-center">
-            <div className="mb-15" style={itemLabel}>
+            <div className="mb-15 itemLabel">
               Phone:
               </div>
-            <div className="ml-15 mb-15" style={itemField}>
+            <div className="ml-15 mb-15 itemField">
             <TextField value={this.state.user.phoneNumber} onChange={this.handleChangePhoneNumber}/>
               </div>
           </div>

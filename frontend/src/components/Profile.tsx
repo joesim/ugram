@@ -4,43 +4,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import FontIcon from 'material-ui/FontIcon';
 import { Card, CardActions, CardHeader, CardText } from 'material-ui/Card';
 import DialogEdit from './DialogEdit';
-
-const avatarStyle: Object = {
-    width: "120px",
-    height: "120px"
-}
-
-const rowUser: Object = {
-    justifyContent: "space-around",
-    display: "flex",
-    alignItems: "center",
-    flexFlow: "row wrap",
-}
-
-const rowNoSpace: Object = {
-    justifyContent: "center",
-    display: "flex",
-    alignItems: "center",
-    flexFlow: "row wrap",
-}
-
-const rowNoWrap: Object = {
-    justifyContent: "space-around",
-    display: "flex",
-    alignItems: "center",
-    flexFlow: "row nowrap",
-}
-
-const infoItem: Object = {
-    padding: "10px",
-    alignSelf: "flex-start"
-}
-
-const cardStyle: Object = {
-    width: "100%",
-    marginTop: "20px",
-    height: "500px"
-}
+import CircularProgress from 'material-ui/CircularProgress';
 
 interface Props {
     user: any,
@@ -62,8 +26,15 @@ class Profile extends React.Component<Props, any> {
     public render() {
 
         let editButton = null;
-        if (this.props.user.email!=undefined && this.props.user.firstName!=undefined && this.props.user.lastName!=undefined) {
+        if (this.props.user.email != undefined && this.props.user.firstName != undefined && this.props.user.lastName != undefined) {
             editButton = <DialogEdit user={this.props.user} onSubmit={this.props.editProfile} />
+        }
+
+        let avatar = null;
+        if (this.props.user.pictureUrl != null) {
+            avatar = <Avatar className="ml-15 mr-15 avatarStyle" src={this.props.user.pictureUrl} />
+        } else if (this.props.user.email != undefined) {
+            avatar = <Avatar className="ml-15 mr-15 avatarStyle" src="../../assets/nopic.jpg" />
         }
 
         if (this.props.error.hasErrored) {
@@ -77,43 +48,43 @@ class Profile extends React.Component<Props, any> {
         }
 
         return (
-                <div className="container mt-25">
-                    <div className="flex-container">
-                        <div style={rowUser}>
-                            <div>
-                                <Avatar className="ml-30 mr-30" style={avatarStyle} src={this.props.user.pictureUrl} />
-                            </div>
-                            <div style={infoItem}>
-                                <div style={rowNoSpace} className="mb-10">
-                                    <div className="h4 font-weight-bold">{this.props.user.firstName} {this.props.user.lastName}</div>
-                                    <p className="ml-10 mr-30">@{this.props.user.id}</p>
-                                    {editButton}
+            <div className="container mt-25">
+                <div className="flex-container">
+                    <div className="rowUser">
+                        <div className="infoItem">
+                            <div className="rowNoSpace mb-5">
+                                <div className="mr-30 ml-30 flex-justify-center flex-row-wrap flex-align-items-center">
+                                        {avatar}
+                                        <div className="h4 font-weight-bold">{this.props.user.firstName} {this.props.user.lastName}</div>
+                                    <div className="ml-10">@{this.props.user.id}</div>
                                 </div>
-                                <div style={rowUser}>
-                                    <div style={rowNoWrap} className="ml-15 mr-15">
-                                        <FontIcon className="material-icons mr-10 ml-10">email</FontIcon>
-                                        <div>
-                                            {this.props.user.email}
-                                        </div>
+                                {editButton}
+                            </div>
+                            <div className="rowNoSpace">
+                                <div className="rowNoWrap ml-25 mr-15">
+                                    <FontIcon className="material-icons mr-10 ml-10">email</FontIcon>
+                                    <div>
+                                        {this.props.user.email}
                                     </div>
-                                    <div style={rowNoWrap} className="ml-15 mr-15">
-                                        <FontIcon className="material-icons mr-10 ml-10">phone</FontIcon>
-                                        <div>
-                                            {this.props.user.phoneNumber}
-                                        </div>
+                                </div>
+                                <div className="rowNoWrap ml-15 mr-25">
+                                    <FontIcon className="material-icons mr-10 ml-10">phone</FontIcon>
+                                    <div>
+                                        {this.props.user.phoneNumber}
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div style={rowUser}>
-                        <Card style={cardStyle}>
-                            <CardText>
-                                Images here
-                        </CardText>
-                        </Card>
-                    </div>
                 </div>
+                <div className="rowUser">
+                    <Card className="cardStyle">
+                        <CardText>
+                            Images here
+                        </CardText>
+                    </Card>
+                </div>
+            </div>
         );
 
     }
