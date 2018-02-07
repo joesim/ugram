@@ -1,2 +1,8 @@
 export const SET_VISIBILITY_MENU = "SET_VISIBILITY_MENU";
 export type SET_VISIBILITY_MENU = typeof SET_VISIBILITY_MENU;
+
+export const RECEIVE_USERS = "RECEIVE_USERS";
+export type RECEIVE_USERS = typeof RECEIVE_USERS;
+
+export const FETCH_ERROR = "FETCH_ERROR";
+export type FETCH_ERROR = typeof FETCH_ERROR;

@@ -1,3 +1,4 @@
 import { appbar } from "./AppBar";
+import { users } from "./Users";
 
-export { appbar };
+export { appbar, users };

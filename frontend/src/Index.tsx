@@ -7,6 +7,7 @@ import {Home} from "./components/Home";
 import {Pictures} from "./components/Pictures";
 import {Profile} from "./components/Profile";
 import AppBarUgram from "./containers/AppBar";
+import Users from "./containers/Users";
 
 import {render} from "react-dom";
 import {connect, Provider} from "react-redux";
@@ -29,6 +30,7 @@ ReactDOM.render(
                                 <Route exact={true} path="/" title={"Home"} render={(props) => <Home/>}/>
                                 <Route exact={true} path="/pictures" title="Pictures" render={(props) => <Pictures/>}/>
                                 <Route path="/profile" title={"Profile"} render={(props) => <Profile/>}/>
+                                <Route path="/users" title={"Users"} render={(props) => <Users/>}/>
                             </Switch>
                         </div>
                     </HashRouter>
