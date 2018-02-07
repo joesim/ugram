@@ -2,14 +2,14 @@ import * as React from "react";
 import TextField from "material-ui/TextField";
 import RaisedButton from "material-ui/RaisedButton";
 
-class Signup extends React.Component<any,any> {
+class Signup extends React.Component<any, any> {
 	public constructor(props) {
 		super(props);
 		console.log(this.props);
 
 		// this.props.signupUser(formData);
 		this.state = {
-			firstname: ""
+			userId: ""
 		}
 		this.createUser = this.createUser.bind(this);
 	}
@@ -22,13 +22,16 @@ class Signup extends React.Component<any,any> {
 		formData.append("email", document.getElementById("email")["value"]);
 		formData.append("phoneNumber", document.getElementById("number")["value"]);
 		formData.append("id", document.getElementById("id")["value"]);
+		this.setState({ userId: document.getElementById("id")["value"] });
 
 		this.props.signupUser(formData);
 	}
 
 	public render() {
 		if (this.props.signup.tokenUrl !== "") {
-			window.localStorage.setItem("token-06", this.props.signup.tokenUrl.split("token=")[1])
+			window.localStorage.setItem("token-06", this.props.signup.tokenUrl.split("token=")[1]);
+			window.localStorage.setItem("userId-06", this.state.userId);
+
 			document.location.href = "/";
 		}
 		return (

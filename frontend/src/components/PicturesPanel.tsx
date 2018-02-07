@@ -2,7 +2,7 @@ import * as React from "react";
 import { isUndefined } from "util";
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
-import { PictureDetails } from './PictureDetails';
+import PictureDetails from '../containers/PictureDetails';
 
 interface Props {
 	pictures_panel: any,
@@ -94,18 +94,9 @@ class PicturesPanel extends React.Component<Props, any> {
 	}
 
 	public render() {
-		const actions = [
-			<FlatButton
-				label="Close"
-				primary={true}
-				onClick={this.closeDialog}
-			/>
-		];
-
 		let pictures = [];
 
 		this.props.pictures_panel.pictures.forEach((pic, index) => {
-			// console.log(pic);
 			pictures.push({
 				img: pic.url,
 				author: pic.userId,
@@ -137,18 +128,11 @@ class PicturesPanel extends React.Component<Props, any> {
 						visibility: this.state.loading,
 					}}>cached</i>
 				</div>
-				<Dialog
-					title="Picture details"
-					actions={actions}
-					contentStyle={{
-						width: "100%",
-						maxWidth: "none",
-					}}
-					modal={true}
+				<PictureDetails
 					open={this.state.open}
-				>
-					<PictureDetails picture={this.state.pictureDetails}/>
-				</Dialog>
+					closeDialog={this.closeDialog}
+					picture={this.state.pictureDetails}
+				/>
 			</div>
 		)
 	}

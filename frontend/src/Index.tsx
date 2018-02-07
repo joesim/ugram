@@ -20,10 +20,11 @@ import { isUndefined } from "util";
 require("../scss/app.scss");
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
+    let token = window.localStorage.getItem("token-06");
     return (
     <Route {...rest} render={(props) => (
-        window.localStorage.getItem("token-06") !== null
-			? <Component {...props} />
+        token !== null
+			? <Component {...props}  />
 			: <Redirect to='/signup' />
 	)} />
     )
