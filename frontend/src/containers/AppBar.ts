@@ -11,6 +11,7 @@ export function mapStateToProps({ appbar }: StoreState) {
 
 export function mapDispatchToProps(dispatch: Dispatch<actions.AppBarAction>) {
     return {
+        onFileUploadModalClick: () => dispatch(actions.setVisibilityUploadModal()),
         onLeftIconButtonClick: () => dispatch(actions.setVisibilityMenu()),
     };
 }

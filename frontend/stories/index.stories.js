@@ -6,6 +6,7 @@ import { linkTo } from '@storybook/addon-links';
 import { Button, Welcome } from '@storybook/react/demo';
 import UploadModal from './UploadModal';
 import UploadButton from './UploadButton';
+import UploadButton2 from './UploadButton2';
 
 
 storiesOf('Welcome', module)
@@ -17,4 +18,5 @@ storiesOf('Button', module)
   
 storiesOf('Modal', module)
   .add('Modal for image upload', () => <UploadModal />)
-  .add('Upload button', () => <UploadButton />)
+  .add('Upload button 1', () => <UploadButton />)
+  .add('Upload button 2', () => <UploadButton2 />)

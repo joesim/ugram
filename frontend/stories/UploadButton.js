@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-
+import { action } from '@storybook/addon-actions';
  
 
 
 export default class UploadButton extends Component {
     constructor(props) {
       super(props)
-  
+      
       this.state = {
         value: '',
         styles: {
@@ -47,6 +47,7 @@ export default class UploadButton extends Component {
             onChange={this.handleChange.bind(this)}
             disabled={this.props.disabled}
             accept={this.props.accept}
+            onClick={action('clicked hello')}
             style={this.state.styles.file} />
   
           <input
@@ -55,7 +56,7 @@ export default class UploadButton extends Component {
             name={`this.props.name + '_filename'`}
             value={this.state.value}
             className={this.props.className}
-            onChange={() => {}}
+            onChange={() => {console.log("hello")}}
             placeholder={this.props.placeholder}
             disabled={this.props.disabled}
             style={this.state.styles.text} />

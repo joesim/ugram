@@ -3,6 +3,9 @@ export interface StoreState {
         menu: {
             isVisible: boolean;
         };
+        uploadModal: {
+            isVisible: boolean;
+        }
     };
     routing: {
         location: any;

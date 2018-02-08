@@ -1,3 +1,3 @@
-import {AppBarAction, setVisibilityMenu} from "./AppBar";
+import {AppBarAction, setVisibilityMenu, setVisibilityUploadModal} from "./AppBar";
 
-export { AppBarAction, setVisibilityMenu };
+export { AppBarAction, setVisibilityMenu, setVisibilityUploadModal };

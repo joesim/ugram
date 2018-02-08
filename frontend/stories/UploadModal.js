@@ -5,8 +5,8 @@ import RaisedButton from 'material-ui/RaisedButton';
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import Paper from 'material-ui/Paper';
 import ImageAddAPhoto from 'material-ui/svg-icons/image/add-a-photo';
-import Avatar from 'material-ui/Avatar';
-
+import IconButton from 'material-ui/IconButton';
+import UploadButton2 from './UploadButton2';
 
 
 
@@ -62,12 +62,9 @@ export default class UploadModal extends Component {
               modal={true}
               open={this.state.open}
             >
-                <Avatar
-                    icon={<ImageAddAPhoto />}
-                    size={30}
-                    style={avatarStyles}
-                />
-                
+              <IconButton>
+                <ImageAddAPhoto />
+              </IconButton>  
             </Dialog>
             </MuiThemeProvider>
           </div>
