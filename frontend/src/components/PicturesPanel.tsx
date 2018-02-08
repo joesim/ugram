@@ -7,7 +7,8 @@ import PictureDetails from '../containers/PictureDetails';
 interface Props {
 	pictures_panel: any,
 	getAllPictures: any,
-	userToken?: string,
+	userId?: string,
+	getAllPicturesFromUser: any,
 }
 
 class PicturesPanel extends React.Component<Props, any> {
@@ -17,7 +18,7 @@ class PicturesPanel extends React.Component<Props, any> {
 		this.state = {
 			page: 0,
 			perPage: 20,
-			loading: "",
+			loading: "hidden",
 			open: false,
 			pictureDetails: null,
 		}
@@ -28,11 +29,14 @@ class PicturesPanel extends React.Component<Props, any> {
 	}
 
 	public componentDidMount() {
-		if (isUndefined(this.props.userToken)) {
+		if (isUndefined(this.props.userId)) {
 			this.setState((prevState) => {
 				return {page: prevState.page + 1}
 			});
 			this.props.getAllPictures(this.state.page, this.state.perPage)
+		}
+		else {
+			this.props.getAllPicturesFromUser(this.state.page, this.state.perPage, this.props.userId)
 		}
 		window.addEventListener("scroll", this.handleOnScroll);
 	}

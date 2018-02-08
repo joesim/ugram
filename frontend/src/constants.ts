@@ -22,6 +22,9 @@ export type FETCH_ERROR = typeof FETCH_ERROR;
 export const GET_PICTURES = "GET_PICTURES";
 export type GET_PICTURES = typeof GET_PICTURES;
 
+export const GET_PICTURES_USER = "GET_PICTURES_USER";
+export type GET_PICTURES_USER = typeof GET_PICTURES_USER;
+
 export const SIGNUP = "SIGNUP";
 export type SIGNUP = typeof SIGNUP;
 

@@ -58,4 +58,8 @@
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
+
+	.field-width {
+		width: 100% !important;
+	}
 }
