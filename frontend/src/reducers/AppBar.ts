@@ -16,7 +16,8 @@ export function appbar(state = initialState, action: AppBarAction): object {
             state.menu.isVisible = !state.menu.isVisible;
             return { ...state };
         case SET_VISIBILITY_UPLOAD_MODAL:
-            state.upload.isVisible = ! state.upload;
+            console.log("hello")
+            state.upload.isVisible = !state.upload.isVisible;
             return { ...state };
         default:
             return state;

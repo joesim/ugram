@@ -18,7 +18,7 @@ const AppBarUgram = ( { appbar, onLeftIconButtonClick, onFileUploadModalClick }:
             <Dialog
               title="Upload an image"
               modal={true}
-              open={appbar.menu.}
+              open={appbar.upload.isVisible}
             >
             <Avatar icon={<FileUpload />} />
             </Dialog>
