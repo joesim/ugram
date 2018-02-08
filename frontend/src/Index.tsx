@@ -8,6 +8,7 @@ import {Pictures} from "./components/Pictures";
 import {Profile} from "./components/Profile";
 import Signup from "./containers/Signup";
 import AppBarUgram from "./containers/AppBar";
+import Users from "./containers/Users";
 
 import {render} from "react-dom";
 import {connect, Provider} from "react-redux";
@@ -39,6 +40,7 @@ ReactDOM.render(
                         <div>
                             <AppBarUgram/>
                             <Switch>
+                                <Route path="/users" title={"Users"} render={(props) => <Users/>}/>
                                 <PrivateRoute exact={true} path="/" title={"Home"} component={Home}/>
                                 <PrivateRoute path="/pictures" title={"Pictures"} component={Pictures}/>
                                 <PrivateRoute path="/profile" title={"Profile"} component={Profile}/>
