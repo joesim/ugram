@@ -5,10 +5,11 @@ import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 
 import Home from "./containers/Home";
 import {Pictures} from "./components/Pictures";
-import {Profile} from "./components/Profile";
+import Profile from "./containers/Profile";
 import Signup from "./containers/Signup";
 import AppBarUgram from "./containers/AppBar";
 import Users from "./containers/Users";
+
 
 import {render} from "react-dom";
 import {connect, Provider} from "react-redux";
@@ -16,6 +17,7 @@ import {connect, Provider} from "react-redux";
 import {BrowserRouter, HashRouter, Route, Switch, Redirect} from "react-router-dom";
 
 import {store} from "./store";
+import * as userActions from "./actions/Profile"
 import { isUndefined } from "util";
 
 require("../scss/app.scss");
@@ -40,11 +42,12 @@ ReactDOM.render(
                         <div>
                             <AppBarUgram/>
                             <Switch>
-                                <Route path="/users" title={"Users"} render={(props) => <Users/>}/>
                                 <PrivateRoute exact={true} path="/" title={"Home"} component={Home}/>
                                 <PrivateRoute path="/pictures" title={"Pictures"} component={Pictures}/>
                                 <PrivateRoute path="/profile" title={"Profile"} component={Profile}/>
                                 <Route path="/signup" title={"Signup"} render={(props) => <Signup/>}/>
+                                <Route path="/users/:id" title={"User profile"} component={Profile}/>
+                                <Route path="/users" title={"Users"} render={(props) => <Users/>}/>
                             </Switch>
                         </div>
                     </HashRouter>

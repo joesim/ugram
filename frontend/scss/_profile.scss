@@ -1,0 +1,69 @@
+.avatarStyle {
+  width: 50px;
+  height: 50px;
+}
+
+.rowUser {
+  justify-content: space-around;
+  display: flex;
+  align-items: center;
+  flex-flow: row wrap;
+}
+
+.rowNoSpace {
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  flex-flow: row wrap;
+}
+
+.rowNoSpaceStart {
+  justify-content: start;
+  display: flex;
+  align-items: center;
+  flex-flow: row wrap;
+}
+
+.rowNoWrap {
+  justify-content: space-around;
+  display: flex;
+  align-items: center;
+  flex-flow: row wrap;
+}
+
+.infoItem {
+  padding: 10px;
+  align-self: flex-start
+}
+
+.cardStyle {
+  width: 100%;
+  margin-top: 20px;
+  height: 500px
+}
+
+.flex-row-wrap{
+  display: flex;
+  flex-flow: row wrap;
+}
+  
+.flex-row-nowrap{
+  display: flex;
+  flex-flow: row nowrap;
+}
+  
+.flex-justify-space{
+  justify-content: space-around;
+}
+  
+.flex-justify-center{
+  justify-content: center;
+}
+  
+.flex-align-items-center{
+  align-items: center;
+}
+  
+.flex-align-self-start{
+  align-self: flex-start;
+}
