@@ -1,5 +1,6 @@
 import * as constants from "../constants";
 import axios from "axios";
+import { fetchError } from "./Errors";
 
 export interface ProfileError {
 	type: constants.PROFILE_HAS_ERRORED,
@@ -37,7 +38,7 @@ export function profileFetchData(id: string) {
 			dispatch(profileFetchDataSuccess(response.data))
 		})
 		.catch((error) => {
-			dispatch(profileHasErrored(true, "Sorry! There was an error fetching this profile."));
+			dispatch(fetchError("Sorry! There was an error fetching this profile.", error));
 		});
 	};
 }
@@ -56,7 +57,7 @@ export function editProfile(id: string, user: Object) {
 			dispatch(profileFetchDataSuccess(response.data))
 		})
 		.catch((error) => {
-			dispatch(profileHasErrored(true, "Sorry! There was an error editing this profile."));
+			dispatch(fetchError("Sorry! There was an error editing this profile.", error));
 		});
 	};
 }

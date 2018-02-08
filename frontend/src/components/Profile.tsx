@@ -5,6 +5,7 @@ import FontIcon from 'material-ui/FontIcon';
 import { Card, CardActions, CardHeader, CardText } from 'material-ui/Card';
 import DialogEdit from './DialogEdit';
 import CircularProgress from 'material-ui/CircularProgress';
+import PicturesPanel from '../containers/PicturesPanel';
 
 interface Props {
     user: any,
@@ -26,11 +27,16 @@ class Profile extends React.Component<Props, any> {
     public render() {
 
         let editButton = null;
+        let panel = null;
+        let avatar = null;
         if (window.localStorage.getItem("userId-06")==this.props.user.id) {
             editButton = <DialogEdit user={this.props.user} onSubmit={this.props.editProfile} />
         }
 
-        let avatar = null;
+        if (this.props.user.id!=undefined){
+            panel = <PicturesPanel userId={this.props.user.id} />
+        }
+        
         if (this.props.user.pictureUrl != null) {
             avatar = <Avatar className="ml-15 mr-15 avatarStyle" src={this.props.user.pictureUrl} />
         } else if (this.props.user.email != undefined) {
@@ -79,9 +85,7 @@ class Profile extends React.Component<Props, any> {
                 </div>
                 <div className="rowUser">
                     <Card className="cardStyle">
-                        <CardText>
-                            Images here
-                        </CardText>
+                        {panel}
                     </Card>
                 </div>
             </div>
