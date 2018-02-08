@@ -1,0 +1,86 @@
+.pictures-panel {
+
+	.loader {
+		display: block;
+		text-align: center;
+		border: 0;
+	}
+
+	@-webkit-keyframes rotating /* Safari and Chrome */
+	{
+		from {
+			-webkit-transform: rotate(0deg);
+			-o-transform: rotate(0deg);
+			transform: rotate(0deg);
+		}
+		to {
+			-webkit-transform: rotate(360deg);
+			-o-transform: rotate(360deg);
+			transform: rotate(360deg);
+		}
+	}
+	@keyframes rotating {
+		from {
+			-ms-transform: rotate(0deg);
+			-moz-transform: rotate(0deg);
+			-webkit-transform: rotate(0deg);
+			-o-transform: rotate(0deg);
+			transform: rotate(0deg);
+		}
+		to {
+			-ms-transform: rotate(360deg);
+			-moz-transform: rotate(360deg);
+			-webkit-transform: rotate(360deg);
+			-o-transform: rotate(360deg);
+			transform: rotate(360deg);
+		}
+	}
+	.rotating {
+		-webkit-animation: rotating 2s linear infinite;
+		-moz-animation: rotating 2s linear infinite;
+		-ms-animation: rotating 2s linear infinite;
+		-o-animation: rotating 2s linear infinite;
+		animation: rotating 2s linear infinite;
+		font-size: 5em;
+	}
+
+	.picture {
+		cursor: pointer;
+	}
+
+	.picture:hover {
+		opacity: 0.9;
+	}
+
+	.row {
+		display: flex;
+		flex-wrap: wrap;
+		padding: 0 4px;
+		justify-content: center;
+	}
+
+	.column {
+		flex: 25%;
+		max-width: 25%;
+		padding: 0 4px;
+	}
+
+	.column img {
+		margin-top: 8px;
+		vertical-align: middle;
+	}
+
+	@media (max-width: 800px) {
+		.column {
+			flex: 50%;
+			max-width: 50%;
+		}
+	}
+
+	@media (max-width: 600px) {
+		.column {
+			flex: 100%;
+			max-width: 100%;
+		}
+	}
+}

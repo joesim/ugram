@@ -29,6 +29,7 @@ const AppBarUgram = ( { appbar, onLeftIconButtonClick, onFileUploadModalClick }:
                 />
                 <Link to="/pictures"><MenuItem>Pictures</MenuItem></Link>
                 <Link to="/profile"><MenuItem>Profile</MenuItem></Link>
+                <Link to="/users"><MenuItem>Users</MenuItem></Link>
             </Drawer>
         </div>
     );

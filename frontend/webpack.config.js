@@ -24,7 +24,7 @@ module.exports = function(env) {
 						fallback: 'style-loader',
 						use: [{loader: 'css-loader', options: { minimize: true }}, 'sass-loader']
 					})
-				}
+				},
 			]
 		},
 		plugins: [

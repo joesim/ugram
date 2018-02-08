@@ -1,0 +1,65 @@
+.picture-details {
+	display: flex;
+	justify-content: center;
+
+	.image {
+		width: 50%;
+
+		img {
+			width: 100%;
+		}
+	}
+
+	.details {
+		width: 50%;
+		padding: 8px;
+
+		.mention {
+			cursor: pointer;
+			color: #2B6AFF;
+		}
+	}
+
+	.picture-infos {
+		display: flex;
+		align-items: center;
+		flex-direction: row;
+
+		.field-name {
+			width: 30%;
+			text-align: left;
+		}
+
+		.field {
+			width: 70%;
+		}
+
+		.field-dropdown {
+			display: flex;
+			align-items: center;
+			flex-direction: row;
+		}
+
+	}
+
+	.update-button {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		margin-top: 15px;
+
+		.size-button {
+			width: 40%;
+		}
+	}
+}
+
+.dialog-edit {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+
+	.field-width {
+		width: 100% !important;
+	}
+}
