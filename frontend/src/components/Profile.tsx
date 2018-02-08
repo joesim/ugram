@@ -26,7 +26,7 @@ class Profile extends React.Component<Props, any> {
     public render() {
 
         let editButton = null;
-        if (this.props.user.email != undefined && this.props.user.firstName != undefined && this.props.user.lastName != undefined) {
+        if (window.localStorage.getItem("userId-06")==this.props.user.id) {
             editButton = <DialogEdit user={this.props.user} onSubmit={this.props.editProfile} />
         }
 

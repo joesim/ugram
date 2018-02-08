@@ -4,9 +4,6 @@ export type SET_VISIBILITY_MENU = typeof SET_VISIBILITY_MENU;
 export const EDIT_PROFILE = "EDIT_PROFILE";
 export type EDIT_PROFILE = typeof EDIT_PROFILE;
 
-export const FETCH_ERROR = "FETCH_ERROR";
-export type FETCH_ERROR = typeof FETCH_ERROR;
-
 export const GET_USER = "GET_USER";
 export type GET_USER = typeof GET_USER;
 
@@ -16,5 +13,17 @@ export type PROFILE_HAS_ERRORED = typeof PROFILE_HAS_ERRORED
 export const PROFILE_FETCH_DATA_SUCCESS = "PROFILE_FETCH_DATA_SUCCESS";
 export type PROFILE_FETCH_DATA_SUCCESS = typeof PROFILE_FETCH_DATA_SUCCESS
 
+export const GET_PICTURES = "GET_PICTURES";
+export type GET_PICTURES = typeof GET_PICTURES;
 
+export const SIGNUP = "SIGNUP";
+export type SIGNUP = typeof SIGNUP;
 
+export const DELETE_PICTURE = "DELETE_PICTURE";
+export type DELETE_PICTURE = typeof DELETE_PICTURE;
+
+export const UPDATE_PICTURE = "UPDATE_PICTURE";
+export type UPDATE_PICTURE = typeof UPDATE_PICTURE
+
+export const FETCH_ERROR = "FETCH_ERROR";
+export type FETCH_ERROR = typeof FETCH_ERROR;

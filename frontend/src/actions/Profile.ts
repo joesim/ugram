@@ -49,7 +49,7 @@ export function editProfile(id: string, user: Object) {
 		axios.put("http://api.ugram.net/users/" + id, data, {
 			headers: {
 				'Content-Type': 'application/json',
-				'Authorization': 'Bearer c547bd6c-a81d-4aad-8bb3-403a71ecba68'
+				'Authorization': 'Bearer ' + window.localStorage.getItem("token-06")
 			}
 		})
 		.then((response) => {
