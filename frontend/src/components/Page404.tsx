@@ -1,5 +1,4 @@
 import * as React from "react";
-import Image from 'material-ui-image'
 
 class Page404 extends React.Component {
   public render() {
