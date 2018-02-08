@@ -11,3 +11,4 @@ export function setVisibilityMenu(): SetVisibilityMenu {
         type: constants.SET_VISIBILITY_MENU,
     };
 }
+

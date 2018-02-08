@@ -3,20 +3,33 @@ import * as ReactDOM from "react-dom";
 
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 
-import {Home} from "./components/Home";
+import Home from "./containers/Home";
 import {Pictures} from "./components/Pictures";
 import {Profile} from "./components/Profile";
+import Signup from "./containers/Signup";
 import AppBarUgram from "./containers/AppBar";
 import Users from "./containers/Users";
 
 import {render} from "react-dom";
 import {connect, Provider} from "react-redux";
 
-import {BrowserRouter, HashRouter, Route, Switch} from "react-router-dom";
+import {BrowserRouter, HashRouter, Route, Switch, Redirect} from "react-router-dom";
 
 import {store} from "./store";
+import { isUndefined } from "util";
 
 require("../scss/app.scss");
+
+const PrivateRoute = ({ component: Component, ...rest }) => {
+    let token = window.localStorage.getItem("token-06");
+    return (
+    <Route {...rest} render={(props) => (
+        token !== null
+			? <Component {...props}  />
+			: <Redirect to='/signup' />
+	)} />
+    )
+};
 
 ReactDOM.render(
     <Provider store={store}>
@@ -27,10 +40,11 @@ ReactDOM.render(
                         <div>
                             <AppBarUgram/>
                             <Switch>
-                                <Route exact={true} path="/" title={"Home"} render={(props) => <Home/>}/>
-                                <Route exact={true} path="/pictures" title="Pictures" render={(props) => <Pictures/>}/>
-                                <Route path="/profile" title={"Profile"} render={(props) => <Profile/>}/>
                                 <Route path="/users" title={"Users"} render={(props) => <Users/>}/>
+                                <PrivateRoute exact={true} path="/" title={"Home"} component={Home}/>
+                                <PrivateRoute path="/pictures" title={"Pictures"} component={Pictures}/>
+                                <PrivateRoute path="/profile" title={"Profile"} component={Profile}/>
+                                <Route path="/signup" title={"Signup"} render={(props) => <Signup/>}/>
                             </Switch>
                         </div>
                     </HashRouter>
