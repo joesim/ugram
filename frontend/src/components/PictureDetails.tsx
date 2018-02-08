@@ -30,18 +30,22 @@ class PictureDetails extends React.Component<any, any> {
 		this.displayDialog = this.displayDialog.bind(this);
 		this.dialogMentions = this.dialogMentions.bind(this);
 		this.dialogTags = this.dialogTags.bind(this);
+		this.updatePicture = this.updatePicture.bind(this);
+		this.deletePicture = this.deletePicture.bind(this);
 	}
 
 	private deletePicture() {
-
+		this.props.deletePicture(this.state.userId, this.props.picture.id, this.state.userToken);
 	}
 
 	private updatePicture() {
-		const formData = new FormData();
+		let data = {
+			mentions: this.props.picture.mentions,
+			tags: this.props.picture.tags,
+			description: document.getElementById("description")["value"],
+		};
 
-		formData.append("mentions", this.props.picture.mentions);
-		formData.append("tags", this.props.picture.mentions);
-		formData.append("description", document.getElementById("description")["value"]);
+		this.props.editPicture(this.state.userId, this.props.picture.id, data, this.state.userToken);
 	}
 
 	private dialogMentions() {
@@ -77,7 +81,7 @@ class PictureDetails extends React.Component<any, any> {
 				actions={actions}
 			>
 				<div className="dialog-edit">
-					<TextField id="dialog"/>
+					<TextField id="dialog" className="field-width"/>
 					<RaisedButton  primary={true} label="Add" onClick={this.addValueDialog}/>
 				</div>
 			</Dialog>
@@ -86,7 +90,7 @@ class PictureDetails extends React.Component<any, any> {
 
 	private displayInfos() {
 
-		const disable = this.state.userId !== this.props.picture.userId;
+		const disable = this.state.userId.toLowerCase() !== this.props.picture.userId.toLowerCase();
 
 		return (
 			<div>
