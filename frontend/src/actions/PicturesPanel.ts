@@ -4,11 +4,13 @@ import axios from "axios";
 export interface GetPictures {
 	type: constants.GET_PICTURES;
 	pictures: object;
+	page: number;
 }
 
 export interface GetPicturesFromUser {
 	type: constants.GET_PICTURES_USER;
 	pictures: object;
+	page: number
 }
 
 export interface FetchError {
@@ -19,17 +21,19 @@ export interface FetchError {
 
 export type PicturesPanelAction = GetPictures | FetchError | GetPicturesFromUser;
 
-function getPictures(pictures) : GetPictures {
+function getPictures(pictures, page) : GetPictures {
 	return {
 		type: "GET_PICTURES",
 		pictures,
+		page,
 	};
 }
 
-function getPicturesFromUser(pictures) : GetPicturesFromUser {
+function getPicturesFromUser(pictures, page) : GetPicturesFromUser {
 	return {
 		type: "GET_PICTURES_USER",
 		pictures,
+		page,
 	};
 }
 
@@ -56,7 +60,7 @@ function fetchAllPicturesFromUser(page, perPage, userId) {
 export function getAllPictures(page, perPage) {
 	return function (dispatch) {
 		return fetchAllPictures(page, perPage).then(
-			pictures => dispatch(getPictures(pictures)),
+			pictures => dispatch(getPictures(pictures, page)),
 			error => dispatch(fetchError("Get all pictures", error))
 		);
 	};
@@ -65,7 +69,7 @@ export function getAllPictures(page, perPage) {
 export function getAllPicturesFromUser(page, perPage, userId) {
 	return function (dispatch) {
 		return fetchAllPicturesFromUser(page, perPage, userId).then(
-			pictures => dispatch(getPicturesFromUser(pictures)),
+			pictures => dispatch(getPicturesFromUser(pictures, page)),
 			error => dispatch(fetchError("Get all pictures from user", error))
 		);
 	};
