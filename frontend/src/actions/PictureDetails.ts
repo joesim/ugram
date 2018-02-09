@@ -1,5 +1,6 @@
 import * as constants from "../constants";
 import axios from "axios";
+import { throwError } from "./Errors";
 
 export interface UpdatePicture {
 	type: constants.UPDATE_PICTURE;
@@ -9,14 +10,8 @@ export interface DeletedPicture {
 	type: constants.DELETE_PICTURE;
 }
 
-export interface FetchError {
-	type: constants.FETCH_ERROR;
-	customMessage: string;
-	error: object;
-}
 
-
-export type PictureDetailsAction = UpdatePicture | FetchError;
+export type PictureDetailsAction = UpdatePicture;
 
 function updatePicture() : UpdatePicture {
 	return {
@@ -27,14 +22,6 @@ function updatePicture() : UpdatePicture {
 function deletedPicture() : DeletedPicture {
 	return {
 		type: "DELETE_PICTURE",
-	};
-}
-
-function fetchError(customMessage, error) : FetchError {
-	return {
-		type: "FETCH_ERROR",
-		customMessage,
-		error,
 	};
 }
 
@@ -57,7 +44,7 @@ export function editPicture(userId, pictureId, data, token) {
 	return function (dispatch) {
 		return fetchUpdatePicture(userId, pictureId, data, token).then(
 			() => dispatch(updatePicture()),
-			error => dispatch(fetchError("Update picture", error))
+			error => dispatch(throwError("Update picture", error))
 		);
 	};
 }
@@ -66,7 +53,7 @@ export function deletePicture(userId, pictureId, token) {
 	return function (dispatch) {
 		return fetchDeletePicture(userId, pictureId, token).then(
 			() => dispatch(deletedPicture()),
-			error => dispatch(fetchError("Delete picture", error))
+			error => dispatch(throwError("Delete picture", error))
 		);
 	};
 }

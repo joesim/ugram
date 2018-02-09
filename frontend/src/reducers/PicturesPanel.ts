@@ -1,5 +1,5 @@
 import { PicturesPanelAction } from "../actions";
-import { GET_PICTURES, FETCH_ERROR, GET_PICTURES_USER } from "../constants"
+import { GET_PICTURES, THROW_ERROR, GET_PICTURES_USER } from "../constants"
 
 const initialState = {
 	pictures: [],
@@ -17,9 +17,6 @@ export function pictures_panel(state = initialState, action): object {
 			if (action.page === 0)
 				state.pictures = [];
 			state.pictures = [...state.pictures, ...action.pictures.data.items];
-			return { ...state };
-		case FETCH_ERROR:
-			state.error = action.error;
 			return { ...state };
 		default:
 			return state;

@@ -9,7 +9,6 @@ import PicturesPanel from '../containers/PicturesPanel';
 
 interface Props {
     user: any,
-    error: any,
     fetchData: any,
     editProfile: any,
     match: any
@@ -41,16 +40,6 @@ class Profile extends React.Component<Props, any> {
             avatar = <Avatar className="ml-15 mr-15 avatarStyle" src={this.props.user.pictureUrl} />
         } else if (this.props.user.email != undefined) {
             avatar = <Avatar className="ml-15 mr-15 avatarStyle" src="../../assets/nopic.jpg" />
-        }
-
-        if (this.props.error.hasErrored) {
-            return (
-                <div className="container mt-50">
-                    <p>
-                        {this.props.error.errorMessage}
-                    </p>
-                </div>
-            )
         }
 
         return (
