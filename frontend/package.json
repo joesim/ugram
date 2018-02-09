@@ -6,6 +6,7 @@
   "scripts": {
     "build": "webpack --env.dev",
     "build_travis": "webpack --env.production",
+    "lint": "tslint --project tsconfig.json",
     "start": "webpack-dev-server --env.dev",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
