@@ -3,6 +3,7 @@ import Avatar from "material-ui/Avatar";
 import Dialog from "material-ui/Dialog";
 import FileUpload from "material-ui/svg-icons/file/file-upload";
 import * as React from "react";
+import UploadModal from "./UploadModal";
 
 import { Link } from "react-router-dom";
 
@@ -15,13 +16,9 @@ const AppBarUgram = ( { appbar, onLeftIconButtonClick, onFileUploadModalClick }:
                 iconElementRight={<Avatar icon={<FileUpload />} />}
                 onRightIconButtonClick={onFileUploadModalClick}
             />
-            <Dialog
-              title="Upload an image"
-              modal={true}
-              open={appbar.upload.isVisible}
-            >
-            <Avatar icon={<FileUpload />} />
-            </Dialog>
+            <UploadModal
+                visibility={appbar.upload.isVisible}
+            />
             <Drawer open={appbar.menu.isVisible}>
                 <AppBar
                     title="Ugram"
