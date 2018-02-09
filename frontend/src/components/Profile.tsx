@@ -24,13 +24,10 @@ interface Props {
 
 class Profile extends React.Component<Props, any> {
     public constructor(props) {
-        
         super(props);
-        console.log(this.props.match.params.id);
     }
 
     public componentDidMount() {
-        console.log(this.props.match.params.id);
         this.props.fetchData(this.props.match.params.id)
     }
 
