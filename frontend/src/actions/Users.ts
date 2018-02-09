@@ -1,6 +1,6 @@
 import * as constants from "../constants";
 import axios from "axios";
-import { fetchError } from "./Errors";
+import { throwError } from "./Errors";
 
 interface ReceiveUsers {
 	type: constants.RECEIVE_USERS;
@@ -20,9 +20,11 @@ function fetchAllUsers() : Promise<any> {
 
 export function getAllUsers() {
 	return function (dispatch) {
-		return fetchAllUsers().then(
-			users => dispatch(receiveAllUsers(users)),
-			error => dispatch(fetchError("Get all users", error.json()))
+		return fetchAllUsers()
+		.then(
+			users => dispatch(receiveAllUsers(users))
+		).catch(
+			error => dispatch(throwError("Could not get users", error))
 		);
 	};
 }
