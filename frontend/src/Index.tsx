@@ -10,6 +10,7 @@ import Profile from "./containers/Profile";
 import Signup from "./containers/Signup";
 import AppBarUgram from "./containers/AppBar";
 import Users from "./containers/Users";
+import ErrorModal from "./containers/ErrorModal";
 
 
 
@@ -39,6 +40,7 @@ ReactDOM.render(
     <Provider store={store}>
         <MuiThemeProvider>
             <div>
+                <ErrorModal/>
                 <BrowserRouter>
                     <HashRouter>
                         <div>

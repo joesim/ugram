@@ -1,5 +1,6 @@
 import * as constants from "../constants";
 import axios from "axios";
+import { throwError } from "./Errors";
 
 export interface GetPictures {
 	type: constants.GET_PICTURES;
@@ -13,13 +14,7 @@ export interface GetPicturesFromUser {
 	page: number
 }
 
-export interface FetchError {
-	type: constants.FETCH_ERROR;
-	customMessage: string;
-	error: object;
-}
-
-export type PicturesPanelAction = GetPictures | FetchError | GetPicturesFromUser;
+export type PicturesPanelAction = GetPictures | GetPicturesFromUser;
 
 function getPictures(pictures, page) : GetPictures {
 	return {
@@ -37,14 +32,6 @@ function getPicturesFromUser(pictures, page) : GetPicturesFromUser {
 	};
 }
 
-function fetchError(customMessage, error) : FetchError {
-	return {
-		type: "FETCH_ERROR",
-		customMessage,
-		error,
-	};
-}
-
 // API
 
 function fetchAllPictures(page, perPage) {
@@ -55,13 +42,11 @@ function fetchAllPicturesFromUser(page, perPage, userId) {
 	return axios.get(`http://api.ugram.net/users/${userId}/pictures?page=${page}&perPage=${perPage}`);
 }
 
-//
-
 export function getAllPictures(page, perPage) {
 	return function (dispatch) {
 		return fetchAllPictures(page, perPage).then(
 			pictures => dispatch(getPictures(pictures, page)),
-			error => dispatch(fetchError("Get all pictures", error))
+			error => dispatch(throwError("Get all pictures", error))
 		);
 	};
 }
@@ -70,7 +55,7 @@ export function getAllPicturesFromUser(page, perPage, userId) {
 	return function (dispatch) {
 		return fetchAllPicturesFromUser(page, perPage, userId).then(
 			pictures => dispatch(getPicturesFromUser(pictures, page)),
-			error => dispatch(fetchError("Get all pictures from user", error))
+			error => dispatch(throwError("Get all pictures from user", error))
 		);
 	};
 }

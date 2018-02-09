@@ -24,10 +24,13 @@ interface Props {
 
 class Profile extends React.Component<Props, any> {
     public constructor(props) {
+        
         super(props);
+        console.log(this.props.match.params.id);
     }
 
     public componentDidMount() {
+        console.log(this.props.match.params.id);
         this.props.fetchData(this.props.match.params.id)
     }
 
@@ -43,16 +46,6 @@ class Profile extends React.Component<Props, any> {
             avatar = <Avatar className="ml-15 mr-15 avatarStyle" src={this.props.user.pictureUrl} />
         } else if (this.props.user.email != undefined) {
             avatar = <Avatar className="ml-15 mr-15 avatarStyle" src="../../assets/nopic.jpg" />
-        }
-
-        if (this.props.error.hasErrored) {
-            return (
-                <div className="container mt-50">
-                    <p>
-                        {this.props.error.errorMessage}
-                    </p>
-                </div>
-            )
         }
 
         if (this.props.match.params.id == this.props.user.id) {
