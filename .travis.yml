@@ -19,6 +19,7 @@ script:
 before_deploy:
 - if [ "$TRAVIS_BRANCH" = "dev" ]; then source ../.env-dev.sh; fi
 - if [ "$TRAVIS_BRANCH" = "master" ]; then source ../.env-master.sh; fi
+- env
 
 deploy:
   - provider: s3
