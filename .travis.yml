@@ -1,24 +1,29 @@
 language: node_js
+
 node_js:
 - 8.9.4
+
 cache:
   directories:
   - node_modules
+
 before_install:
 - cd frontend
+
 before_script:
 - npm install -g webpack
+
 script:
 - npm run build_travis
-before_deploy:
-  - env
+
 deploy:
+  matrix:
   - provider: s3
     skip_cleanup: true
     detect_encoding: true
     access_key_id: AKIAJGCNW64MPWIIRYQQ
     secret_access_key:
-      secure: IHOT4mUVtwd+aUOXG1y7n+5/mVx+B9fFcXEWNHNZO2zvyBTlsO3v4hMyUmUbUXlDwfAWp2ZkVh41VxpzQq8Oki5cgsDViEvCDcJ1i4+LiQ6ruB9TM/rJr9xZTtufIK9O5TVXTb6249Bfq23Zs/RwU0nwikhMPfSsHiIlRj6zZx5P3X/JvZFZFV1L5KIW64GySBp5WamFHYe5uraBNZxNlOxq0rMLzmmjT6zESkvApqNBFGvdODMYB2fdIUp0wujswBfP36ga4pddsRyuf7GKfGhDrrZe5xj7r6AgcKgm0q1OblJCfI2RTTfCsAe53W25XDCqU98b/fNEhIU/6sO8AZpsmJUqnRmZ4MY9osE73Tss95XMj/9JJAd8+B9/kj0mU55/2oILAH7j07wHat6ly161zp3wHJx3wgqrGbnqoExgphSRGcU1lBr5vidyRCMLvuL/Ew9DR+qWHScUu4WS9kfitedFVNwJsfc4dvrQxUczX997nmjp0lop8WqJIxlhmjKEOmhfjg1N1zLfl0JPpOgP0kEocwZBBZxLE9JM5H0bXMq+DkhGbK0Dz+kHUHAG9ySPWC1bGjfy4nGS2bHjpzNu8QfeY1gXXH4o1D2t5apX8APuZy0McUwcPFT/M/hgYwv/QZL8DRsXl5UjI7lADsxYkh82y08rNLDDSefyhjA=
+      secure: peZ8UVc4ryS8ohwGBQJWRnx9Amuf1vymF+EoEU8vFKj5tm673ijXYzWptXegMr++2SN8QM7Dk1FRthVplMmeiZuCrVtax6x5q7Pory0fOmPns0MUJCnauOlVTk6hvNyLQK5knCbIQHCDDK6U3+xJdTHpV1OJvaqsMP8vZwvS66cJKC0UYVVud8qWKYY3vt/eq1BtUtGMGrQW2/dihF+vc9/mrAlACeoeLDhdwIdAbGl1O5zVMB28CRtP7vJOoxNX1Z+fL4IzglYnvfstb3YlefFGT6clrc+NhzLRp3hEcDPzKRmp4Iyc3OrV2NKLxjkDpFbBy/32otjAoS1C6nH+hSelgU+tcbERcDR6r4n27I5CU1FHYa83y2lTjoQQRj18TaY9daOoeaVYwey6qUPA0164Ku6O68IlbFeEnZLR5kaVyCsGig3saxwkxBEntFwNn1/itMx3YEV8LOBoVSY8d3jDEnW+tqyFSgE3qpFcXv2/PSMt/CvxkCgubD78To26LaMBvgKI4z+lh0ddfo4q8TB3rfmQvJEqTGvSi4x/sFOhksESzrsFWALfJxrySfCIMlp/bTXzJW85VpJLJABigO0qhtqXexnTAoZ6hgnYwgsS8UaGjMvL4vV/fSmCOmDZ5+zbWF1tmMg8pm9bwSlRqQHgJ6hVXVt5j1JE7owFE6I=
     bucket: ugram-prod
     local-dir: build
     acl: bucket_owner_full_control
