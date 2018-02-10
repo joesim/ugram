@@ -10,9 +10,9 @@ before_script:
 - npm install -g webpack
 script:
 - npm run build_travis
-- env
 before_deploy:
   - env
+  - $test1$test2
 deploy:
   - provider: s3
     skip_cleanup: true
