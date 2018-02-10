@@ -17,8 +17,8 @@ script:
 - npm run build_travis
 
 before_deploy:
-- if: branch = dev
-- env: FOO=TESTTZ
+- ls
+- sh ./.travis.sh
 - env
 
 deploy:
