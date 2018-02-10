@@ -17,7 +17,6 @@ script:
 - npm run build_travis
 
 deploy:
-  matrix:
   - provider: s3
     skip_cleanup: true
     detect_encoding: true

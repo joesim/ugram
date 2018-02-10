@@ -48,7 +48,6 @@ ReactDOM.render(
                             <Switch>
                                 <PrivateRoute exact={true} path="/" title={"Home"} component={Home}/>
                                 <PrivateRoute path="/pictures" title={"Pictures"} component={Pictures}/>
-                                <PrivateRoute path="/profile" title={"Profile"} component={Profile}/>
                                 <Route path="/signup" title={"Signup"} render={(props) => <Signup/>}/>
                                 <Route path="/users/:id" title={"User profile"} component={Profile}/>
                                 <Route path="/users" title={"Users"} render={(props) => <Users/>}/>
