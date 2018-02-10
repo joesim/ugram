@@ -1,1 +1,1 @@
-TEST=JETEST
+export TEST=JETEST

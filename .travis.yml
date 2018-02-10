@@ -18,7 +18,7 @@ script:
 
 before_deploy:
 - ls
-- sh ../.travis.sh
+- source ../.travis.sh
 - env
 
 deploy:
