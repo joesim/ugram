@@ -7,7 +7,14 @@ import TextField from 'material-ui/TextField';
 
 interface Props {
   editProfile: any,
-  user: any
+  user: {
+    firstName: string,
+    lastName: string,
+    id: string,
+    pictureUrl: string,
+    phoneNumber: string,
+    email: string
+  }
 }
 
 export default class DialogEdit extends React.Component<any, any> {
@@ -22,7 +29,7 @@ export default class DialogEdit extends React.Component<any, any> {
         phoneNumber: this.props.user.phoneNumber
       }
     }
-  }  
+  }
 
   handleOpen = () => {
     this.setState({ open: true });
@@ -39,7 +46,7 @@ export default class DialogEdit extends React.Component<any, any> {
 
   handleChangeEmail = (event) => {
     const user = this.state.user;
-    user.email=event.target.value;
+    user.email = event.target.value;
     this.setState({
       user,
     });
@@ -47,7 +54,7 @@ export default class DialogEdit extends React.Component<any, any> {
 
   handleChangeFirstName = (event) => {
     const user = this.state.user;
-    user.firstName=event.target.value;
+    user.firstName = event.target.value;
     this.setState({
       user,
     });
@@ -55,7 +62,7 @@ export default class DialogEdit extends React.Component<any, any> {
 
   handleChangeLastName = (event) => {
     const user = this.state.user;
-    user.lastName=event.target.value;
+    user.lastName = event.target.value;
     this.setState({
       user,
     });
@@ -63,7 +70,7 @@ export default class DialogEdit extends React.Component<any, any> {
 
   handleChangePhoneNumber = (event) => {
     const user = this.state.user;
-    user.phoneNumber=event.target.value;
+    user.phoneNumber = event.target.value;
     this.setState({
       user,
     });
@@ -83,10 +90,10 @@ export default class DialogEdit extends React.Component<any, any> {
         onClick={this.handleSubmit}
       />,
     ];
-    
+
     const styleDialog = {
       maxWidth: "600px"
-    }    
+    }
 
     return (
       <div>
@@ -106,32 +113,32 @@ export default class DialogEdit extends React.Component<any, any> {
               First Name:
               </div>
             <div className="ml-15 mb-15 itemField">
-            <TextField value={this.state.user.firstName} onChange={this.handleChangeFirstName}/>
-              </div>
+              <TextField value={this.state.user.firstName} onChange={this.handleChangeFirstName} />
+            </div>
           </div>
           <div className="flex-row-nowrap flex-align-items-center">
             <div className="mb-15 itemLabel">
               Last name:
               </div>
             <div className="ml-15 mb-15 itemField">
-            <TextField value={this.state.user.lastName} onChange={this.handleChangeLastName}/>
-              </div>
+              <TextField value={this.state.user.lastName} onChange={this.handleChangeLastName} />
+            </div>
           </div>
           <div className="flex-row-nowrap flex-align-items-center">
             <div className="mb-15 itemLabel">
               E-mail:
               </div>
             <div className="ml-15 mb-15 itemField">
-            <TextField value={this.state.user.email} onChange={this.handleChangeEmail}/>
-              </div>
+              <TextField value={this.state.user.email} onChange={this.handleChangeEmail} />
+            </div>
           </div>
           <div className="flex-row-nowrap flex-align-items-center">
             <div className="mb-15 itemLabel">
               Phone:
               </div>
             <div className="ml-15 mb-15 itemField">
-            <TextField value={this.state.user.phoneNumber} onChange={this.handleChangePhoneNumber}/>
-              </div>
+              <TextField value={this.state.user.phoneNumber} onChange={this.handleChangePhoneNumber} />
+            </div>
           </div>
         </Dialog>
       </div>
