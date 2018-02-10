@@ -18,6 +18,7 @@ const AppBarUgram = ( { appbar, onLeftIconButtonClick, onFileUploadModalClick }:
             />
             <UploadModal
                 visibility={appbar.upload.isVisible}
+                visibilityFunc={onFileUploadModalClick}
             />
             <Drawer open={appbar.menu.isVisible}>
                 <AppBar

@@ -7,6 +7,7 @@ import * as React from "react";
 
 interface IComponentNameProps {
     visibility: boolean;
+    visibilityFunc: any;
 }
 
 export default class UploadModal extends React.Component<IComponentNameProps, any> {
@@ -14,7 +15,7 @@ export default class UploadModal extends React.Component<IComponentNameProps, an
         super(props);
     }
     public handleClose = () => {
-        console.log("Il faudrait caller onFileUploadModalClick ici");
+        this.props.visibilityFunc();
       }
 
     public render(): JSX.Element {
