@@ -10,7 +10,6 @@ before_script:
 - npm install -g webpack
 script:
 - npm run build_travis
-- env
 before_deploy:
   - env
 deploy:
