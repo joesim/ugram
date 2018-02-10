@@ -1,34 +1,44 @@
 language: node_js
-
 node_js:
 - 8.9.4
-
 cache:
   directories:
   - node_modules
-
 before_install:
 - cd frontend
-
 before_script:
 - npm install -g webpack
-
-script: 
-  - npm run build_travis
-
+script:
+- npm run build_travis
+- env
+before_deploy:
+  - env
 deploy:
-  provider: s3
-  skip_cleanup: true
-  detect_encoding: true
-  access_key_id: AKIAJLOBPV7PIJMR7CRA
-  secret_access_key:
-    secure: MeYeFv4Luo2lnsvudFs9kGlHk+5KHMNWkQBh2Md4aDRXhXf0jVuEefMYIi7/oWDFo0KFTPt3sT+GDYuG8YRt001dHGT6lJ/viK2vbMSBRxKhjgbQfu2CyP+Hl0zs8VAnEWeB1B4zzdzj8umBBnc4egIqylxek4pEWK8BWS0fOUkbF44qplDD9QtGNPV0uL+nbjwnKBelUd9qtKomzdCJ1CCH97f0dnVikSzoulWbXBkK6SzdC+8/uQljBF1Yw5nyDPiwhsB2Eojim00G3nWfbKYNM6AgdKE/qaYrmv/eBzc1e/eOxCuilWQneCfHCNAwbF7IAOWhKk2bdmccUPRy0A/xo1vHuaoxBLnRjXQVNagOCwlXciGncZb8vCHpsdXyKSotjNPp2qn0zvENV79lhQj6MrTwcZKGyWz/q2iha5ZLS35Ww7P3FdPmUb9sEyH6FyjgcTEYnBzXTNCdKhCTc+x6PCq1qjhqWOUpe5L9qSBrLMr5A4DMMOzcIM172QL0TSjdfAlXezxTDanbQFPQZLlxMGAOKgWOMrozsUHjWm8/LMQatnIaAqzFzjc+UudJHzfunXRFMmDJ7p64VPR6ydF2LpT9Jx6TUT4yZKOUlxokHI3WpwqRaAiLNEKARf5mab3ePZ670nf7xonIK9Fy+mFODsaikO6m6Xcq6ug8fF4=
-  bucket: ugram-dev
-  local-dir: build
-  acl: bucket_owner_full_control
-  on:
-    repo: GLO3112-H18/ugram-team-06
-    branch: dev
+  - provider: s3
+    skip_cleanup: true
+    detect_encoding: true
+    access_key_id: AKIAJGCNW64MPWIIRYQQ
+    secret_access_key:
+      secure: IHOT4mUVtwd+aUOXG1y7n+5/mVx+B9fFcXEWNHNZO2zvyBTlsO3v4hMyUmUbUXlDwfAWp2ZkVh41VxpzQq8Oki5cgsDViEvCDcJ1i4+LiQ6ruB9TM/rJr9xZTtufIK9O5TVXTb6249Bfq23Zs/RwU0nwikhMPfSsHiIlRj6zZx5P3X/JvZFZFV1L5KIW64GySBp5WamFHYe5uraBNZxNlOxq0rMLzmmjT6zESkvApqNBFGvdODMYB2fdIUp0wujswBfP36ga4pddsRyuf7GKfGhDrrZe5xj7r6AgcKgm0q1OblJCfI2RTTfCsAe53W25XDCqU98b/fNEhIU/6sO8AZpsmJUqnRmZ4MY9osE73Tss95XMj/9JJAd8+B9/kj0mU55/2oILAH7j07wHat6ly161zp3wHJx3wgqrGbnqoExgphSRGcU1lBr5vidyRCMLvuL/Ew9DR+qWHScUu4WS9kfitedFVNwJsfc4dvrQxUczX997nmjp0lop8WqJIxlhmjKEOmhfjg1N1zLfl0JPpOgP0kEocwZBBZxLE9JM5H0bXMq+DkhGbK0Dz+kHUHAG9ySPWC1bGjfy4nGS2bHjpzNu8QfeY1gXXH4o1D2t5apX8APuZy0McUwcPFT/M/hgYwv/QZL8DRsXl5UjI7lADsxYkh82y08rNLDDSefyhjA=
+    bucket: ugram-prod
+    local-dir: build
+    acl: bucket_owner_full_control
+    on:
+      repo: GLO3112-H18/ugram-team-06
+      branch: master
+
+  - provider: s3
+    skip_cleanup: true
+    detect_encoding: true
+    access_key_id: AKIAJLOBPV7PIJMR7CRA
+    secret_access_key:
+      secure: MeYeFv4Luo2lnsvudFs9kGlHk+5KHMNWkQBh2Md4aDRXhXf0jVuEefMYIi7/oWDFo0KFTPt3sT+GDYuG8YRt001dHGT6lJ/viK2vbMSBRxKhjgbQfu2CyP+Hl0zs8VAnEWeB1B4zzdzj8umBBnc4egIqylxek4pEWK8BWS0fOUkbF44qplDD9QtGNPV0uL+nbjwnKBelUd9qtKomzdCJ1CCH97f0dnVikSzoulWbXBkK6SzdC+8/uQljBF1Yw5nyDPiwhsB2Eojim00G3nWfbKYNM6AgdKE/qaYrmv/eBzc1e/eOxCuilWQneCfHCNAwbF7IAOWhKk2bdmccUPRy0A/xo1vHuaoxBLnRjXQVNagOCwlXciGncZb8vCHpsdXyKSotjNPp2qn0zvENV79lhQj6MrTwcZKGyWz/q2iha5ZLS35Ww7P3FdPmUb9sEyH6FyjgcTEYnBzXTNCdKhCTc+x6PCq1qjhqWOUpe5L9qSBrLMr5A4DMMOzcIM172QL0TSjdfAlXezxTDanbQFPQZLlxMGAOKgWOMrozsUHjWm8/LMQatnIaAqzFzjc+UudJHzfunXRFMmDJ7p64VPR6ydF2LpT9Jx6TUT4yZKOUlxokHI3WpwqRaAiLNEKARf5mab3ePZ670nf7xonIK9Fy+mFODsaikO6m6Xcq6ug8fF4=
+    bucket: ugram-dev
+    local-dir: build
+    acl: bucket_owner_full_control
+    on:
+      repo: GLO3112-H18/ugram-team-06
+      branch: dev
 
 notifications:
   slack:
