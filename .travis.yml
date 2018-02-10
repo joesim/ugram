@@ -16,6 +16,11 @@ before_script:
 script:
 - npm run build_travis
 
+before_deploy:
+- if: branch = dev
+- env: FOO=TESTTZ
+- env
+
 deploy:
   - provider: s3
     skip_cleanup: true
