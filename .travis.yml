@@ -17,36 +17,23 @@ script:
 - npm run build_travis
 
 before_deploy:
-- ls
-- source ../.travis.sh
-- env
+- if [ "$TRAVIS_BRANCH" = "dev" ]; then source ../.env-dev.sh; fi
+- if [ "$TRAVIS_BRANCH" = "master" ]; then source ../.env-master.sh; fi
 
 deploy:
   - provider: s3
     skip_cleanup: true
     detect_encoding: true
-    access_key_id: AKIAJGCNW64MPWIIRYQQ
+    access_key_id: $ACCESS_KEY_ID_current
     secret_access_key:
-      secure: peZ8UVc4ryS8ohwGBQJWRnx9Amuf1vymF+EoEU8vFKj5tm673ijXYzWptXegMr++2SN8QM7Dk1FRthVplMmeiZuCrVtax6x5q7Pory0fOmPns0MUJCnauOlVTk6hvNyLQK5knCbIQHCDDK6U3+xJdTHpV1OJvaqsMP8vZwvS66cJKC0UYVVud8qWKYY3vt/eq1BtUtGMGrQW2/dihF+vc9/mrAlACeoeLDhdwIdAbGl1O5zVMB28CRtP7vJOoxNX1Z+fL4IzglYnvfstb3YlefFGT6clrc+NhzLRp3hEcDPzKRmp4Iyc3OrV2NKLxjkDpFbBy/32otjAoS1C6nH+hSelgU+tcbERcDR6r4n27I5CU1FHYa83y2lTjoQQRj18TaY9daOoeaVYwey6qUPA0164Ku6O68IlbFeEnZLR5kaVyCsGig3saxwkxBEntFwNn1/itMx3YEV8LOBoVSY8d3jDEnW+tqyFSgE3qpFcXv2/PSMt/CvxkCgubD78To26LaMBvgKI4z+lh0ddfo4q8TB3rfmQvJEqTGvSi4x/sFOhksESzrsFWALfJxrySfCIMlp/bTXzJW85VpJLJABigO0qhtqXexnTAoZ6hgnYwgsS8UaGjMvL4vV/fSmCOmDZ5+zbWF1tmMg8pm9bwSlRqQHgJ6hVXVt5j1JE7owFE6I=
-    bucket: ugram-prod
+      secure: $SECRET_ACCESS_KEY_current
+    bucket: $BUCKET_current
     local-dir: build
     acl: bucket_owner_full_control
     on:
       repo: GLO3112-H18/ugram-team-06
-      branch: master
+      branch: $TRAVIS_BRANCH
 
-  - provider: s3
-    skip_cleanup: true
-    detect_encoding: true
-    access_key_id: AKIAJLOBPV7PIJMR7CRA
-    secret_access_key:
-      secure: MeYeFv4Luo2lnsvudFs9kGlHk+5KHMNWkQBh2Md4aDRXhXf0jVuEefMYIi7/oWDFo0KFTPt3sT+GDYuG8YRt001dHGT6lJ/viK2vbMSBRxKhjgbQfu2CyP+Hl0zs8VAnEWeB1B4zzdzj8umBBnc4egIqylxek4pEWK8BWS0fOUkbF44qplDD9QtGNPV0uL+nbjwnKBelUd9qtKomzdCJ1CCH97f0dnVikSzoulWbXBkK6SzdC+8/uQljBF1Yw5nyDPiwhsB2Eojim00G3nWfbKYNM6AgdKE/qaYrmv/eBzc1e/eOxCuilWQneCfHCNAwbF7IAOWhKk2bdmccUPRy0A/xo1vHuaoxBLnRjXQVNagOCwlXciGncZb8vCHpsdXyKSotjNPp2qn0zvENV79lhQj6MrTwcZKGyWz/q2iha5ZLS35Ww7P3FdPmUb9sEyH6FyjgcTEYnBzXTNCdKhCTc+x6PCq1qjhqWOUpe5L9qSBrLMr5A4DMMOzcIM172QL0TSjdfAlXezxTDanbQFPQZLlxMGAOKgWOMrozsUHjWm8/LMQatnIaAqzFzjc+UudJHzfunXRFMmDJ7p64VPR6ydF2LpT9Jx6TUT4yZKOUlxokHI3WpwqRaAiLNEKARf5mab3ePZ670nf7xonIK9Fy+mFODsaikO6m6Xcq6ug8fF4=
-    bucket: ugram-dev
-    local-dir: build
-    acl: bucket_owner_full_control
-    on:
-      repo: GLO3112-H18/ugram-team-06
-      branch: dev
 
 notifications:
   slack:
