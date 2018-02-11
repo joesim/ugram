@@ -12,7 +12,7 @@ const stle = {
 const AppBarUgram = ({ appbar, onLeftIconButtonClick }: any) => {
 
     let userConnected = null
-    if (window.localStorage.getItem("userId-06")!==undefined){
+    if (window.localStorage.getItem("userId-06")!==null){
         const link = "/users/" + window.localStorage.getItem("userId-06");
         userConnected = <Link to={link}><FontIcon className="material-icons items-navbar">person</FontIcon></Link>
     }
