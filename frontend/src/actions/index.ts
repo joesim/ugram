@@ -1,8 +1,11 @@
-import {AppBarAction, setVisibilityMenu} from "./AppBar";
-import {editProfile, ProfilePanelActions} from "./Profile";
+import {AppBarAction, setVisibilityUploadModal} from "./AppBar";
 import {HomeAction} from "./Home";
-import {PicturesPanelAction, getAllPictures, getAllPicturesFromUser} from "./PicturesPanel";
+import {deletePicture, editPicture, PictureDetailsAction} from "./PictureDetails";
+import {getAllPictures, getAllPicturesFromUser, PicturesPanelAction} from "./PicturesPanel";
+import {editProfile, ProfilePanelActions} from "./Profile";
 import {SignupAction, signupUser} from "./Signup";
-import {PictureDetailsAction, editPicture, deletePicture} from "./PictureDetails";
+import {upload, UploadModalAction} from "./UploadModal";
 
-export { AppBarAction, setVisibilityMenu, editProfile, ProfilePanelActions, HomeAction, PicturesPanelAction, getAllPictures, SignupAction,signupUser, PictureDetailsAction, editPicture, deletePicture, getAllPicturesFromUser};
+export { AppBarAction, editProfile, setVisibilityUploadModal, ProfilePanelActions, HomeAction,
+         PicturesPanelAction, getAllPictures, SignupAction, signupUser, PictureDetailsAction,
+         editPicture, deletePicture, getAllPicturesFromUser, upload, UploadModalAction};

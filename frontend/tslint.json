@@ -4,6 +4,8 @@
         "tslint:recommended", "tslint-react"
     ],
     "jsRules": {},
-    "rules": {},
+    "rules": {
+        "interface-name":false
+    },
     "rulesDirectory": []
 }
