@@ -26,18 +26,18 @@ export interface User {
 }
 
 export interface Picture {
-	id: number;
-	createdDate: number;
-	description: string;
-	mentions: string[];
-	url: string;
-	userId: string;
+    id: number;
+    createdDate: number;
+    description: string;
+    mentions: string[];
+    url: string;
+    userId: string;
 }
 
 export interface Pictures {
     data: {
         items: Picture[];
-	    totalPages: string;
-	    totalEntries: number;
+        totalPages: string;
+        totalEntries: number;
     }
 }

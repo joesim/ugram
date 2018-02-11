@@ -1,6 +1,6 @@
+import { ProfilePanelActions } from "../actions/";
+import { EDIT_PROFILE, GET_USER, THROW_ERROR } from "../constants";
 import { PROFILE_FETCH_DATA_SUCCESS } from "../constants";
-import { GET_USER, EDIT_PROFILE, THROW_ERROR } from "../constants";
-import { ProfilePanelActions } from "../actions";
 
 export function user(state = {}, action: ProfilePanelActions) {
     switch (action.type) {

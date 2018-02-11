@@ -1,21 +1,21 @@
 import { connect, Dispatch } from "react-redux";
-import {profileFetchData, editProfile} from "../actions/Profile";
-import { StoreState } from "../types";
-import * as actions from "../actions/";
 import { Store } from "redux";
+import * as actions from "../actions/";
+import {editProfile, profileFetchData} from "../actions/Profile";
 import Profile from "../components/Profile";
+import { StoreState } from "../types";
 
 export function mapStateToProps( state ) {
     return {
+        error: state.profileHasErrored,
         user: state.user,
-        error: state.profileHasErrored
     };
 }
 
 export function mapDispatchToProps(dispatch: Dispatch<actions.ProfilePanelActions>) {
     return {
+        editProfile: (id, user) => dispatch(editProfile(id, user)),
         fetchData: (id) => dispatch(profileFetchData(id)),
-        editProfile: (id, user) => dispatch(editProfile(id, user))
     };
 }
 

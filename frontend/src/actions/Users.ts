@@ -15,11 +15,13 @@ function receiveAllUsers(users): ReceiveUsers {
     };
 }
 
-export let getAllUsers = async (dispatch) => {
-    try {
-        const response = await axios.get("/users");
-        dispatch(receiveAllUsers(response.data));
-    } catch (error) {
-        dispatch(throwError("Could not get users", error));
-    }
-};
+export async function getAllUsers() {
+    return async (dispatch) => {
+        try {
+            const response = await axios.get("/users");
+            dispatch(receiveAllUsers(response.data));
+        } catch (error) {
+            dispatch(throwError("Could not get users", error));
+        }
+    };
+}

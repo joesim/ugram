@@ -14,38 +14,34 @@ export type PictureDetailsAction = UpdatePicture;
 
 function updatePicture(): UpdatePicture {
     return {
-        type: "UPDATE_PICTURE",
+        type: constants.UPDATE_PICTURE,
     };
 }
 
 function deletedPicture(): DeletedPicture {
     return {
-        type: "DELETE_PICTURE",
+        type: constants.DELETE_PICTURE,
     };
 }
 
-function fetchUpdatePicture(userId, pictureId, data) {
-    return axios.put(`/users/${userId}/pictures/${pictureId}`, JSON.stringify(data));
-}
-
-function fetchDeletePicture(userId, pictureId) {
-    return axios.delete(`/users/${userId}/pictures/${pictureId}`);
-}
-
-export function editPicture(userId, pictureId, data) {
-    return function (dispatch) {
-        return fetchUpdatePicture(userId, pictureId, data).then(
-            () => dispatch(updatePicture()),
-            error => dispatch(throwError("Update picture", error))
-        );
+export async function editPicture(userId, pictureId, data) {
+    return async (dispatch) => {
+        try {
+            const response = axios.put(`/users/${userId}/pictures/${pictureId}`, JSON.stringify(data));
+            dispatch(updatePicture());
+        } catch (error) {
+            dispatch(throwError("Could not delete picture", error));
+        }
     };
 }
 
-export function deletePicture(userId, pictureId) {
-    return function (dispatch) {
-        return fetchDeletePicture(userId, pictureId).then(
-            () => dispatch(deletedPicture()),
-            error => dispatch(throwError("Delete picture", error))
-        );
+export async function deletePicture(userId, pictureId) {
+    return async (dispatch) => {
+        try {
+            const response = await axios.delete(`/users/${userId}/pictures/${pictureId}`);
+            dispatch(deletedPicture());
+        } catch (error) {
+            dispatch(throwError("Could not delete picture", error));
+        }
     };
 }

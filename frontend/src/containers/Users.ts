@@ -19,7 +19,7 @@ function mapStateToProps(state): StateProps {
 
 function mapDispatchToProps(dispatch): DispatchProps {
     return {
-        getAllUsers: () => dispatch(actions.getAllUsers),
+        getAllUsers: () => dispatch(actions.getAllUsers()),
     };
 }
 

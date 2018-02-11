@@ -1,62 +1,60 @@
-import * as constants from "../constants";
 import axios from "axios";
-import { throwError } from "./Errors";
+import * as constants from "../constants";
 import { Pictures } from "../types/";
+import { throwError } from "./Errors";
 
 export interface GetPictures {
-	type: constants.GET_PICTURES;
-	pictures: Pictures;
-	page: number;
+    type: constants.GET_PICTURES;
+    pictures: Pictures;
+    page: number;
 }
 
 export interface GetPicturesFromUser {
-	type: constants.GET_PICTURES_USER;
-	pictures: Pictures;
-	page: number
+    type: constants.GET_PICTURES_USER;
+    pictures: Pictures;
+    page: number;
 }
 
 export type PicturesPanelAction = GetPictures | GetPicturesFromUser;
 
-function getPictures(pictures, page) : GetPictures {
-	return {
-		type: "GET_PICTURES",
-		pictures,
-		page,
-	};
+function getPictures(pictures, page): GetPictures {
+    return {
+        page,
+        pictures,
+        type: "GET_PICTURES",
+    };
 }
 
-function getPicturesFromUser(pictures, page) : GetPicturesFromUser {
-	return {
-		type: "GET_PICTURES_USER",
-		pictures,
-		page,
-	};
+function getPicturesFromUser(pictures, page): GetPicturesFromUser {
+    return {
+        page,
+        pictures,
+        type: "GET_PICTURES_USER",
+    };
 }
-
-// API
 
 function fetchAllPictures(page, perPage) {
-	return axios.get(`http://api.ugram.net/pictures?page=${page}&perPage=${perPage}`);
+    return axios.get(`http://api.ugram.net/pictures?page=${page}&perPage=${perPage}`);
 }
 
 function fetchAllPicturesFromUser(page, perPage, userId) {
-	return axios.get(`http://api.ugram.net/users/${userId}/pictures?page=${page}&perPage=${perPage}`);
+    return axios.get(`http://api.ugram.net/users/${userId}/pictures?page=${page}&perPage=${perPage}`);
 }
 
 export function getAllPictures(page, perPage) {
-	return function (dispatch) {
-		return fetchAllPictures(page, perPage).then(
-			pictures => dispatch(getPictures(pictures, page)),
-			error => dispatch(throwError("Get all pictures", error))
-		);
-	};
+    return function (dispatch) {
+        return fetchAllPictures(page, perPage).then(
+            pictures => dispatch(getPictures(pictures, page)),
+            error => dispatch(throwError("Get all pictures", error))
+        );
+    };
 }
 
 export function getAllPicturesFromUser(page, perPage, userId) {
-	return function (dispatch) {
-		return fetchAllPicturesFromUser(page, perPage, userId).then(
-			pictures => dispatch(getPicturesFromUser(pictures, page)),
-			error => dispatch(throwError("Get all pictures from user", error))
-		);
-	};
+    return function (dispatch) {
+        return fetchAllPicturesFromUser(page, perPage, userId).then(
+            pictures => dispatch(getPicturesFromUser(pictures, page)),
+            error => dispatch(throwError("Get all pictures from user", error))
+        );
+    };
 }
