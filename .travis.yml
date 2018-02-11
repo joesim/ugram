@@ -32,6 +32,7 @@ deploy:
     on:
       repo: GLO3112-H18/ugram-team-06
       condition: $TRAVIS_BRANCH == "master" || $TRAVIS_BRANCH == "dev"
+      branch: $TRAVIS_BRANCH
 
 notifications:
   slack:
