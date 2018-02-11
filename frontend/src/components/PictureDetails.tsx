@@ -66,7 +66,7 @@ class PictureDetails extends React.Component<any, any> {
 
 		return (
             <Dialog
-                title="Picture details"
+                title={this.props.picture.description}
                 actions={actions}
                 autoScrollBodyContent={true}
                 contentStyle={{
