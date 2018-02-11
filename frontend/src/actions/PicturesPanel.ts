@@ -1,16 +1,17 @@
 import * as constants from "../constants";
 import axios from "axios";
 import { throwError } from "./Errors";
+import { Pictures } from "../types/";
 
 export interface GetPictures {
 	type: constants.GET_PICTURES;
-	pictures: object;
+	pictures: Pictures;
 	page: number;
 }
 
 export interface GetPicturesFromUser {
 	type: constants.GET_PICTURES_USER;
-	pictures: object;
+	pictures: Pictures;
 	page: number
 }
 

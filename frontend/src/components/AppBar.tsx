@@ -21,7 +21,7 @@ const AppBarUgram = ({ appbar, onFileUploadModalClick }: any) => {
         const link = "/users/" + window.localStorage.getItem("userId-06");
         userConnected = <Link to={link}><FontIcon className="material-icons items-navbar">person</FontIcon></Link>
         uploadImage = (
-                <IconButton onClick={onFileUploadModalClick}>
+                <IconButton onClick={onFileUploadModalClick} className="upload">
                     <FontIcon onLeftIconButtonClick="" className="material-icons items-navbar">file_upload</FontIcon>
                 </IconButton>
             );
