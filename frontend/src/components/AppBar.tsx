@@ -12,9 +12,11 @@ const stle = {
 const AppBarUgram = ({ appbar, onLeftIconButtonClick }: any) => {
 
     let userConnected = null
+    let uploadImage = null
     if (window.localStorage.getItem("userId-06")!==null){
         const link = "/users/" + window.localStorage.getItem("userId-06");
         userConnected = <Link to={link}><FontIcon className="material-icons items-navbar">person</FontIcon></Link>
+        uploadImage = <FontIcon onLeftIconButtonClick="" className="material-icons items-navbar">file_upload</FontIcon>
     }
 
     return (
@@ -25,6 +27,7 @@ const AppBarUgram = ({ appbar, onLeftIconButtonClick }: any) => {
                     <div>
                     <Link to="/users"><FontIcon className="material-icons items-navbar">group</FontIcon></Link>
                     {userConnected}
+                    {uploadImage}
                     </div>
                 </div>
             </div>
