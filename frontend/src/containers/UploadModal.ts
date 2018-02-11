@@ -12,7 +12,7 @@ export function mapStateToProps({ appbar }, props: StoreState) {
 
 export function mapDispatchToProps(dispatch: Dispatch<actions.AppBarAction>) {
     return {
-        onTest: () => console.log("test"),
+        onTest: () => console.log("test1"),
     };
 }
 
