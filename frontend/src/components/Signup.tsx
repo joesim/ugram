@@ -5,7 +5,6 @@ import RaisedButton from "material-ui/RaisedButton";
 class Signup extends React.Component<any, any> {
 	public constructor(props) {
 		super(props);
-		console.log(this.props);
 
 		// this.props.signupUser(formData);
 		this.state = {
