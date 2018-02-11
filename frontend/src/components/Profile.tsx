@@ -28,7 +28,13 @@ class Profile extends React.Component<Props, any> {
     }
 
     public componentDidMount() {
-        this.props.fetchData(this.props.match.params.id)
+        this.props.fetchData(this.props.match.params.id);
+    }
+
+    public componentWillReceiveProps(nextProps) {
+        if (this.props.match.params.id !== nextProps.match.params.id) {
+            this.props.fetchData(nextProps.match.params.id);
+        }
     }
 
     public render() {

@@ -6,6 +6,7 @@
   "scripts": {
     "build": "webpack --env.dev",
     "build_travis": "webpack --env.production",
+    "lint": "tslint --project tsconfig.json",
     "start": "webpack-dev-server --env.dev",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
@@ -13,6 +14,9 @@
   "author": "wfortin & vseguin",
   "license": "MIT",
   "devDependencies": {
+    "@storybook/addon-actions": "^3.3.11",
+    "@storybook/addon-links": "^3.3.11",
+    "@storybook/addons": "^3.3.11",
     "@storybook/react": "^3.3.11",
     "@types/node": "8.5.5",
     "@types/react": "16.0.34",
@@ -33,10 +37,7 @@
     "uglifyjs-webpack-plugin": "^1.1.6",
     "webpack": "3.10.0",
     "webpack-dev-server": "2.9.7",
-    "webpack-stream": "4.0.0",
-    "@storybook/addon-actions": "^3.3.11",
-    "@storybook/addon-links": "^3.3.11",
-    "@storybook/addons": "^3.3.11"
+    "webpack-stream": "4.0.0"
   },
   "dependencies": {
     "axios": "^0.17.1",

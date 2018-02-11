@@ -44,7 +44,7 @@ class PictureDetails extends React.Component<any, any> {
 			tags: this.props.picture.tags,
 			description: document.getElementById("description")["value"],
 		};
-
+		this.props.picture.description = data.description;
 		this.props.editPicture(this.state.userId, this.props.picture.id, data, this.state.userToken);
 	}
 
@@ -204,6 +204,7 @@ class PictureDetails extends React.Component<any, any> {
 			<Dialog
 				title="Picture details"
 				actions={actions}
+				autoScrollBodyContent={true}
 				contentStyle={{
 					width: "100%",
 					maxWidth: "none",

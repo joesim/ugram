@@ -2,10 +2,10 @@ import * as constants from "../constants";
 
 export interface StoreState {
     appbar: {
-        menu: {
+        uploadModal: {
             isVisible: boolean;
-        };
-    }
+        },
+    };
     routing: {
         location: any;
     };
