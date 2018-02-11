@@ -40,8 +40,21 @@ export default class UploadModal extends React.Component<IComponentNameProps, an
         this.props.onTest();
       }
 
-    public handleSubmit = () => {
-        console.log("hello")
+    public uploadImage = (e) => {
+        console.log(e.target.files[0]);
+    }
+
+    public setDescription = (e) => {
+        this.state.pictureModel.description = e.target.value;
+    }
+
+    public setMentions = (e) => {
+        this.state.pictureModel.mentions = e.target.value.split(" ");
+    }
+
+    public setTags = (e) => {
+        this.state.pictureModel.tags = e.target.value.split(" ");
+        console.log(this.state.pictureModel);
     }
 
     public render(): JSX.Element {
@@ -57,7 +70,7 @@ export default class UploadModal extends React.Component<IComponentNameProps, an
                 <FlatButton
                   label="Submit"
                   primary={true}
-                  onClick={this.handleSubmit}
+                  onClick={this.uploadImage}
                 />
             ),
         ];
@@ -70,18 +83,28 @@ export default class UploadModal extends React.Component<IComponentNameProps, an
               open={this.props.visibility}
               autoScrollBodyContent={true}
             >
-                <Avatar icon={<FileUpload />} />
+                <input
+                    type="file"
+                    name="fileName"
+                    defaultValue="fileName"
+                    onChange={this.uploadImage}
+                />
+
                 <br />
                 <TextField
                     hintText="Descriptions"
                     multiLine="true"
-                    id="description-"
+                    onChange={this.setDescription}
                 />
+                <br />
                 <TextField
                     hintText="Mentions"
+                    onChange={this.setMentions}
                 />
+                <br />
                 <TextField
                     hintText="Tags"
+                    onChange={this.setTags}
                 />
             </Dialog>
         );
