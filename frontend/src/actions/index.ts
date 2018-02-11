@@ -5,6 +5,7 @@ import {getAllPictures, getAllPicturesFromUser, PicturesPanelAction} from "./Pic
 import {editProfile, ProfilePanelActions} from "./Profile";
 import {SignupAction, signupUser} from "./Signup";
 import {UploadModalAction, uploadPicture} from "./UploadModal";
+import {getAllUsers} from "./Users";
 
 export { AppBarAction, editProfile, setVisibilityUploadModal, ProfilePanelActions, HomeAction,
          PicturesPanelAction, getAllPictures, SignupAction, signupUser, PictureDetailsAction,
