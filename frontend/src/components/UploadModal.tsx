@@ -68,13 +68,9 @@ export default class UploadModal extends React.Component<IProps, any> {
             tags: this.state.tags,
 
         };
-        const pictureModelFormData = new FormData();
-        pictureModelFormData.append("description", this.state.description);
-        pictureModelFormData.append("mentions", this.state.mentions);
-        pictureModelFormData.append("tags", this.state.tags);
         const file = this.state.file;
         this.handleClose();
-        this.props.submitImage(pictureModelFormData, file);
+        this.props.submitImage(pictureModel, file);
     }
 
     public render(): JSX.Element {
