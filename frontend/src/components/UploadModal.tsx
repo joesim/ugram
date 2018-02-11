@@ -11,15 +11,38 @@ interface IComponentNameProps {
     visibilityFunc: any;
     onTest: any;
 }
+interface IPictureModel {
+    description: string;
+    mentions: string[];
+    tags: string[];
+}
 
 export default class UploadModal extends React.Component<IComponentNameProps, any> {
+    private userId: string;
+    private pictureModel: IPictureModel;
+    private description: string;
+    private mentions: string[];
+    private tags: string[];
+
     constructor(props: IComponentNameProps) {
         super(props);
+        this.state = {
+            pictureModel: {
+                description: "",
+                mentions: [],
+                tags: [],
+            },
+            userId: window.localStorage.getItem("userId-06"),
+        };
     }
     public handleClose = () => {
         this.props.visibilityFunc();
         this.props.onTest();
       }
+
+    public handleSubmit = () => {
+        console.log("hello")
+    }
 
     public render(): JSX.Element {
         const actions = [
@@ -34,8 +57,7 @@ export default class UploadModal extends React.Component<IComponentNameProps, an
                 <FlatButton
                   label="Submit"
                   primary={true}
-                  disabled={true}
-                  onClick={this.handleClose}
+                  onClick={this.handleSubmit}
                 />
             ),
         ];
@@ -52,6 +74,8 @@ export default class UploadModal extends React.Component<IComponentNameProps, an
                 <br />
                 <TextField
                     hintText="Descriptions"
+                    multiLine="true"
+                    id="description-"
                 />
                 <TextField
                     hintText="Mentions"
