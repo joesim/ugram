@@ -10,11 +10,12 @@ import Profile from "./containers/Profile";
 import Signup from "./containers/Signup";
 import AppBarUgram from "./containers/AppBar";
 import Users from "./containers/Users";
-
-
+import ErrorModal from "./containers/ErrorModal";
 
 import {render} from "react-dom";
 import {connect, Provider} from "react-redux";
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import {orange600} from 'material-ui/styles/colors';
 
 import {BrowserRouter, HashRouter, Route, Switch, Redirect} from "react-router-dom";
 
@@ -24,8 +25,10 @@ import { isUndefined } from "util";
 
 require("../scss/app.scss");
 
+let token =  window.localStorage.getItem("token-06");
+
 const PrivateRoute = ({ component: Component, ...rest }) => {
-    let token = window.localStorage.getItem("token-06");
+    token = window.localStorage.getItem("token-06");
     return (
     <Route {...rest} render={(props) => (
         token !== null
@@ -35,21 +38,28 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
     )
 };
 
+const  muiTheme = getMuiTheme({
+	fontFamily: 'Roboto, sans-serif',
+	palette: {
+		primary1Color: orange600,
+	},
+});
+
 ReactDOM.render(
     <Provider store={store}>
-        <MuiThemeProvider>
+        <MuiThemeProvider  muiTheme={muiTheme}>
             <div>
+                <ErrorModal/>
                 <BrowserRouter>
                     <HashRouter>
                         <div>
-                            <AppBarUgram/>
+                            <AppBarUgram currentUser={token}/>
                             <Switch>
                                 <PrivateRoute exact={true} path="/" title={"Home"} component={Home}/>
                                 <PrivateRoute path="/pictures" title={"Pictures"} component={Pictures}/>
-                                <PrivateRoute path="/profile" title={"Profile"} component={Profile}/>
+                                <PrivateRoute path="/users/:id" title={"User profile"} component={Profile}/>
+                                <PrivateRoute path="/users" title={"Users"} component={Users}/>
                                 <Route path="/signup" title={"Signup"} render={(props) => <Signup/>}/>
-                                <Route path="/users/:id" title={"User profile"} component={Profile}/>
-                                <Route path="/users" title={"Users"} render={(props) => <Users/>}/>
                                 <Route component={Page404}/>
                             </Switch>
                         </div>

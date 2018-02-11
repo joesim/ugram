@@ -20,24 +20,17 @@ class PicturesPanel extends React.Component<Props, any> {
 			perPage: 20,
 			loading: "hidden",
 			open: false,
+			userId: null,
 			pictureDetails: null,
 		}
 		this.handleOnScroll = this.handleOnScroll.bind(this);
 		this.getColumnPictures = this.getColumnPictures.bind(this);
 		this.openDialog = this.openDialog.bind(this);
 		this.closeDialog = this.closeDialog.bind(this);
+		this.props.pictures_panel.pictures = [];
 	}
 
 	public componentDidMount() {
-		if (isUndefined(this.props.userId)) {
-			this.setState((prevState) => {
-				return {page: prevState.page + 1}
-			});
-			this.props.getAllPictures(this.state.page, this.state.perPage)
-		}
-		else {
-			this.props.getAllPicturesFromUser(this.state.page, this.state.perPage, this.props.userId)
-		}
 		window.addEventListener("scroll", this.handleOnScroll);
 	}
 
@@ -67,11 +60,17 @@ class PicturesPanel extends React.Component<Props, any> {
 		let clientHeight = document.documentElement.clientHeight || window.innerHeight;
 		let scrolledToBottom = Math.ceil(scrollTop + clientHeight) >= scrollHeight;
 
-		if (scrolledToBottom) {
+		if (scrolledToBottom && this.props.userId === this.state.userId) {
 			this.setState((prevState) => {
 				return {page: prevState.page + 1}
 			});
-			this.props.getAllPictures(this.state.page, this.state.perPage)
+
+			if (isUndefined(this.props.userId)) {
+				this.props.getAllPictures(this.state.page, this.state.perPage)
+			}
+			else {
+				this.props.getAllPicturesFromUser(this.state.page, this.state.perPage, this.props.userId)
+			}
 			this.setState({loading: ""});
 			setTimeout(() => {
 				this.setState({loading: "hidden"})
@@ -98,6 +97,17 @@ class PicturesPanel extends React.Component<Props, any> {
 	}
 
 	public render() {
+		if (this.props.userId !== this.state.userId) {
+			this.props.pictures_panel.pictures = [];
+			this.setState({page: 0, userId: this.props.userId});
+			if (isUndefined(this.props.userId)) {
+				this.props.getAllPictures(0, this.state.perPage)
+			}
+			else {
+				this.props.getAllPicturesFromUser(0, this.state.perPage, this.props.userId)
+			}
+		}
+
 		let pictures = [];
 
 		this.props.pictures_panel.pictures.forEach((pic, index) => {

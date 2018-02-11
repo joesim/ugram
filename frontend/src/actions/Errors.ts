@@ -1,14 +1,14 @@
 import * as constants from "../constants";
 
-interface FetchError {
-	type: constants.FETCH_ERROR;
+interface ThrowError {
+	type: constants.THROW_ERROR;
 	customMessage: string;
 	error: object;
 }
 
-export function fetchError(customMessage, error) : FetchError {
+export function throwError(customMessage, error) : ThrowError {
 	return {
-		type: constants.FETCH_ERROR,
+		type: constants.THROW_ERROR,
 		customMessage,
 		error,
 	};

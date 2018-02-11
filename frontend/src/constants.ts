@@ -9,17 +9,14 @@ export type EDIT_PROFILE = typeof EDIT_PROFILE;
 export const GET_USER = "GET_USER";
 export type GET_USER = typeof GET_USER;
 
-export const PROFILE_HAS_ERRORED = "PROFILE_HAS_ERRORED";
-export type PROFILE_HAS_ERRORED = typeof PROFILE_HAS_ERRORED
-
 export const PROFILE_FETCH_DATA_SUCCESS = "PROFILE_FETCH_DATA_SUCCESS";
 export type PROFILE_FETCH_DATA_SUCCESS = typeof PROFILE_FETCH_DATA_SUCCESS;
 
 export const RECEIVE_USERS = "RECEIVE_USERS";
 export type RECEIVE_USERS = typeof RECEIVE_USERS;
 
-export const FETCH_ERROR = "FETCH_ERROR";
-export type FETCH_ERROR = typeof FETCH_ERROR;
+export const THROW_ERROR = "THROW_ERROR";
+export type THROW_ERROR = typeof THROW_ERROR;
 
 export const GET_PICTURES = "GET_PICTURES";
 export type GET_PICTURES = typeof GET_PICTURES;

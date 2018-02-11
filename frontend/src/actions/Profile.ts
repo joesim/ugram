@@ -1,27 +1,13 @@
 import * as constants from "../constants";
 import axios from "axios";
-
-export interface ProfileError {
-	type: constants.PROFILE_HAS_ERRORED,
-	hasErrored: boolean,
-	errorMessage: string
-}
+import { throwError } from "./Errors";
 
 export interface ProfileSuccess {
 	type: constants.PROFILE_FETCH_DATA_SUCCESS,
 	user: object
 }
 
-export type ProfilePanelActions = ProfileError | ProfileSuccess;
-
-
-function profileHasErrored(bool: boolean, customMessage:string) {
-	return {
-        type: constants.PROFILE_HAS_ERRORED,
-		hasErrored: bool,
-		errorMessage: customMessage
-    };
-}
+export type ProfilePanelActions = ProfileSuccess;
 
 function profileFetchDataSuccess(user: Object) {
 	return {
@@ -37,7 +23,7 @@ export function profileFetchData(id: string) {
 			dispatch(profileFetchDataSuccess(response.data))
 		})
 		.catch((error) => {
-			dispatch(profileHasErrored(true, "Sorry! There was an error fetching this profile."));
+			dispatch(throwError("Sorry! There was an error fetching this profile.", error));
 		});
 	};
 }
@@ -56,7 +42,7 @@ export function editProfile(id: string, user: Object) {
 			dispatch(profileFetchDataSuccess(response.data))
 		})
 		.catch((error) => {
-			dispatch(profileHasErrored(true, "Sorry! There was an error editing this profile."));
+			dispatch(throwError("Sorry! There was an error editing this profile.", error));
 		});
 	};
 }
