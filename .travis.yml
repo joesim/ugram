@@ -31,7 +31,8 @@ deploy:
     acl: bucket_owner_full_control
     on:
       repo: GLO3112-H18/ugram-team-06
-      branch: $CURRENT_BRANCH
+      condition: $TRAVIS_BRANCH == "master" || $TRAVIS_BRANCH == "dev"
+      branch: $TRAVIS_BRANCH
 
 notifications:
   slack:
