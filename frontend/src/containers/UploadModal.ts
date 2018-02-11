@@ -12,7 +12,7 @@ export function mapStateToProps({ appbar }, props: StoreState) {
 
 export function mapDispatchToProps(dispatch: Dispatch<actions.UploadModalAction>) {
     return {
-        submitImage: (pictureModel, file) =>  dispatch(actions.upload(pictureModel, file)),
+        submitImage: (pictureModel, file) =>  dispatch(actions.uploadPicture(pictureModel, file)),
     };
 }
 

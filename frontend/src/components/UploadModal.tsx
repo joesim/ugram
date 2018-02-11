@@ -69,6 +69,7 @@ export default class UploadModal extends React.Component<IProps, any> {
 
         };
         const file = this.state.file;
+        this.handleClose();
         this.props.submitImage(pictureModel, file);
     }
 
@@ -113,12 +114,12 @@ export default class UploadModal extends React.Component<IProps, any> {
                 />
                 <br />
                 <TextField
-                    hintText="Mentions"
+                    hintText="Mentions separate by space"
                     onChange={this.setMentions}
                 />
                 <br />
                 <TextField
-                    hintText="Tags"
+                    hintText="Tags separate by space"
                     onChange={this.setTags}
                 />
             </Dialog>

@@ -8,16 +8,10 @@ export interface UploadPicture {
 
 export type UploadModalAction = UploadPicture;
 
-function uploadPicture(): UploadPicture {
+function uploadedPicture(): UploadPicture {
     return {
         type: "UPLOAD_PICTURE",
     };
-}
-
-function setUpApi() {
-    const token = window.localStorage.getItem("token-06");
-    const bearerToken = `Bearer ${token}`;
-    axios.defaults.headers.post["Content-Type"] = "multipart/form-data";
 }
 
 function postPicture(userId, data, token) {
@@ -26,17 +20,30 @@ function postPicture(userId, data, token) {
     return axios.post(`http://api.ugram.net/users/${userId}/pictures/`, data);
 }
 
-export function upload(pictureModel, file) {
+export function uploadPicture(pictureModel, file) {
     const data = new FormData();
     const userId = window.localStorage.getItem("userId-06");
     const token = window.localStorage.getItem("token-06");
-    data.append("userId", userId);
-    data.append("file", file);
 
+    data.append("file", file);
+    data.append("pictureModel", "description");
+    data.append("pictureModel", "mentions");
+    data.append("pictureModel", "tags");
+    data.append("description", pictureModel.description);
+
+    pictureModel.mentions.forEach((mention) => {
+        data.append("mentions", mention);
+    });
+
+    pictureModel.tags.forEach((tag) => {
+        data.append("tags", tag);
+    });
+
+    data.append("pictureModel", pictureModel);
     return (dispatch) => {
         return postPicture(userId, data, token).then(
-            () => console.log("succes"),
-            (error) => console.log("erreur"),
+            () => dispatch(uploadedPicture()),
+            (error) => dispatch(throwError("Upload picture", error)),
         );
     };
 }
