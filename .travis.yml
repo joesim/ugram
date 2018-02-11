@@ -19,22 +19,19 @@ script:
 before_deploy:
 - if [ "$TRAVIS_BRANCH" = "dev" ]; then source ../.env-dev.sh; fi
 - if [ "$TRAVIS_BRANCH" = "master" ]; then source ../.env-master.sh; fi
-- env
 
 deploy:
   - provider: s3
     skip_cleanup: true
     detect_encoding: true
     access_key_id: $ACCESS_KEY_ID_current
-    secret_access_key:
-      secure: $SECRET_ACCESS_KEY_current
+    secret_access_key: $SECRET_ACCESS_KEY_current
     bucket: $BUCKET_current
     local-dir: build
     acl: bucket_owner_full_control
     on:
       repo: GLO3112-H18/ugram-team-06
       branch: $TRAVIS_BRANCH
-
 
 notifications:
   slack:
