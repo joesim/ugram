@@ -6,10 +6,10 @@ import FileUpload from "material-ui/svg-icons/file/file-upload";
 import TextField from "material-ui/TextField";
 import * as React from "react";
 
-interface IComponentNameProps {
+interface IProps {
     visibility: boolean;
     visibilityFunc: any;
-    onTest: any;
+    submitImage: any;
 }
 interface IPictureModel {
     description: string;
@@ -17,44 +17,59 @@ interface IPictureModel {
     tags: string[];
 }
 
-export default class UploadModal extends React.Component<IComponentNameProps, any> {
-    private userId: string;
-    private pictureModel: IPictureModel;
-    private description: string;
-    private mentions: string[];
-    private tags: string[];
-
-    constructor(props: IComponentNameProps) {
+export default class UploadModal extends React.Component<IProps, any> {
+    constructor(props: IProps) {
         super(props);
         this.state = {
-            pictureModel: {
-                description: "",
-                mentions: [],
-                tags: [],
-            },
+            description: "",
+            file: File,
+            mentions: [],
+            tags: [],
             userId: window.localStorage.getItem("userId-06"),
         };
     }
+
     public handleClose = () => {
+
         this.props.visibilityFunc();
-        this.props.onTest();
       }
 
     public uploadImage = (e) => {
-        console.log(e.target.files[0]);
+        this.setState({
+            file: e.target.files[0],
+        });
     }
 
     public setDescription = (e) => {
-        this.state.pictureModel.description = e.target.value;
+        this.setState({
+            description: e.target.value,
+        });
+
     }
 
     public setMentions = (e) => {
-        this.state.pictureModel.mentions = e.target.value.split(" ");
+        this.setState({
+            mentions: e.target.value.split(" "),
+        });
+
     }
 
     public setTags = (e) => {
-        this.state.pictureModel.tags = e.target.value.split(" ");
-        console.log(this.state.pictureModel);
+        this.setState({
+            tags: e.target.value.split(" "),
+        });
+
+    }
+
+    public submitImage = () => {
+        const pictureModel: IPictureModel = {
+            description: this.state.description,
+            mentions: this.state.mentions,
+            tags: this.state.tags,
+
+        };
+        const file = this.state.file;
+        this.props.submitImage(pictureModel, file);
     }
 
     public render(): JSX.Element {
@@ -70,7 +85,7 @@ export default class UploadModal extends React.Component<IComponentNameProps, an
                 <FlatButton
                   label="Submit"
                   primary={true}
-                  onClick={this.uploadImage}
+                  onClick={this.submitImage}
                 />
             ),
         ];

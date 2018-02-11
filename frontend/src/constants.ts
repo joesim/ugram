@@ -30,3 +30,6 @@ export type DELETE_PICTURE = typeof DELETE_PICTURE;
 
 export const UPDATE_PICTURE = "UPDATE_PICTURE";
 export type UPDATE_PICTURE = typeof UPDATE_PICTURE;
+
+export const UPLOAD_PICTURE = "UPLOAD_PICTURE";
+export type UPLOAD_PICTURE = typeof UPLOAD_PICTURE;

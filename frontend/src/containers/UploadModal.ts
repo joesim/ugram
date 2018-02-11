@@ -10,9 +10,9 @@ export function mapStateToProps({ appbar }, props: StoreState) {
     };
 }
 
-export function mapDispatchToProps(dispatch: Dispatch<actions.AppBarAction>) {
+export function mapDispatchToProps(dispatch: Dispatch<actions.UploadModalAction>) {
     return {
-        onTest: () => console.log("test1"),
+        submitImage: (pictureModel, file) =>  dispatch(actions.upload(pictureModel, file)),
     };
 }
 
