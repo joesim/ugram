@@ -1,5 +1,5 @@
 import { PictureDetailsAction } from "../actions";
-import { UPDATE_PICTURE, DELETE_PICTURE, THROW_ERROR } from "../constants"
+import { DELETE_PICTURE, THROW_ERROR, UPDATE_PICTURE } from "../constants";
 
 const initialState = {
     error: null,

@@ -39,5 +39,5 @@ export interface Pictures {
         items: Picture[];
         totalPages: string;
         totalEntries: number;
-    }
+    };
 }

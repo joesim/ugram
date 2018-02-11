@@ -1,20 +1,20 @@
-import * as React from 'react';
-import Dialog from 'material-ui/Dialog';
-import FlatButton from 'material-ui/FlatButton';
-import RaisedButton from 'material-ui/RaisedButton';
-import FontIcon from 'material-ui/FontIcon';
-import TextField from 'material-ui/TextField';
+import Dialog from "material-ui/Dialog";
+import FlatButton from "material-ui/FlatButton";
+import FontIcon from "material-ui/FontIcon";
+import RaisedButton from "material-ui/RaisedButton";
+import TextField from "material-ui/TextField";
+import * as React from "react";
 
 interface Props {
-  editProfile: any,
+  editProfile: any;
   user: {
     firstName: string,
     lastName: string,
     id: string,
     pictureUrl: string,
     phoneNumber: string,
-    email: string
-  }
+    email: string,
+  };
 }
 
 export default class DialogEdit extends React.Component<any, any> {
@@ -26,74 +26,80 @@ export default class DialogEdit extends React.Component<any, any> {
         email: this.props.user.email,
         firstName: this.props.user.firstName,
         lastName: this.props.user.lastName,
-        phoneNumber: this.props.user.phoneNumber
-      }
-    }
+        phoneNumber: this.props.user.phoneNumber,
+      },
+    };
   }
 
-  handleOpen = () => {
+  public handleOpen = () => {
     this.setState({ open: true });
-  };
+  }
 
-  handleClose = () => {
+  public handleClose = () => {
     this.setState({ open: false });
-  };
+  }
 
-  handleSubmit = () => {
+  public handleSubmit = () => {
     this.setState({ open: false });
     this.props.onSubmit(this.props.user.id, this.state.user);
   }
 
-  handleChangeEmail = (event) => {
+  public handleChangeEmail = (event) => {
     const user = this.state.user;
     user.email = event.target.value;
     this.setState({
       user,
     });
-  };
+  }
 
-  handleChangeFirstName = (event) => {
+  public handleChangeFirstName = (event) => {
     const user = this.state.user;
     user.firstName = event.target.value;
     this.setState({
       user,
     });
-  };
+  }
 
-  handleChangeLastName = (event) => {
+  public handleChangeLastName = (event) => {
     const user = this.state.user;
     user.lastName = event.target.value;
     this.setState({
       user,
     });
-  };
+  }
 
-  handleChangePhoneNumber = (event) => {
+  public handleChangePhoneNumber = (event) => {
     const user = this.state.user;
     user.phoneNumber = event.target.value;
     this.setState({
       user,
     });
-  };
+  }
 
-  render() {
+  public render() {
     const actions = [
-      <FlatButton
-        label="Cancel"
-        primary={true}
-        onClick={this.handleClose}
-      />,
-      <FlatButton
-        label="Submit"
-        primary={true}
-        keyboardFocused={true}
-        onClick={this.handleSubmit}
-      />,
+        (
+        <FlatButton
+            key={1}
+            label="Cancel"
+            primary={true}
+            onClick={this.handleClose}
+        />
+        ),
+        (
+        <FlatButton
+            key={2}
+            label="Submit"
+            primary={true}
+            keyboardFocused={true}
+            onClick={this.handleSubmit}
+        />
+        ),
     ];
 
     const styleDialog = {
-      maxWidth: "600px"
-    }
+      maxWidth: "600px",
+    };
 
     return (
       <div>

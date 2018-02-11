@@ -1,27 +1,27 @@
-import * as React from "react";
-import PropTypes from "prop-types";
-import FlatButton from "material-ui/FlatButton";
-import Dialog from "material-ui/Dialog";
-import TextField from "material-ui/TextField";
-import RaisedButton from "material-ui/RaisedButton";
-import DropDownMenu from "material-ui/DropDownMenu";
-import MenuItem from "material-ui/MenuItem";
 import DatePicker from "material-ui/DatePicker";
-import FloatingActionButton from 'material-ui/FloatingActionButton';
-import ContentAdd from 'material-ui/svg-icons/content/add';
+import Dialog from "material-ui/Dialog";
+import DropDownMenu from "material-ui/DropDownMenu";
+import FlatButton from "material-ui/FlatButton";
+import FloatingActionButton from "material-ui/FloatingActionButton";
+import MenuItem from "material-ui/MenuItem";
+import RaisedButton from "material-ui/RaisedButton";
+import ContentAdd from "material-ui/svg-icons/content/add";
+import TextField from "material-ui/TextField";
+import PropTypes from "prop-types";
+import * as React from "react";
 
 class PictureDetails extends React.Component<any, any> {
     constructor(props) {
         super(props);
 
         this.state = {
+	        display: "image",
+	        mentions: [],
+	        open: false,
+	        tags: [],
             userId: window.localStorage.getItem("userId-06"),
-            display: "image",
-            mentions: [],
-            tags: [],
-            open: false,
             value: [],
-        }
+        };
 
         this.displayImage = this.displayImage.bind(this);
         this.displayInfos = this.displayInfos.bind(this);
@@ -33,15 +33,67 @@ class PictureDetails extends React.Component<any, any> {
         this.deletePicture = this.deletePicture.bind(this);
     }
 
+	public render() {
+		if (this.props.picture === null) { return <div/>; }
+		const actions = [
+			(
+                <FlatButton
+                    key={1}
+                    label="Image"
+                    primary={true}
+                    disabled={this.state.display === "image"}
+                    onClick={() => {this.setState({display: "image"}); }}
+                />
+			),
+			(
+                <FlatButton
+                    key={2}
+                    label="Infos"
+                    primary={true}
+                    disabled={this.state.display === "infos"}
+                    onClick={() => {this.setState({display: "infos"}); }}
+                />
+			),
+			(
+                <FlatButton
+                    key={3}
+                    label="Close"
+                    primary={true}
+                    onClick={this.props.closeDialog}
+                />
+			),
+		];
+
+		return (
+            <Dialog
+                title="Picture details"
+                actions={actions}
+                autoScrollBodyContent={true}
+                contentStyle={{
+					maxWidth: "none",
+					width: "100%",
+				}}
+                modal={true}
+                open={this.props.open}
+            >
+                <div className="picture-details">
+					{
+						this.displayImage()
+					}
+                </div>
+            </Dialog>
+		);
+	}
+
     private deletePicture() {
         this.props.deletePicture(this.state.userId, this.props.picture.id);
     }
 
     private updatePicture() {
-        let data = {
+        const data = {
+	        description: document.getElementById("dialog")["value"],
             mentions: this.props.picture.mentions,
             tags: this.props.picture.tags,
-            description: document.getElementById("description")["value"],
         };
         this.props.picture.description = data.description;
         this.props.editPicture(this.state.userId, this.props.picture.id);
@@ -49,29 +101,32 @@ class PictureDetails extends React.Component<any, any> {
 
     private dialogMentions() {
         this.setState({
+	        open: true,
             value: this.props.picture.mentions,
-            open: true,
-        })
+        });
     }
 
     private dialogTags() {
         this.setState({
+	        open: true,
             value: this.props.picture.tags,
-            open: true,
-        })
+        });
     }
 
     private addValueDialog() {
-        this.state.value.push(document.getElementById("dialog")["value"])
+        this.state.value.push(document.getElementById("dialog")["value"]);
     }
 
     private displayDialog() {
         const actions = [
-            <FlatButton
-                label="Close"
-                primary={true}
-                onClick={() => {this.setState({open: false})}}
-            />
+            (
+                <FlatButton
+                    key={1}
+                    label="Close"
+                    primary={true}
+                    onClick={() => {this.setState({open: false}); }}
+                />
+            ),
         ];
 
         return (
@@ -84,7 +139,7 @@ class PictureDetails extends React.Component<any, any> {
                     <RaisedButton  primary={true} label="Add" onClick={this.addValueDialog}/>
                 </div>
             </Dialog>
-        )
+        );
     }
 
     private displayInfos() {
@@ -122,7 +177,7 @@ class PictureDetails extends React.Component<any, any> {
                     <DropDownMenu maxHeight={150}>
                         {
                             this.props.picture.mentions.map((mention, index) =>
-                                <MenuItem value={mention} key={index} primaryText={mention}/>
+                                <MenuItem value={mention} key={index} primaryText={mention}/>,
                             )
                         }
                     </DropDownMenu>
@@ -137,7 +192,7 @@ class PictureDetails extends React.Component<any, any> {
                         <DropDownMenu maxHeight={150}>
                             {
                                 this.props.picture.tags.map((tag, index) =>
-                                    <MenuItem value={tag} key={index} primaryText={tag}/>
+                                    <MenuItem value={tag} key={index} primaryText={tag}/>,
                                 )
                             }
                         </DropDownMenu>
@@ -164,60 +219,18 @@ class PictureDetails extends React.Component<any, any> {
                 </div>
                 {this.displayDialog()}
             </div>
-        )
+        );
     }
 
     private displayImage() {
-        if (this.state.display !== "image")
+        if (this.state.display !== "image") {
             return this.displayInfos();
+        }
         return (
             <div className="image">
                 <img src={this.props.picture.url} />
             </div>
-        )
-    }
-
-    public render() {
-        if (this.props.picture === null) return <div/>;
-        const actions = [
-            <FlatButton
-                label="Image"
-                primary={true}
-                disabled={this.state.display === "image"}
-                onClick={() => {this.setState({display: "image"})}}
-            />,
-            <FlatButton
-                label="Infos"
-                primary={true}
-                disabled={this.state.display === "infos"}
-                onClick={() => {this.setState({display: "infos"})}}
-            />,
-            <FlatButton
-                label="Close"
-                primary={true}
-                onClick={this.props.closeDialog}
-            />
-        ];
-
-        return (
-            <Dialog
-                title="Picture details"
-                actions={actions}
-                autoScrollBodyContent={true}
-                contentStyle={{
-                    width: "100%",
-                    maxWidth: "none",
-                }}
-                modal={true}
-                open={this.props.open}
-            >
-                <div className="picture-details">
-                    {
-                        this.displayImage()
-                    }
-                </div>
-            </Dialog>
-        )
+        );
     }
 }
 

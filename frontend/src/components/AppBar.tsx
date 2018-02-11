@@ -6,20 +6,20 @@ import FileUpload from "material-ui/svg-icons/file/file-upload";
 import * as React from "react";
 import UploadModal from "../containers/UploadModal";
 
-import FontIcon from 'material-ui/FontIcon';
+import FontIcon from "material-ui/FontIcon";
+import { Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle } from "material-ui/Toolbar";
 import { Link } from "react-router-dom";
-import { Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle } from 'material-ui/Toolbar';
 const stle = {
-    width: "950px"
-}
+    width: "950px",
+};
 
 const AppBarUgram = ({ appbar, onFileUploadModalClick }: any) => {
 
-    let userConnected = null
-    let uploadImage = null
-    if (window.localStorage.getItem("userId-06")!==null){
+    let userConnected = null;
+    let uploadImage = null;
+    if (window.localStorage.getItem("userId-06") !== null) {
         const link = "/users/" + window.localStorage.getItem("userId-06");
-        userConnected = <Link to={link}><FontIcon className="material-icons items-navbar">person</FontIcon></Link>
+        userConnected = <Link to={link}><FontIcon className="material-icons items-navbar">person</FontIcon></Link>;
         uploadImage = (
                 <IconButton onClick={onFileUploadModalClick} className="upload">
                     <FontIcon onLeftIconButtonClick="" className="material-icons items-navbar">file_upload</FontIcon>

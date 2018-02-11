@@ -15,7 +15,7 @@ function uploadedPicture(): UploadPicture {
 }
 
 function postPicture(userId, data, token) {
-    axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+    axios.defaults.headers.common.Authorization = `Bearer ${token}`;
     axios.defaults.headers.post["Content-Type"] = "multipart/form-data";
     return axios.post(`http://api.ugram.net/users/${userId}/pictures/`, data);
 }

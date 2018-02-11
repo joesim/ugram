@@ -1,4 +1,4 @@
-import { RECEIVE_USERS } from "../constants"
+import { RECEIVE_USERS } from "../constants";
 
 const initialState = {
 	users: [

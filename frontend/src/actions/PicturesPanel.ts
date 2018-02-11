@@ -42,19 +42,19 @@ function fetchAllPicturesFromUser(page, perPage, userId) {
 }
 
 export function getAllPictures(page, perPage) {
-    return function (dispatch) {
+    return (dispatch) => {
         return fetchAllPictures(page, perPage).then(
-            pictures => dispatch(getPictures(pictures, page)),
-            error => dispatch(throwError("Get all pictures", error))
+            (pictures) => dispatch(getPictures(pictures, page)),
+            (error) => dispatch(throwError("Get all pictures", error)),
         );
     };
 }
 
 export function getAllPicturesFromUser(page, perPage, userId) {
-    return function (dispatch) {
+    return (dispatch) => {
         return fetchAllPicturesFromUser(page, perPage, userId).then(
-            pictures => dispatch(getPicturesFromUser(pictures, page)),
-            error => dispatch(throwError("Get all pictures from user", error))
+            (pictures) => dispatch(getPicturesFromUser(pictures, page)),
+            (error) => dispatch(throwError("Get all pictures from user", error)),
         );
     };
 }

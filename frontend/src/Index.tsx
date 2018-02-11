@@ -30,16 +30,18 @@ let token =  window.localStorage.getItem("token-06");
 const PrivateRoute = ({ component: Component, ...rest }) => {
     token = window.localStorage.getItem("token-06");
     return (
-    <Route {...rest} render={(props) => (
+    <Route
+	    {...rest}
+	    render={(props) => (
         token !== null
 			? <Component {...props}  />
-			: <Redirect to='/signup' />
+			: <Redirect to="/signup" />
 	)} />
-    )
+    );
 };
 
 const  muiTheme = getMuiTheme({
-	fontFamily: 'Roboto, sans-serif',
+	fontFamily: "Roboto, sans-serif",
 	palette: {
 		primary1Color: grey800,
 	},

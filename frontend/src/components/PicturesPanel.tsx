@@ -1,7 +1,7 @@
-import * as React from "react";
-import { isUndefined } from "util";
 import Dialog from "material-ui/Dialog";
 import FlatButton from "material-ui/FlatButton";
+import * as React from "react";
+import { isUndefined } from "util";
 import PictureDetails from "../containers/PictureDetails";
 
 interface Props {
@@ -45,9 +45,9 @@ class PicturesPanel extends React.Component<Props, any> {
             this.props.pictures_panel.pictures = [];
             this.setState({page: 0, userId: this.props.userId});
             if (isUndefined(this.props.userId)) {
-                this.props.getAllPictures(0, this.state.perPage)
+                this.props.getAllPictures(0, this.state.perPage);
             } else {
-                this.props.getAllPicturesFromUser(0, this.state.perPage, this.props.userId)
+                this.props.getAllPicturesFromUser(0, this.state.perPage, this.props.userId);
             }
         }
 
@@ -81,9 +81,14 @@ class PicturesPanel extends React.Component<Props, any> {
                     </div>
                 </div>
                 <div className="loader">
-                    <i className="material-icons rotating" style={{
-                        visibility: this.state.loading,
-                    }}>cached</i>
+                    <i
+                        className="material-icons rotating"
+                        style={{
+                            visibility: this.state.loading,
+                        }}
+                    >
+                        cached
+                    </i>
                 </div>
                 <PictureDetails
                     open={this.state.open}
@@ -91,7 +96,7 @@ class PicturesPanel extends React.Component<Props, any> {
                     picture={this.state.pictureDetails}
                 />
             </div>
-        )
+        );
     }
 
     private closeDialog() {
@@ -143,9 +148,9 @@ class PicturesPanel extends React.Component<Props, any> {
 
         for (let i = startInd; i < pictures.length; i += step) {
             column.push(
-                <a onClick={() => {this.openDialog(i)}}>
+                <a onClick={() => {this.openDialog(i); }} >
                     <img className="picture" src={pictures[i].img} onError={this.handleImgError} style={{ width: "100%" }} />
-                </a>
+                </a>,
             );
         }
 

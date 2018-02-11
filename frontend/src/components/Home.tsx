@@ -1,7 +1,7 @@
 import * as React from "react";
 import {
 	HashRouter,
-	Link
+	Link,
 } from "react-router-dom";
 import PicturesPanel from "../containers/PicturesPanel";
 
