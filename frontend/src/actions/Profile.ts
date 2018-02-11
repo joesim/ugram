@@ -18,7 +18,7 @@ function profileFetchDataSuccess(user: Object) {
 
 export function profileFetchData(id: string) {
     return (dispatch) => {
-        axios.get("http://api.ugram.net/users/" + id)
+        axios.get("/users/" + id)
         .then((response) => {
             dispatch(profileFetchDataSuccess(response.data))
         })
@@ -32,10 +32,9 @@ export function profileFetchData(id: string) {
 export function editProfile(id: string, user: Object) {
     return (dispatch) => {
         const data = JSON.stringify(user);
-        axios.put("http://api.ugram.net/users/" + id, data, {
+        axios.put("/users/" + id, data, {
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + window.localStorage.getItem("token-06")
             }
         })
         .then((response) => {

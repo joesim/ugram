@@ -16,7 +16,7 @@ function redirectionToken(tokenUrl): SignupUser {
 }
 
 function fetchSignup(formData) {
-    return axios.post(`http://api.ugram.net/signup`, formData);
+    return axios.post(`/signup`, formData);
 }
 
 export function signupUser(formData) {

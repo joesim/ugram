@@ -34,11 +34,11 @@ function getPicturesFromUser(pictures, page): GetPicturesFromUser {
 }
 
 function fetchAllPictures(page, perPage) {
-    return axios.get(`http://api.ugram.net/pictures?page=${page}&perPage=${perPage}`);
+    return axios.get(`/pictures?page=${page}&perPage=${perPage}`);
 }
 
 function fetchAllPicturesFromUser(page, perPage, userId) {
-    return axios.get(`http://api.ugram.net/users/${userId}/pictures?page=${page}&perPage=${perPage}`);
+    return axios.get(`/users/${userId}/pictures?page=${page}&perPage=${perPage}`);
 }
 
 export function getAllPictures(page, perPage) {
