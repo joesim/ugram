@@ -3,7 +3,7 @@ import Avatar from "material-ui/Avatar";
 import Dialog from "material-ui/Dialog";
 import FileUpload from "material-ui/svg-icons/file/file-upload";
 import * as React from "react";
-import UploadModal from "./UploadModal";
+import UploadModal from "../containers/UploadModal";
 
 import { Link } from "react-router-dom";
 
