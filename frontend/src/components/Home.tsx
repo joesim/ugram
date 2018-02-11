@@ -8,7 +8,9 @@ import PicturesPanel from "../containers/PicturesPanel";
 const Home = ({}) => {
 	return (
 		<div>
+			<div className="container">
 			<PicturesPanel />
+			</div>
 		</div>
 	);
 };
