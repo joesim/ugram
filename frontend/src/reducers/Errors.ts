@@ -1,8 +1,8 @@
-import { THROW_ERROR } from "../constants"
+import { THROW_ERROR } from "../constants";
 
 const initialState = {
 	error: null,
-	errorMessage: null
+	errorMessage: null,
 };
 
 export function errors(state = initialState, action): object {

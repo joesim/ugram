@@ -1,11 +1,11 @@
-import * as React from "react";
 import Avatar from "material-ui/Avatar";
-import RaisedButton from 'material-ui/RaisedButton';
-import FontIcon from 'material-ui/FontIcon';
-import { Card, CardActions, CardHeader, CardText } from 'material-ui/Card';
-import DialogEdit from './DialogEdit';
-import CircularProgress from 'material-ui/CircularProgress';
-import PicturesPanel from '../containers/PicturesPanel';
+import { Card, CardActions, CardHeader, CardText } from "material-ui/Card";
+import CircularProgress from "material-ui/CircularProgress";
+import FontIcon from "material-ui/FontIcon";
+import RaisedButton from "material-ui/RaisedButton";
+import * as React from "react";
+import PicturesPanel from "../containers/PicturesPanel";
+import DialogEdit from "./DialogEdit";
 
 interface Props {
     user: {
@@ -14,12 +14,12 @@ interface Props {
         id: string,
         pictureUrl: string,
         phoneNumber: string,
-        email: string
-    },
-    error: any,
-    fetchData: any,
-    editProfile: any,
-    match: any
+        email: string,
+    };
+    error: any;
+    fetchData: any;
+    editProfile: any;
+    match: any;
 }
 
 class Profile extends React.Component<Props, any> {
@@ -41,17 +41,17 @@ class Profile extends React.Component<Props, any> {
 
         let editButton = null;
         let avatar = null;
-        if (window.localStorage.getItem("userId-06") == this.props.user.id) {
-            editButton = <DialogEdit user={this.props.user} onSubmit={this.props.editProfile} />
+        if (window.localStorage.getItem("userId-06") === this.props.user.id) {
+            editButton = <DialogEdit user={this.props.user} onSubmit={this.props.editProfile} />;
         }
 
         if (this.props.user.pictureUrl != null) {
-            avatar = <Avatar className="ml-15 mr-15 avatarStyle" src={this.props.user.pictureUrl} />
-        } else if (this.props.user.email != undefined) {
-            avatar = <Avatar className="ml-15 mr-15 avatarStyle" src="../../assets/nopic.jpg" />
+            avatar = <Avatar className="ml-15 mr-15 avatarStyle" src={this.props.user.pictureUrl} />;
+        } else if (this.props.user.email !== undefined) {
+            avatar = <Avatar className="ml-15 mr-15 avatarStyle" src="../../assets/nopic.jpg" />;
         }
 
-        if (this.props.match.params.id == this.props.user.id) {
+        if (this.props.match.params.id === this.props.user.id) {
             return (
                 <div className="container mt-25">
                     <div className="flex-container">
@@ -95,6 +95,5 @@ class Profile extends React.Component<Props, any> {
 
     }
 }
-
 
 export default Profile;

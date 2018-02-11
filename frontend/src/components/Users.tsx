@@ -1,11 +1,12 @@
+import Avatar from "material-ui/Avatar";
+import List, { ListItem } from "material-ui/List";
 import * as React from "react";
-import Avatar from 'material-ui/Avatar';
-import List, { ListItem } from 'material-ui/List';
 import { Link } from "react-router-dom";
+import { User } from "../types/";
 
 interface Props {
-    getAllUsers: any,
-    users: any,
+    getAllUsers: () => any;
+    users: User[];
 }
 
 class Users extends React.Component<Props, any> {
@@ -22,13 +23,12 @@ class Users extends React.Component<Props, any> {
             <div className="container">
                 <List>
                     {this.props.users.map((user) =>
-                        <Link className="list-link-style-override" to={`/users/${user.id}`}>
+                        <Link key={user.id} className="list-link-style-override" to={`/users/${user.id}`}>
                             <ListItem
-                                key={user.id}
                                 primaryText={`${user.firstName} ${user.lastName}`}
                                 leftAvatar={<Avatar src={user.pictureUrl} />}
                             />
-                        </Link>
+                        </Link>,
                     )}
                 </List>
             </div>

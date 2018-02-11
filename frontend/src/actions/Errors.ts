@@ -1,15 +1,15 @@
 import * as constants from "../constants";
 
 interface ThrowError {
-	type: constants.THROW_ERROR;
-	customMessage: string;
-	error: object;
+    customMessage: string;
+    error: object;
+    type: constants.THROW_ERROR;
 }
 
-export function throwError(customMessage, error) : ThrowError {
-	return {
-		type: constants.THROW_ERROR,
-		customMessage,
-		error,
-	};
+export function throwError(customMessage, error): ThrowError {
+    return {
+        customMessage,
+        error,
+        type: constants.THROW_ERROR,
+    };
 }
