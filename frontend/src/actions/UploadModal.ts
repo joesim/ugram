@@ -9,12 +9,10 @@ export interface UploadPicture {
 export type UploadModalAction = UploadPicture;
 
 function uploadedPicture(): UploadPicture {
-    console.log("in the function uploadPicture")
     return {
         type: "UPLOAD_PICTURE",
     };
 }
-
 
 function postPicture(userId, data, token) {
     axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;

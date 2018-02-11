@@ -8,7 +8,6 @@ const initialState = {
 export function upload_picture(state = initialState, action): object {
     switch (action.type) {
     case UPLOAD_PICTURE:
-        console.log("upload picture")
         location.reload();
         return { ...state };
     default:
