@@ -24,7 +24,7 @@ function deletedPicture(): DeletedPicture {
     };
 }
 
-export async function editPicture(userId, pictureId, data) {
+export function editPicture(userId, pictureId, data) {
     return async (dispatch) => {
         try {
             const response = axios.put(`/users/${userId}/pictures/${pictureId}`, JSON.stringify(data));
@@ -35,7 +35,7 @@ export async function editPicture(userId, pictureId, data) {
     };
 }
 
-export async function deletePicture(userId, pictureId) {
+export function deletePicture(userId, pictureId) {
     return async (dispatch) => {
         try {
             const response = await axios.delete(`/users/${userId}/pictures/${pictureId}`);

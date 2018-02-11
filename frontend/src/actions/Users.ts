@@ -15,7 +15,7 @@ function receiveAllUsers(users): ReceiveUsers {
     };
 }
 
-export async function getAllUsers() {
+export function getAllUsers() {
     return async (dispatch) => {
         try {
             const response = await axios.get("/users");
