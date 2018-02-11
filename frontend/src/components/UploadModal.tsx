@@ -68,8 +68,13 @@ export default class UploadModal extends React.Component<IProps, any> {
             tags: this.state.tags,
 
         };
+        const pictureModelFormData = new FormData();
+        pictureModelFormData.append("description", this.state.description);
+        pictureModelFormData.append("mentions", this.state.mentions);
+        pictureModelFormData.append("tags", this.state.tags);
         const file = this.state.file;
-        this.props.submitImage(pictureModel, file);
+        this.handleClose();
+        this.props.submitImage(pictureModelFormData, file);
     }
 
     public render(): JSX.Element {
@@ -113,12 +118,12 @@ export default class UploadModal extends React.Component<IProps, any> {
                 />
                 <br />
                 <TextField
-                    hintText="Mentions"
+                    hintText="Mentions separate by space"
                     onChange={this.setMentions}
                 />
                 <br />
                 <TextField
-                    hintText="Tags"
+                    hintText="Tags separate by space"
                     onChange={this.setTags}
                 />
             </Dialog>

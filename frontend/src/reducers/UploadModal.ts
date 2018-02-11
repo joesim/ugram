@@ -5,9 +5,10 @@ const initialState = {
     error: null
 };
 
-export function picture_details(state = initialState, action): object {
+export function upload_picture(state = initialState, action): object {
     switch (action.type) {
     case UPLOAD_PICTURE:
+        console.log("upload picture")
         location.reload();
         return { ...state };
     default:

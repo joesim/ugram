@@ -9,6 +9,7 @@ export interface UploadPicture {
 export type UploadModalAction = UploadPicture;
 
 function uploadedPicture(): UploadPicture {
+    console.log("in the function uploadPicture")
     return {
         type: "UPLOAD_PICTURE",
     };
@@ -27,11 +28,11 @@ export function uploadPicture(pictureModel, file) {
     const token = window.localStorage.getItem("token-06");
     data.append("userId", userId);
     data.append("file", file);
-
+    data.append("pictureModel", pictureModel);
     return (dispatch) => {
         return postPicture(userId, data, token).then(
             () => dispatch(uploadedPicture()),
-            (error) => dispatch(throwError("Delete picture", error)),
+            (error) => dispatch(throwError("Upload picture", error)),
         );
     };
 }
