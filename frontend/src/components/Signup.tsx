@@ -39,12 +39,12 @@ class Signup extends React.Component<any, any> {
     private createUser() {
         const formData = new FormData();
 
-        formData.append("firstName", (document.getElementById("firstname") as HTMLInputElement).value);
-        formData.append("lastName", (document.getElementById("lastname") as HTMLInputElement).value);
-        formData.append("email", (document.getElementById("email") as HTMLInputElement).value);
-        formData.append("phoneNumber", (document.getElementById("number") as HTMLInputElement).value);
-        formData.append("id", (document.getElementById("id") as HTMLInputElement).value);
-        this.setState({ userId: (document.getElementById("id") as HTMLInputElement).value });
+        formData.append("firstName", document.getElementById("firstname")["value"]);
+        formData.append("lastName", document.getElementById("lastname")["value"]);
+        formData.append("email", document.getElementById("email")["value"]);
+        formData.append("phoneNumber", document.getElementById("number")["value"]);
+        formData.append("id", document.getElementById("id")["value"]);
+        this.setState({ userId: document.getElementById("id")["value"]});
 
         this.props.signupUser(formData);
     }

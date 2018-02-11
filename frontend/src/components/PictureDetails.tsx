@@ -91,12 +91,12 @@ class PictureDetails extends React.Component<any, any> {
 
     private updatePicture() {
         const data = {
-	        description: document.getElementById("dialog")["value"],
+	        description: document.getElementById("description")["value"],
             mentions: this.props.picture.mentions,
             tags: this.props.picture.tags,
         };
         this.props.picture.description = data.description;
-        this.props.editPicture(this.state.userId, this.props.picture.id);
+        this.props.editPicture(this.state.userId, this.props.picture.id, data);
     }
 
     private dialogMentions() {

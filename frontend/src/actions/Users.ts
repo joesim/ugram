@@ -18,8 +18,9 @@ function receiveAllUsers(users): ReceiveUsers {
 export function getAllUsers() {
     return async (dispatch) => {
         try {
-            const response = await axios.get("/users");
-            dispatch(receiveAllUsers(response.data));
+            const nbUsers = await axios.get("/users");
+            const data = await axios.get(`/users/?perPage=${nbUsers.data.totalEntries}`);
+            dispatch(receiveAllUsers(data.data));
         } catch (error) {
             dispatch(throwError("Could not get users", error));
         }

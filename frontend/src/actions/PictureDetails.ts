@@ -27,8 +27,8 @@ function deletedPicture(): DeletedPicture {
 export function editPicture(userId, pictureId, data) {
     return async (dispatch) => {
         try {
-            const response = axios.put(`/users/${userId}/pictures/${pictureId}`, JSON.stringify(data));
-            dispatch(updatePicture());
+	        const response = axios.put(`/users/${userId}/pictures/${pictureId}`, JSON.stringify(data));
+	        dispatch(updatePicture());
         } catch (error) {
             dispatch(throwError("Could not delete picture", error));
         }
