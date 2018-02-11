@@ -23,7 +23,6 @@ const AppBarUgram = ({ appbar, onLeftIconButtonClick }: any) => {
                 <div className="container flex-justify-between flex-align-items-center height-100">
                     <Link to="/" className="no-decoration"><div className="items-navbar title-navbar">UGram</div></Link>
                     <div>
-                    <Link to="/pictures"><FontIcon className="material-icons items-navbar">collections</FontIcon></Link>
                     <Link to="/users"><FontIcon className="material-icons items-navbar">group</FontIcon></Link>
                     {userConnected}
                     </div>
