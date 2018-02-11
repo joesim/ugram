@@ -10,3 +10,17 @@ export interface StoreState {
         location: any;
     };
 }
+
+export interface User {
+    email: string;
+    firstName: string;
+    id: string;
+    lastName: string;
+    phoneNumber: number;
+    pictureUrl: string;
+    registrationDate: {
+        afterNow: boolean;
+        beforeNow: boolean;
+        equalNow: boolean;
+    };
+}

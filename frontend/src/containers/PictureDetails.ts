@@ -12,8 +12,8 @@ export function mapStateToProps({ picture_details }, props) {
 
 export function mapDispatchToProps(dispatch: Dispatch<actions.PictureDetailsAction>) {
 	return {
-		editPicture: (userId, pictureId, data, token) => dispatch(actions.editPicture(userId, pictureId, data, token)),
-		deletePicture: (userId, pictureId, token) => dispatch(actions.deletePicture(userId, pictureId, token)),
+		editPicture: (userId, pictureId, data) => dispatch(actions.editPicture(userId, pictureId, data)),
+		deletePicture: (userId, pictureId) => dispatch(actions.deletePicture(userId, pictureId)),
 	};
 }
 

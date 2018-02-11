@@ -1,5 +1,5 @@
-import * as constants from "../constants";
 import axios from "axios";
+import * as constants from "../constants";
 import { throwError } from "./Errors";
 
 export interface SignupUser {
@@ -14,7 +14,6 @@ function redirectionToken(tokenUrl) : SignupUser {
 		tokenUrl
 	};
 }
-// API
 
 function fetchSignup(formData) {
 	return axios.post(`http://api.ugram.net/signup`, formData);

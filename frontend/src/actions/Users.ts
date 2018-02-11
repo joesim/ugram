@@ -1,30 +1,25 @@
+import axios from "../axios";
 import * as constants from "../constants";
-import axios from "axios";
+import { User } from "../types/";
 import { throwError } from "./Errors";
 
 interface ReceiveUsers {
-	type: constants.RECEIVE_USERS;
-	users: object;
+    type: constants.RECEIVE_USERS;
+    users: User[];
 }
 
-function receiveAllUsers(users) : ReceiveUsers {
-	return {
-		type: constants.RECEIVE_USERS,
-		users,
-	};
+function receiveAllUsers(users): ReceiveUsers {
+    return {
+        type: constants.RECEIVE_USERS,
+        users,
+    };
 }
 
-function fetchAllUsers() : Promise<any> {
-	return axios.get("http://api.ugram.net/users");
-}
-
-export function getAllUsers() {
-	return function (dispatch) {
-		return fetchAllUsers()
-		.then(
-			users => dispatch(receiveAllUsers(users))
-		).catch(
-			error => dispatch(throwError("Could not get users", error))
-		);
-	};
-}
+export let getAllUsers = async (dispatch) => {
+    try {
+        const response = await axios.get("/users");
+        dispatch(receiveAllUsers(response.data));
+    } catch (error) {
+        dispatch(throwError("Could not get users", error));
+    }
+};

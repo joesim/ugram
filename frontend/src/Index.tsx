@@ -3,27 +3,27 @@ import * as ReactDOM from "react-dom";
 
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 
-import Home from "./containers/Home";
-import {Pictures} from "./components/Pictures";
 import {Page404} from "./components/Page404";
+import {Pictures} from "./components/Pictures";
+import AppBarUgram from "./containers/AppBar";
+import ErrorModal from "./containers/ErrorModal";
+import Home from "./containers/Home";
 import Profile from "./containers/Profile";
 import Signup from "./containers/Signup";
-import AppBarUgram from "./containers/AppBar";
 import Users from "./containers/Users";
-import ErrorModal from "./containers/ErrorModal";
 
-import {render} from "react-dom";
+import { orange600 } from "material-ui/styles/colors";
+import getMuiTheme from "material-ui/styles/getMuiTheme";
+import { render } from "react-dom";
 import {connect, Provider} from "react-redux";
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import {orange600} from 'material-ui/styles/colors';
 
-import {BrowserRouter, HashRouter, Route, Switch, Redirect} from "react-router-dom";
+import {BrowserRouter, HashRouter, Redirect, Route, Switch} from "react-router-dom";
 
-import {store} from "./store";
-import * as userActions from "./actions/Profile"
 import { isUndefined } from "util";
+import * as userActions from "./actions/Profile";
+import { store } from "./store";
 
-require("../scss/app.scss");
+import "../scss/app.scss";
 
 let token =  window.localStorage.getItem("token-06");
 
