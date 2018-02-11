@@ -1,6 +1,8 @@
 import axios from "axios";
 
 axios.defaults.baseURL = "http://api.ugram.net";
+axios.defaults.headers.put["Content-Type"] = "application/json";
+axios.defaults.headers.post["Content-Type"] = "multipart/form-data";
 
 setDefaultsFromLocalStorage();
 
