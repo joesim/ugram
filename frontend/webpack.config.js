@@ -6,7 +6,7 @@ const CompressionPlugin = require('compression-webpack-plugin');
 const webpack = require('webpack');
 
 module.exports = function(env) {
-	config = {
+	const config = {
 		entry: './src/Index.tsx',
 		devtool: "source-map",
 		output: {

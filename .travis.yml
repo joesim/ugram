@@ -31,7 +31,7 @@ deploy:
     acl: bucket_owner_full_control
     on:
       repo: GLO3112-H18/ugram-team-06
-      branch: dev OR master
+      branch: $CURRENT_BRANCH
 
 notifications:
   slack:
