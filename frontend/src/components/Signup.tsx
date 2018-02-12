@@ -25,26 +25,29 @@ class Signup extends React.Component<any, any> {
 
     public render() {
         return (
-            <div className="signup">
-                <TextField id="firstname" hintText="Firstname" />
-                <TextField id="lastname" hintText="Lastname" />
-                <TextField id="email" hintText="Email" />
-                <TextField id="number" hintText="5555555555" />
-                <TextField id="id" hintText="id" />
-                <RaisedButton label="Create User" onClick={this.createUser} primary={true} />
+            <div>
+                <form onSubmit={this.createUser} className="signup">
+                    <TextField id="firstname" required={true} type="text" hintText="Firstname" />
+                    <TextField id="lastname" required={true} type="text" hintText="Lastname" />
+                    <TextField id="email" required={true} type="email" hintText="Email" />
+                    <TextField id="number" required={true} type="tel" hintText="5555555555" />
+                    <TextField id="id" required={true} type="text" hintText="id" />
+                    <RaisedButton label="Create User" type="submit" primary={true} />
+                </form>
             </div>
         );
     }
 
-    private createUser() {
+    private createUser(event) {
+        event.preventDefault();
         const formData = new FormData();
 
-        formData.append("firstName", document.getElementById("firstname")["value"]);
-        formData.append("lastName", document.getElementById("lastname")["value"]);
-        formData.append("email", document.getElementById("email")["value"]);
-        formData.append("phoneNumber", document.getElementById("number")["value"]);
-        formData.append("id", document.getElementById("id")["value"]);
-        this.setState({ userId: document.getElementById("id")["value"]});
+        formData.append("firstName", event.target[0].value);
+        formData.append("lastName", event.target[1].value);
+        formData.append("email",  event.target[2].value);
+        formData.append("phoneNumber", event.target[3].value);
+        formData.append("id", event.target[4].value);
+        this.setState({ userId: event.target[4].value});
 
         this.props.signupUser(formData);
     }
