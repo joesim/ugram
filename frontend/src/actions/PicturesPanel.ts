@@ -42,7 +42,7 @@ function fetchAllPicturesFromUser(page, perPage, userId) {
 }
 
 export function getAllPictures(page, perPage) {
-    return (dispatch) => {
+    return async (dispatch) => {
         return fetchAllPictures(page, perPage).then(
             (pictures) => dispatch(getPictures(pictures, page)),
             (error) => dispatch(throwError("Get all pictures", error)),
@@ -51,7 +51,7 @@ export function getAllPictures(page, perPage) {
 }
 
 export function getAllPicturesFromUser(page, perPage, userId) {
-    return (dispatch) => {
+    return async (dispatch) => {
         return fetchAllPicturesFromUser(page, perPage, userId).then(
             (pictures) => dispatch(getPicturesFromUser(pictures, page)),
             (error) => dispatch(throwError("Get all pictures from user", error)),
