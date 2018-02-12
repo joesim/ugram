@@ -32,16 +32,16 @@ class PicturesPanel extends React.Component<Props, any> {
         this.scrollHandler = this.scrollHandler.bind(this);
     }
 
-    public scrollHandler() {
+    public async scrollHandler() {
         if (this.props.userId === this.state.userId) {
             this.setState((prevState) => {
                 return {page: prevState.page + 1};
             });
 
             if (isUndefined(this.props.userId)) {
-                this.props.getAllPictures(this.state.page, this.state.perPage);
+                await this.props.getAllPictures(this.state.page, this.state.perPage);
             } else {
-                this.props.getAllPicturesFromUser(this.state.page, this.state.perPage, this.props.userId);
+                await this.props.getAllPicturesFromUser(this.state.page, this.state.perPage, this.props.userId);
 			}
         }
     }

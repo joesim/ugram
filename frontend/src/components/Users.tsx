@@ -25,12 +25,12 @@ class Users extends React.Component<Props, any> {
         this.props.getAllUsers(this.state.page, this.state.perPage);
     }
 
-    public scrollHandler(): void {
+    public async scrollHandler(): Promise<any> {
         this.setState((prevState) => {
             return {page: prevState.page + 1};
         });
 
-        this.props.getAllUsers(this.state.page, this.state.perPage);
+        await this.props.getAllUsers(this.state.page, this.state.perPage);
     }
 
     public render(): JSX.Element {

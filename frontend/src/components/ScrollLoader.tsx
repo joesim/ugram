@@ -39,19 +39,16 @@ class ScrollLoader extends React.Component<Props, any> {
         );
     }
 
-    private handleOnScroll() {
+    private async handleOnScroll() {
         const scrollTop = (document.documentElement && document.documentElement.scrollTop) || document.body.scrollTop;
         const scrollHeight = (document.documentElement && document.documentElement.scrollHeight) || document.body.scrollHeight;
         const clientHeight = document.documentElement.clientHeight || window.innerHeight;
         const scrolledToBottom = Math.ceil(scrollTop + clientHeight) >= scrollHeight;
 
         if (scrolledToBottom) {
-            this.props.scrollHandler();
             this.setState({loading: ""});
-
-            setTimeout(() => {
-                this.setState({loading: "hidden"});
-            }, 2500);
+            await this.props.scrollHandler();
+            this.setState({loading: "hidden"});
         }
     }
 }
