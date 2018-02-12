@@ -3,6 +3,7 @@ import FlatButton from "material-ui/FlatButton";
 import * as React from "react";
 import { isUndefined } from "util";
 import PictureDetails from "../containers/PictureDetails";
+import ScrollLoader from "./ScrollLoader";
 
 interface Props {
     pictures_panel: any;
@@ -17,7 +18,6 @@ class PicturesPanel extends React.Component<Props, any> {
         super(props);
 
         this.state = {
-            loading: "hidden",
             open: false,
             page: 0,
             perPage: 20,
@@ -25,19 +25,25 @@ class PicturesPanel extends React.Component<Props, any> {
             userId: null,
         };
 
-        this.handleOnScroll = this.handleOnScroll.bind(this);
         this.getColumnPictures = this.getColumnPictures.bind(this);
         this.openDialog = this.openDialog.bind(this);
         this.closeDialog = this.closeDialog.bind(this);
         this.props.pictures_panel.pictures = [];
+        this.scrollHandler = this.scrollHandler.bind(this);
     }
 
-    public componentDidMount() {
-        window.addEventListener("scroll", this.handleOnScroll);
-    }
+    public scrollHandler() {
+        if (this.props.userId === this.state.userId) {
+            this.setState((prevState) => {
+                return {page: prevState.page + 1};
+            });
 
-    public componentWillUnmount() {
-        window.removeEventListener("scroll", this.handleOnScroll);
+            if (isUndefined(this.props.userId)) {
+                this.props.getAllPictures(this.state.page, this.state.perPage);
+            } else {
+                this.props.getAllPicturesFromUser(this.state.page, this.state.perPage, this.props.userId);
+			}
+        }
     }
 
     public render() {
@@ -80,16 +86,7 @@ class PicturesPanel extends React.Component<Props, any> {
                         {col3}
                     </div>
                 </div>
-                <div className="loader">
-                    <i
-                        className="material-icons rotating"
-                        style={{
-                            visibility: this.state.loading,
-                        }}
-                    >
-                        cached
-                    </i>
-                </div>
+                <ScrollLoader scrollHandler={this.scrollHandler} />
                 <PictureDetails
                     open={this.state.open}
                     closeDialog={this.closeDialog}
@@ -113,30 +110,6 @@ class PicturesPanel extends React.Component<Props, any> {
         });
 
         return pictures;
-    }
-
-    private handleOnScroll() {
-        const scrollTop = (document.documentElement && document.documentElement.scrollTop) || document.body.scrollTop;
-        const scrollHeight = (document.documentElement && document.documentElement.scrollHeight) || document.body.scrollHeight;
-        const clientHeight = document.documentElement.clientHeight || window.innerHeight;
-        const scrolledToBottom = Math.ceil(scrollTop + clientHeight) >= scrollHeight;
-
-        if (scrolledToBottom && this.props.userId === this.state.userId) {
-            this.setState((prevState) => {
-                return {page: prevState.page + 1};
-            });
-
-            if (isUndefined(this.props.userId)) {
-                this.props.getAllPictures(this.state.page, this.state.perPage);
-            } else {
-                this.props.getAllPicturesFromUser(this.state.page, this.state.perPage, this.props.userId);
-            }
-            this.setState({loading: ""});
-
-            setTimeout(() => {
-                this.setState({loading: "hidden"});
-            }, 2500);
-        }
     }
 
     private handleImgError(error) {

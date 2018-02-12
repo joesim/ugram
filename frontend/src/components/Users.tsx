@@ -3,19 +3,34 @@ import List, { ListItem } from "material-ui/List";
 import * as React from "react";
 import { Link } from "react-router-dom";
 import { User } from "../types/";
+import ScrollLoader from "./ScrollLoader";
 
 interface Props {
-    getAllUsers: () => any;
+    getAllUsers: (page: number, perPage: number) => any;
     users: User[];
 }
 
 class Users extends React.Component<Props, any> {
     public constructor(props) {
         super(props);
+
+        this.state = {
+            page: 0,
+            perPage: 20,
+        };
+        this.scrollHandler = this.scrollHandler.bind(this);
     }
 
     public componentDidMount(): void {
-        this.props.getAllUsers();
+        this.props.getAllUsers(this.state.page, this.state.perPage);
+    }
+
+    public scrollHandler(): void {
+        this.setState((prevState) => {
+            return {page: prevState.page + 1};
+        });
+
+        this.props.getAllUsers(this.state.page, this.state.perPage);
     }
 
     public render(): JSX.Element {
@@ -31,6 +46,7 @@ class Users extends React.Component<Props, any> {
                         </Link>,
                     )}
                 </List>
+                <ScrollLoader scrollHandler={this.scrollHandler} />
             </div>
         );
     }

@@ -8,7 +8,7 @@ interface StateProps {
 }
 
 interface DispatchProps {
-    getAllUsers: () => void;
+    getAllUsers: (page, perPage) => any;
 }
 
 function mapStateToProps(state): StateProps {
@@ -19,7 +19,7 @@ function mapStateToProps(state): StateProps {
 
 function mapDispatchToProps(dispatch): DispatchProps {
     return {
-        getAllUsers: () => dispatch(actions.getAllUsers()),
+        getAllUsers: (page, perPage) => dispatch(actions.getAllUsers(page, perPage)),
     };
 }
 
