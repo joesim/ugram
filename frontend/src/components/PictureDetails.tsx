@@ -25,10 +25,6 @@ class PictureDetails extends React.Component<any, any> {
 
         this.displayImage = this.displayImage.bind(this);
         this.displayInfos = this.displayInfos.bind(this);
-        this.addValueDialog = this.addValueDialog.bind(this);
-        this.displayDialog = this.displayDialog.bind(this);
-        this.dialogMentions = this.dialogMentions.bind(this);
-        this.dialogTags = this.dialogTags.bind(this);
         this.updatePicture = this.updatePicture.bind(this);
         this.deletePicture = this.deletePicture.bind(this);
     }
@@ -90,56 +86,15 @@ class PictureDetails extends React.Component<any, any> {
     }
 
     private updatePicture() {
-        const data = {
+	    this.props.picture.mentions = document.getElementById("mentions")["value"].split(" ");
+	    this.props.picture.tags = document.getElementById("tags")["value"].split(" ");
+	    const data = {
 	        description: document.getElementById("description")["value"],
             mentions: this.props.picture.mentions,
             tags: this.props.picture.tags,
         };
-        this.props.picture.description = data.description;
-        this.props.editPicture(this.state.userId, this.props.picture.id, data);
-    }
-
-    private dialogMentions() {
-        this.setState({
-	        open: true,
-            value: this.props.picture.mentions,
-        });
-    }
-
-    private dialogTags() {
-        this.setState({
-	        open: true,
-            value: this.props.picture.tags,
-        });
-    }
-
-    private addValueDialog() {
-        this.state.value.push(document.getElementById("dialog")["value"]);
-    }
-
-    private displayDialog() {
-        const actions = [
-            (
-                <FlatButton
-                    key={1}
-                    label="Close"
-                    primary={true}
-                    onClick={() => {this.setState({open: false}); }}
-                />
-            ),
-        ];
-
-        return (
-            <Dialog
-                open={this.state.open}
-                actions={actions}
-            >
-                <div className="dialog-edit">
-                    <TextField id="dialog" className="field-width"/>
-                    <RaisedButton  primary={true} label="Add" onClick={this.addValueDialog}/>
-                </div>
-            </Dialog>
-        );
+	    this.props.picture.description = data.description;
+	    this.props.editPicture(this.state.userId, this.props.picture.id, data);
     }
 
     private displayInfos() {
@@ -174,31 +129,25 @@ class PictureDetails extends React.Component<any, any> {
                 <div className="picture-infos">
                     <div className="field-name">Mentions: </div>
                     <div  className="field-dropdown">
-                    <DropDownMenu maxHeight={150}>
-                        {
-                            this.props.picture.mentions.map((mention, index) =>
-                                <MenuItem value={mention} key={index} primaryText={mention}/>,
-                            )
-                        }
-                    </DropDownMenu>
-                    <FloatingActionButton disabled={disable} onClick={this.dialogMentions} mini={true} zDepth={1}>
-                        <ContentAdd />
-                    </FloatingActionButton>
+                    <TextField
+                        defaultValue={this.props.picture.mentions.join(" ")}
+                        hintText="mentions separate by space"
+                        multiLine={true}
+                        className="field"
+                        id="mentions"
+                    />
                     </div>
                 </div>
                 <div className="picture-infos">
                     <div className="field-name">Tags: </div>
-                    <div className="field-dropdown">
-                        <DropDownMenu maxHeight={150}>
-                            {
-                                this.props.picture.tags.map((tag, index) =>
-                                    <MenuItem value={tag} key={index} primaryText={tag}/>,
-                                )
-                            }
-                        </DropDownMenu>
-                        <FloatingActionButton disabled={disable} onClick={this.dialogTags} mini={true} zDepth={1}>
-                            <ContentAdd />
-                        </FloatingActionButton>
+                    <div  className="field-dropdown">
+                    <TextField
+                        defaultValue={this.props.picture.tags.join(" ")}
+                        hintText="tags separate by space"
+                        multiLine={true}
+                        className="field"
+                        id="tags"
+                    />
                     </div>
                 </div>
                 <div className="update-button">
@@ -217,7 +166,6 @@ class PictureDetails extends React.Component<any, any> {
                         onClick={this.updatePicture}
                     />
                 </div>
-                {this.displayDialog()}
             </div>
         );
     }
