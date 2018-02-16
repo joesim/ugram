@@ -7,3 +7,4 @@ frontend/node_modules
 .idea
 npm-debug.log
 frontend/npm-debug.log
+frontend/.vscode
