@@ -8,3 +8,11 @@ frontend/node_modules
 npm-debug.log
 frontend/npm-debug.log
 frontend/.vscode
+
+#backend
+
+backend/node_modules
+backend/.vscode
+backend/.idea
+backend/coverage
+
