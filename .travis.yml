@@ -8,17 +8,19 @@ cache:
   - node_modules
 
 before_install:
-- cd frontend
+  - npm install -g webpack
+  - if [ "$TRAVIS_BRANCH" = "dev" ]; then source /.env-dev.sh; fi
+  - if [ "$TRAVIS_BRANCH" = "master" ]; then source /.env-master.sh; fi
 
-before_script:
-- npm install -g webpack
+install:
+  - cd frontend
+  - npm install
+  - npm run build_travis
+  - cd ../backend
+  - npm install
+  - cd ..
 
-script:
-- npm run build_travis
 
-before_deploy:
-- if [ "$TRAVIS_BRANCH" = "dev" ]; then source ../.env-dev.sh; fi
-- if [ "$TRAVIS_BRANCH" = "master" ]; then source ../.env-master.sh; fi
 
 deploy:
   - provider: s3
@@ -27,7 +29,7 @@ deploy:
     access_key_id: $ACCESS_KEY_ID_current
     secret_access_key: $SECRET_ACCESS_KEY_current
     bucket: $BUCKET_current
-    local-dir: build
+    local-dir: frontend/build
     acl: bucket_owner_full_control
     on:
       repo: GLO3112-H18/ugram-team-06
