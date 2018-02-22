@@ -18,9 +18,11 @@ install:
   - npm run build_travis
   - cd ../backend
   - npm install
-  - cd ..
 
 
+script:
+- npm run test
+- cd ..
 
 deploy:
   - provider: s3
