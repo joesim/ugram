@@ -38,6 +38,17 @@ deploy:
       condition: $TRAVIS_BRANCH == "master" || $TRAVIS_BRANCH == "dev"
       branch: $TRAVIS_BRANCH
 
+  - provider: elasticbeanstalk
+    access_key_id: $ACCESS_KEY_ID_dev
+    secret_access_key: $SECRET_ACCESS_KEY_dev
+    region: "us-east-2"
+    app: "ugram"
+    env: "ugram-env"
+    bucket_name: "elasticbeanstalk-us-east-2-977610490635"
+    on:
+        branch: feature/api-setup
+
+
 notifications:
   slack:
     secure: GJeNtiRvJhqte6TiTiCswsYR4IAWx62IcsveWXijoqG79hr8fMEwP8cOGajCpa9P7/Lua332CJhsVhVkZ8d/tig9ELXQTXN3zq8l8a2ld/a99btx1XcFqFG7WqFvp9WZcYUxERdl1tZG0gV03v7uNptHtpi8M+4ECfkwDImwwjsuKGBpmUkq52qKWA/m+WhsrOivDfVznV9/GNhG9RIyEnWr8aZ9E2SiW4i50g8UwSS2tig9K+VhzKWSrim6ed80aWKEMMrCGcgf4bxOnxDTs03xcby/OqO1v6ap1JF0EH1mcUbDmk4T7ZWMuOiIFEQM0m87jrKYc/bXQLxWILPlZySYyrilcCpJdTABM+rhu+hepOfPa3DeHd15l/XAjJkoRJzwzIUd0E2G0xSuZkrYti23nfIr8qekaZqsYHbdpaUs8GHUkUco9gTjGjXM72cxAsSc75C3MvHnFuYvQLoq+G59Dwucl8ImG6HmcSyo8elr6aia+9NAir6hqBe9Y9kDa9qGx4Mfce9EgJ2jHFQsy0yJ/L0WC0k5NO8LijNPqews7SZCiouo8lQP1Cf0uLgOhOfItLWbVhiNduKE7YhZA0zY8G9UdMAoZgLsJfrQ4eS/6u7DRf5UQgPh9aUv0cI4K74+ijYnfvDM4fyjfVqB56ryoely9Aocn08xlUFHX2k=
