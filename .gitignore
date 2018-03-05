@@ -11,8 +11,7 @@ frontend/.vscode
 
 #backend
 
-backend/node_modules
-backend/.vscode
-backend/.idea
-backend/coverage
-
+node_modules
+.vscode
+.idea
+coverage

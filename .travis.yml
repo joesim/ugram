@@ -16,13 +16,12 @@ install:
   - cd frontend
   - npm install
   - npm run build_travis
-  - cd ../backend
+  - cd ..
   - npm install
 
 
 script:
 - npm run test
-- cd ..
 
 deploy:
   - provider: s3
