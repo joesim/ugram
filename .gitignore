@@ -16,9 +16,11 @@ node_modules
 .idea
 coverage
 *.zip
+.env
 
 backend/node_modules
 backend/.vscode
 backend/.idea
 backend/coverage
 backend/*.zip
+backend/.env
