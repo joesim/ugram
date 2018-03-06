@@ -19,6 +19,7 @@ install:
   - cd ..
   - mv backend/* .
   - npm install
+  - zip -r ugram-api.zip .
 
 script:
 - npm run test
