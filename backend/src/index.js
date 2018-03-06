@@ -2,7 +2,6 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const cors = require('cors');
-const mongoose = require('mongoose');
 const errors = require('./common/errors');
 const logger = require('./common/logger');
 require('dotenv').config();
@@ -39,16 +38,6 @@ app.use(express.static(__dirname + '/public'));
 app.use(errors.genericErrorHandler);
 // Enables access-logs on each calls
 //app.use(morgan('combined', {'stream': logger.stream}));
-
-//Mongodb connection
-if (process.env.MONGO_HOST === undefined
-    || process.env.MONGO_USER === undefined
-	|| process.env.MONGO_DATABASE === undefined
-	|| process.env.MONGO_PASSWORD === undefined) {
-	console.error("You need to set env variables: MONGO_HOST | MONGO_USER | MONGO_PASSWORD");
-	process.exit(0);
-}
-mongoose.connect(`mongodb://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@${process.env.MONGO_HOST}/${process.env.MONGO_DATABASE}`);
 
 require('./controllers')(app);
 
