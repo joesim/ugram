@@ -17,8 +17,8 @@ install:
   - npm install
   - npm run build_travis
   - cd ..
+  - mv backend/* .
   - npm install
-
 
 script:
 - npm run test
@@ -45,8 +45,8 @@ deploy:
     env: "ugram-env"
     bucket_name: "elasticbeanstalk-us-east-2-977610490635"
     on:
-        branch: feature/api-setup
-
+        repo: GLO3112-H18/ugram-team-06
+        branch: $TRAVIS_BRANCH
 
 notifications:
   slack:

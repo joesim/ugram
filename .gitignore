@@ -15,3 +15,10 @@ node_modules
 .vscode
 .idea
 coverage
+*.zip
+
+backend/node_modules
+backend/.vscode
+backend/.idea
+backend/coverage
+backend/*.zip
