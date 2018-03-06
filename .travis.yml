@@ -9,8 +9,8 @@ cache:
 
 before_install:
   - npm install -g webpack
-  - if [ "$TRAVIS_BRANCH" = "dev" ]; then source /.env-dev.sh; fi
-  - if [ "$TRAVIS_BRANCH" = "master" ]; then source /.env-master.sh; fi
+  - if [ "$TRAVIS_BRANCH" = "dev" ]; then source ./.env-dev.sh; fi
+  - if [ "$TRAVIS_BRANCH" = "master" ]; then source ./.env-master.sh; fi
 
 install:
   - cd frontend
