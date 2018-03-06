@@ -48,6 +48,7 @@ deploy:
     bucket_name: "elasticbeanstalk-us-east-2-977610490635"
     on:
         repo: GLO3112-H18/ugram-team-06
+        condition: $TRAVIS_BRANCH == "master" || $TRAVIS_BRANCH == "dev"
         branch: $TRAVIS_BRANCH
 
 notifications:
