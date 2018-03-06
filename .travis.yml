@@ -43,6 +43,8 @@ deploy:
     region: "us-east-2"
     app: "ugram"
     env: "ugram-env"
+    zip_file: "ugram-api.zip"
+    skip_cleanup: true
     bucket_name: "elasticbeanstalk-us-east-2-977610490635"
     on:
         repo: GLO3112-H18/ugram-team-06
