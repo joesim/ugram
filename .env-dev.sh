@@ -1,3 +1,1 @@
-export ACCESS_KEY_ID_current=$ACCESS_KEY_ID_dev;
-export SECRET_ACCESS_KEY_current=$SECRET_ACCESS_KEY_dev;
 export BUCKET_current=$BUCKET_dev;
