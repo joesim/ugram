@@ -23,6 +23,7 @@ install:
 
 script:
 - npm run test
+- git add --all && git commit -m "commit for deploy"
 
 deploy:
   - provider: s3
