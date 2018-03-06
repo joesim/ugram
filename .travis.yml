@@ -40,8 +40,8 @@ deploy:
       branch: $TRAVIS_BRANCH
 
   - provider: elasticbeanstalk
-    access_key_id: $ACCESS_KEY_ID_dev
-    secret_access_key: $SECRET_ACCESS_KEY_dev
+    access_key_id: $ACCESS_KEY_ID
+    secret_access_key: $SECRET_ACCESS_KEY
     region: "us-east-2"
     app: "ugram"
     env: "ugram-env"
