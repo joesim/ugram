@@ -1,7 +1,7 @@
 # Ugram
 [![Build Status](https://travis-ci.com/GLO3112-H18/ugram-team-06.svg?token=oFRzF26Q45xGBoB8qvZi&branch=dev)](https://travis-ci.com/GLO3112-H18/ugram-team-06)
-[Site dev](http://ugram-dev.s3-website.ca-central-1.amazonaws.com)
-[Site prod](http://u-gram-prod.s3-website.ca-central-1.amazonaws.com)
+[Site dev](http://u-gram-dev.s3-website.ca-central-1.amazonaws.com)
+[Site prod](http://ugram-prod.s3-website.ca-central-1.amazonaws.com)
 > Clone d'instagram pour le cours GLO3112.
 
 
@@ -31,7 +31,13 @@ npm run lint
 ```
 
 # Backend:
-À venir
+```sh
+cd backend
+cp env-sample .env
+npm install
+```
+
+Modifier le fichier .env en y ajoutant les valeurs
 
 ## Pour contribuer
 

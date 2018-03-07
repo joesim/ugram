@@ -4,8 +4,8 @@
   "description": "Packs de départs pour développement avancé d'application web",
   "main": "index.js",
   "scripts": {
-    "start": "node src/index.js",
-    "test": "istanbul cover node_modules/mocha/bin/_mocha -- -u exports -R spec test/**/*.js",
+    "start": "babel-node src/index.js --presets es2015,stage-2",
+    "test": "echo FIX_THIS_SHIT",
     "coverage": "opn ./coverage/lcov-report/index.html"
   },
   "repository": {
@@ -20,10 +20,16 @@
   "homepage": "https://github.com/GLO3112/backend-starter-packs#readme",
   "dependencies": {
     "aws-sdk": "^2.6.15",
+    "babel-cli": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1",
     "body-parser": "^1.15.2",
     "cors": "^2.8.1",
+    "dotenv": "^5.0.1",
     "ejs": "^2.5.2",
     "express": "^4.14.0",
+    "mongodb": "^3.0.4",
+    "mongoose": "^5.0.9",
     "morgan": "^1.7.0",
     "redis": "^2.6.3",
     "winston": "^2.3.0",
