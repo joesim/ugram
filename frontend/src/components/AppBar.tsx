@@ -5,6 +5,7 @@ import IconButton from "material-ui/IconButton";
 import FileUpload from "material-ui/svg-icons/file/file-upload";
 import * as React from "react";
 import UploadModal from "../containers/UploadModal";
+import SearchBar from "./SearchBar";
 
 import FontIcon from "material-ui/FontIcon";
 import { Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle } from "material-ui/Toolbar";
@@ -43,14 +44,7 @@ const AppBarUgram = ({ appbar, onFileUploadModalClick }: any) => {
                     <div >
                         <Link to="/" className="no-decoration"><div className="items-navbar title-navbar">UGram</div></Link>
                     </div>
-                    <div className="width-search">
-                            <div className="search">
-                                <input type="text" className="searchTerm" placeholder="Search" />
-                                <button type="submit" className="searchButton">
-                                    <Link to="/search"><FontIcon className="material-icons">search</FontIcon></Link>
-                                </button>
-                            </div>
-                        </div>
+                    <SearchBar />
                     <div>
                         <Link to="/users"><FontIcon className="material-icons items-navbar">group</FontIcon></Link>
                         {userConnected}

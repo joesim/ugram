@@ -54,7 +54,7 @@ class SearchAll extends React.Component<any, any> {
                             title="Hashtags"
                         />
                         <div>
-                            3 hashtags
+                            3 images
                         </div>
                         <CardActions>
                             <FlatButton onClick={this.handleHashtags} label="See all" />
