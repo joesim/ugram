@@ -3,8 +3,8 @@ const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const cors = require('cors');
 const errors = require('./common/errors');
-const logger = require('./common/logger');
 require('dotenv').config();
+const logger = require('./common/logger');
 
 const app = express();
 const corsOptions = {
@@ -19,14 +19,6 @@ const corsOptions = {
     ],
     credentials: true
 };
-
-// const winston = require('winston');
-// const winstonCloudWatch = require('winston-cloudwatch');
-//
-// winston.add(winstonCloudWatch, {
-//     logGroupName: 'glo3012',
-//     logStreamName: 'sample'
-// });
 
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
