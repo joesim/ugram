@@ -1,3 +1,5 @@
+$color-secondary-appbar: #d3d3d3;
+
 .no-decoration {
   text-decoration: none!important;
 }
@@ -25,4 +27,52 @@
 .items-navbar {
   padding-left:15px;
   padding-right: 15px;
+}
+
+.search {
+  width: 150px;
+  position: relative;
+}
+
+.width-search{
+  width: 200px;
+}
+
+@media (max-width: 500px) {
+  .search {
+    display: none;
+  }
+  .width-search{
+    width: 0px;
+  }
+}
+
+.searchTerm {
+  float: left;
+  width: 100%;
+  border: 2px solid $color-secondary-appbar;
+  padding: 5px;
+  height: 20px;
+  border-radius: 5px;
+  outline: none;
+  //color: #9dbfaf;
+}
+
+.searchTerm:focus{
+  color: black;
+}
+
+.searchButton {
+  position: absolute;
+  right: -48px;
+  width: 40px;
+  height: 34px;
+  border: 1px solid $color-secondary-appbar;
+  background: $color-secondary-appbar;
+  text-align: center;
+  color: #fff;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 30px;
+  outline: none;
 }

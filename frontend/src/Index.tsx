@@ -11,6 +11,7 @@ import Home from "./containers/Home";
 import Profile from "./containers/Profile";
 import Signup from "./containers/Signup";
 import Users from "./containers/Users";
+import Search from "./components/Search";
 
 import { grey800 } from "material-ui/styles/colors";
 import getMuiTheme from "material-ui/styles/getMuiTheme";
@@ -61,6 +62,7 @@ ReactDOM.render(
                                 <PrivateRoute path="/pictures" title={"Pictures"} component={Pictures}/>
                                 <PrivateRoute path="/users/:id" title={"User profile"} component={Profile}/>
                                 <PrivateRoute path="/users" title={"Users"} component={Users}/>
+                                <Route path="/search" title={"Search"} component={Search}/>
                                 <Route path="/signup" title={"Signup"} render={(props) => <Signup/>}/>
                                 <Route component={Page404}/>
                             </Switch>
