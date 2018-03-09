@@ -16,7 +16,7 @@ const logger = new winston.Logger({
             jsonMessage: true
         }),
         new winston.transports.Console({
-            level: 'info',
+            level: 'debug',
             handleExceptions: true,
             json: false,
             colorize: true

@@ -1,9 +1,10 @@
 import AWS from 'aws-sdk';
+import logger from './logger';
 
 if (process.env.AWS_ACCESS_KEY_ID === undefined
 	|| process.env.AWS_SECRET_ACCESS_KEY === undefined
 	|| process.env.BUCKET_REGION === undefined) {
-	console.error("You need to set env variables: AWS_ACCESS_KEY_ID | AWS_SECRET_ACCESS_KEY | BUCKET_REGION");
+	logger.error("You need to set env variables: AWS_ACCESS_KEY_ID | AWS_SECRET_ACCESS_KEY | BUCKET_REGION");
 	process.exit(0);
 }
 
