@@ -1,4 +1,4 @@
-const AWS = require('aws-sdk');
+import AWS from 'aws-sdk';
 
 if (process.env.AWS_ACCESS_KEY_ID === undefined
 	|| process.env.AWS_SECRET_ACCESS_KEY === undefined
