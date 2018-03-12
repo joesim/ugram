@@ -4,8 +4,8 @@
   "description": "Packs de départs pour développement avancé d'application web",
   "main": "index.js",
   "scripts": {
-    "start": "babel-node src/index.js --presets es2015,stage-2",
-    "test": "echo FIX_THIS_SHIT",
+    "start": "npm test && babel-node src/index.js --presets es2015,stage-2",
+    "test": "mocha test/**/*Test.js",
     "coverage": "opn ./coverage/lcov-report/index.html"
   },
   "repository": {
@@ -39,6 +39,8 @@
     "chai": "^4.1.2",
     "istanbul": "^0.4.5",
     "mocha": "^4.1.0",
-    "opn-cli": "^3.1.0"
+    "opn-cli": "^3.1.0",
+    "sinon": "^4.4.3",
+    "sinon-mongoose": "^2.0.2"
   }
 }
