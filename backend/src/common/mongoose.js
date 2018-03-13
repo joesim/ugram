@@ -3,7 +3,6 @@ import mongoose from "mongoose";
 const env = process.env.NODE_ENV || "dev";
 
 let mongoHost, mongoUser, mongoDatabase, mongoPassword, mongoUri, mongoPort;
-
 if (
   process.env.MONGO_HOST === undefined ||
   process.env.MONGO_USER === undefined ||
@@ -24,14 +23,12 @@ if (env == "test") {
   mongoDatabase = process.env.MONGO_DATABASE_TEST;
   mongoPort = process.env.MONGO_PORT_TEST;
   mongoUri = `mongodb://${mongoHost}:${mongoPort}/${mongoDatabase}`;
-  console.log('TEST config use')
 } else {
   mongoHost = process.env.MONGO_HOST;
   mongoUser = process.env.MONGO_USER;
   mongoDatabase = process.env.MONGO_DATABASE;
   mongoPassword = process.env.MONGO_PASSWORD;
   mongoUri = `mongodb://${mongoUser}:${mongoPassword}@${mongoHost}/${mongoDatabase}`;
-  console.log('PROD config use')
 }
 
 mongoose.connect(mongoUri);

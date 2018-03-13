@@ -43,7 +43,8 @@ Modifier le fichier .env en y ajoutant les valeurs.
 # Tests
 1. Télécharger [mongodb](https://www.mongodb.com/download-center?_ga=2.118641097.1175779120.1520910751-1426939000.1520370737#production) et suivre l'installation sur le site.
 2. Écrire un fichier de test finissant par le mot **.test**.
-3. Exécuter la commande  ```npm test```
+3. Exécuter la commande ```mongod``` pour démarrer un serveur de test.
+4. Exécuter dans une autre fenêtre la commande  ```npm test```
 
 ## Pour contribuer
 
