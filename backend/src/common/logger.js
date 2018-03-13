@@ -1,12 +1,18 @@
-const winston = require('winston');
-const WinstonCloudwatch = require('winston-cloudwatch');
+import winston from 'winston';
+import WinstonCloudwatch from 'winston-cloudwatch';
+
+if (process.env.CLOUDWATCH_GROUPENAME === undefined
+    || process.env.CLOUDWATCH_STREAMNAME === undefined) {
+	console.error("You need to set env variables: CLOUDWATCH_GROUPENAME | CLOUDWATCH_STREAMNAME");
+	process.exit(0);
+}
 
 const logger = new winston.Logger({
     transports: [
-      new WinstonCloudwatch({
-            logGroupName: 'glo3012',
-            logStreamName: 'sample',
-            awsRegion: 'us-west-2',
+        new WinstonCloudwatch({
+            logGroupName: process.env.CLOUDWATCH_GROUPENAME,
+            logStreamName: process.env.CLOUDWATCH_STREAMNAME,
+            awsRegion: process.env.BUCKET_REGION,
             jsonMessage: true
         }),
         new winston.transports.Console({
@@ -19,9 +25,10 @@ const logger = new winston.Logger({
     exitOnError: false
 });
 
-module.exports = logger;
-module.exports.stream = {
-    write: function(message, encoding){
-        logger.info(message);
-    }
+logger.stream = {
+	write: function(message, encoding){
+		logger.info(message);
+	}
 };
+
+export default logger;
