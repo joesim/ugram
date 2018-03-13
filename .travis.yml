@@ -4,7 +4,6 @@ node_js:
 - 8.9.4
 
 env:
-  - MONGODB_VERSION=2.6.x MONGODB_TOPOLOGY=cluster
   - MONGODB_VERSION=3.0.x MONGODB_TOPOLOGY=cluster
 
 cache:

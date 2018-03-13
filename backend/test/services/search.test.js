@@ -13,7 +13,7 @@ describe("Route /search ", () => {
 
     it("should connect", (done) => {
       require("mongodb").connect("mongodb://localhost:27017/", done);
-      const prom = wait(2000)  
+      const prom = wait(500)  
       const showdone = ()=>process.exit(0);
       prom.then(showdone)
     });
