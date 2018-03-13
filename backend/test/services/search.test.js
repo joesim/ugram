@@ -11,10 +11,10 @@ describe("Route /search ", () => {
       expect(2).to.equal(2);
     });
 
-    it("should connect", () => {
-      require("mongodb").connect("mongodb://localhost:27017/");
-      var prom = wait(2000)  // prom, is a promise
-      var showdone = ()=>process.exit(0);
+    it("should connect", (done) => {
+      require("mongodb").connect("mongodb://localhost:27017/", done);
+      const prom = wait(2000)  
+      const showdone = ()=>process.exit(0);
       prom.then(showdone)
     });
   });
