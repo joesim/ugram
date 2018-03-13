@@ -38,7 +38,7 @@ app.use(express.static(__dirname + '/public'));
 app.use(errors.genericErrorHandler);
 // Enables access-logs on each calls
 //app.use(morgan('combined', {'stream': logger.stream}));
-
+app.use(morgan('dev')); 
 require('./controllers')(app);
 
 const port = process.env.PORT || 3000;
