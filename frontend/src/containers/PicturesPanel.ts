@@ -16,6 +16,12 @@ export function mapDispatchToProps(dispatch: Dispatch<actions.PicturesPanelActio
         getAllPicturesFromUser: (page, perPage, userId) => {
             dispatch(actions.getAllPicturesFromUser(page, perPage, userId));
         },
+        getAllPicturesFilteredDesc: (query, page, perPage) => {
+            dispatch(actions.getAllPicturesFilteredDesc(query, page, perPage));
+        },
+        getAllPicturesFilteredHashtags: (query, page, perPage) => {
+            dispatch(actions.getAllPicturesFilteredHashtags(query, page, perPage));
+        }
     };
 }
 

@@ -58,3 +58,25 @@ export function getAllPicturesFromUser(page, perPage, userId) {
         );
     };
 }
+
+export function getAllPicturesFilteredDesc(query, page, perPage) {
+    return async (dispatch) => {
+        axios.defaults.baseURL = "http://localhost:3000";
+        axios.get(`/pictures?page=${page}&perPage=${perPage}`).then(
+            (pictures) => dispatch(getPictures(pictures, page)),
+            (error) => dispatch(throwError("Get all pictures from user", error)),
+        );
+        axios.defaults.baseURL = "http://api.ugram.net";
+    };
+}
+
+export function getAllPicturesFilteredHashtags(query, page, perPage) {
+    return async (dispatch) => {
+        axios.defaults.baseURL = "http://localhost:3000";
+        axios.get(`/pictures?page=${page}&perPage=${perPage}`).then(
+            (pictures) => dispatch(getPictures(pictures, page)),
+            (error) => dispatch(throwError("Get all pictures from user", error)),
+        );
+        axios.defaults.baseURL = "http://api.ugram.net";
+    };
+}

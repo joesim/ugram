@@ -1,9 +1,8 @@
 import * as React from "react";
 import { Tabs, Tab } from 'material-ui/Tabs';
-import SearchAll from './SearchAll';
-import SearchHashtags from './SearchHashtags';
-import SearchImages from './SearchImages';
-import SearchUsers from './SearchUsers';
+import SearchAll from '../containers/SearchAll';
+import Users from "../containers/Users";
+import PicturesPanel from "../containers/PicturesPanel";
 
 const tabStyle = {
     color: "black"
@@ -26,25 +25,46 @@ class Search extends React.Component<any, any> {
 
 
     public render(): JSX.Element {
+
+        let searchAll = null;
+        if (this.state.value === "all"){
+            searchAll = <SearchAll handler={this.handleChange} query={this.props.match.params.id}/>
+        }
+        
+        let users = null;
+        if (this.state.value === "users"){
+            users = <Users query={this.props.match.params.id}/>
+        }
+
+        let picturesDesc = null;
+        if (this.state.value === "images"){
+            picturesDesc = <PicturesPanel category="description" query={this.props.match.params.id} />
+        }
+
+        let picturesHashtags = null;
+        if (this.state.value === "hashtags"){
+            picturesHashtags = <PicturesPanel category="hashtags" query={this.props.match.params.id} />
+        }
+
+
         return (
             <div>
                 <div>
                     <div className="toolbar-custom-search">
-
                     </div>
                     <div className="container">
                         <Tabs value={this.state.value} onChange={this.handleChange} inkBarStyle={{ background: 'black' }}>
                             <Tab value="all" style={tabStyle} label="All" >
-                                <SearchAll handler={this.handleChange}/>
+                                {searchAll}
                             </Tab>
                             <Tab value="users" style={tabStyle} label="Users" >
-                                <SearchUsers />
+                                {users}
                             </Tab>
                             <Tab value="images" style={tabStyle} label="Images" >
-                                <SearchImages />
+                                {picturesDesc}
                             </Tab>
                             <Tab value="hashtags" style={tabStyle} label="Hashtags" >
-                                <SearchHashtags />
+                                {picturesHashtags}
                             </Tab>
                         </Tabs>
                     </div>

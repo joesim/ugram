@@ -15,13 +15,39 @@ function receiveAllUsers(users): ReceiveUsers {
     };
 }
 
+function receiveNewUsers() {
+    return {
+        type: constants.RECEIVE_NEW_USERS,
+    };
+}
+
 export function getAllUsers(page, perPage) {
     return async (dispatch) => {
         try {
-			const data = await axios.get(`/users/?page=${page}&perPage=${perPage}`);
+            const data = await axios.get(`/users/?page=${page}&perPage=${perPage}`);
             dispatch(receiveAllUsers(data.data));
         } catch (error) {
             dispatch(throwError("Could not get users", error));
         }
     };
+}
+
+export function getAllUsersFiltered(query, page, perPage) {
+    return async (dispatch) => {
+        try {
+
+            axios.defaults.baseURL = "http://localhost:3000";
+            const data = await axios.get(`/users`);
+            axios.defaults.baseURL = "http://api.ugram.net";
+            dispatch(receiveAllUsers(data.data));
+        } catch (error) {
+            dispatch(throwError("Could not get users", error));
+        }
+    };
+}
+
+export function receivingNewUsers(){
+    return (dispatch) => {
+        dispatch(receiveNewUsers());
+    }
 }
