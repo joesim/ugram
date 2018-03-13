@@ -6,7 +6,7 @@
   "scripts": {
     "start": "babel-node src/index.js --presets es2015,stage-2",
     "test": "NODE_ENV=test  mocha --require babel-core/register test/helper.js test/**/*.test.js",
-    "test:doc": "NODE_ENV=test  mocha --require babel-core/register test/helper.js test/**/*.test.js --reporter=markdown | tee docs/documentation.md",
+    "doc": "NODE_ENV=test  mocha --require babel-core/register test/helper.js test/**/*.test.js --reporter=markdown | tee docs/documentation.md",
     "coverage": "opn ./coverage/lcov-report/index.html"
   },
   "repository": {
