@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "NODE_ENV=test babel-node src/index.js --presets es2015,stage-2",
-    "test": "NODE_ENV=test  mocha --require babel-core/register --require babel-polyfill test/helper.js test/**/*.test.js",
-    "doc": "NODE_ENV=test  mocha --require babel-core/register --require babel-polyfill test/helper.js test/**/*.test.js --reporter=markdown | tee docs/documentation.md",
+    "test": "NODE_ENV=test  mocha --require babel-core/register --require babel-polyfill test/helper.js test/**/*.test.js --exit",
+    "doc": "NODE_ENV=test  mocha --require babel-core/register --require babel-polyfill test/helper.js test/**/*.test.js --reporter=markdown --exit | tee docs/documentation.md",
     "coverage": "opn ./coverage/lcov-report/index.html"
   },
   "repository": {

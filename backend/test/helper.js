@@ -11,7 +11,6 @@ before(() => {
 after(() => {
   dropDatabase();
   delete global.app;
-  process.exit(0);
 });
 
 beforeEach(() => {
