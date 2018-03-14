@@ -4,9 +4,9 @@
   "description": "Packs de départs pour développement avancé d'application web",
   "main": "index.js",
   "scripts": {
-    "start": "babel-node src/index.js --presets es2015,stage-2",
-    "test": "NODE_ENV=test  mocha --require babel-core/register test/helper.js test/**/*.test.js",
-    "doc": "NODE_ENV=test  mocha --require babel-core/register test/helper.js test/**/*.test.js --reporter=markdown | tee docs/documentation.md",
+    "start": "NODE_ENV=test babel-node src/index.js --presets es2015,stage-2",
+    "test": "NODE_ENV=test  mocha --require babel-core/register --require babel-polyfill test/helper.js test/**/*.test.js",
+    "doc": "NODE_ENV=test  mocha --require babel-core/register --require babel-polyfill test/helper.js test/**/*.test.js --reporter=markdown | tee docs/documentation.md",
     "coverage": "opn ./coverage/lcov-report/index.html"
   },
   "repository": {
@@ -51,7 +51,6 @@
     "mocha": "^4.1.0",
     "mongodb-runner": "^3.6.1",
     "opn-cli": "^3.1.0",
-    "sinon": "^4.4.3",
-    "sinon-mongoose": "^2.0.2"
+    "supertest": "^3.0.0"
   }
 }
