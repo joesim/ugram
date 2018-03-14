@@ -11,8 +11,9 @@ describe("Route /users ", () => {
       const res = await request(app).get("/users");
       const header = res.header;
       expect(res.statusCode).to.equal(200);
-      const keys = ["content-type", "date", "THIS_KEY_DONT_EXIST"];
+      const keys = ["content-type", "date"]
       expect(header).to.include.all.keys(keys);
+    
     });
   });
 });
