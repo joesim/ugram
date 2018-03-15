@@ -5,7 +5,7 @@ import * as TestUpload from './testUpload';
 
 module.exports = function(app) {
 	app.get('/', Home.home);
-	app.get('/upload', TestUpload.testUpload);
+	// app.get('/upload', TestUpload.testUpload);
 	app.get('/users', Users.readAll);
 	app.get('/users/:userId', Users.readOne);
 	app.put('/users/:userId', Users.update);
@@ -16,4 +16,5 @@ module.exports = function(app) {
 	app.get('/users/:userId/pictures/:pictureId', Pictures.readOne);
 	app.put('/users/:userId/pictures/:pictureId', Pictures.update);
 	app.delete('/users/:userId/pictures/:pictureId', Pictures.deleteOne);
+	app.delete('/users/:id', Users.deleteOne);
 };

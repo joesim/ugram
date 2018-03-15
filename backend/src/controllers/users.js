@@ -5,9 +5,24 @@ const readAll = (req, res) => {
 	const limit = parseInt(req.query.perPage) || 10;
 	const offset = parseInt(req.query.page) * limit;
 
-	UserModel.find({}).limit(limit).skip(offset).then(function(data) {
-		data = data.map(parseEntry);
-		res.json(data);
+	UserModel.count({}).then(function(count) {
+		const totalEntries = count;
+		const totalPages = totalEntries == 0 ? 0 : parseInt((totalEntries - 1) / limit) + 1;
+
+		UserModel.find({}).limit(limit).skip(offset).then(function(rawData) {
+			const data = {};
+			data.totalEntries = totalEntries;
+			data.totalPages = totalPages;
+			data.items = rawData.map(parseEntry);
+			console.log(data);
+			res.json(data);
+		}, function(err) {
+			console.log(err);
+			res.status(500).send('An error occured');
+		}).catch(function(err) {
+			console.log(err);
+			res.status(500).send('An error occured');
+		});
 	}, function(err) {
 		console.log(err);
 		res.status(500).send('An error occured');
@@ -18,7 +33,7 @@ const readAll = (req, res) => {
 };
 
 const readOne = (req, res) => {
-	UserModel.findOne({_id: req.params.userId}).then(function(data) {
+	UserModel.findOne({id: req.params.userId}).then(function(data) {
 		if (data === null) {
 			res.status(400).send('Missing parameter or unexisting user');
 		} else {
@@ -49,7 +64,7 @@ const create = (req, res) => {
 };
 
 const update = (req, res) => {
-	UserModel.update({_id: req.params.userId}, {$set: req.body}).then(function(data) {
+	UserModel.update({id: req.params.userId}, {$set: req.body}).then(function(data) {
 		if (data.n == 0) {
 			res.status(400).send('Missing parameter or unexisting user');	
 		}
@@ -63,4 +78,19 @@ const update = (req, res) => {
 	});
 };
 
-export { create, update, readOne, readAll };
+const deleteOne = (req, res) => {
+	UserModel.remove({id: req.params.id}).then(function(data) {
+		if (data.n == 0) {
+			res.status(400).send('Missing parameter or unexisting picture for user');	
+		}
+		res.status(204).send('No Content');	
+	}, function(err) {
+		console.log(err);
+		res.status(400).send('Missing parameter or unexisting picture for user');	
+	}).catch(function(err) {
+		console.log(err);
+		res.status(500).send('An error occured');
+	});
+};
+
+export { create, update, readOne, readAll, deleteOne };

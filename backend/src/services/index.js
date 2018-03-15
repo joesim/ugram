@@ -3,9 +3,20 @@ import * as UploadServices from './upload';
 
 const parseEntry = (data) => {
     let jsonData = data.toJSON();
-    jsonData.id = jsonData._id;
     delete jsonData._id;
     delete jsonData.__v;
+
+    if (jsonData.registrationDate != undefined) {
+        jsonData.registrationDate = jsonData.registrationDate.getTime();
+    }
+    if (jsonData.createdDate != undefined) {
+        jsonData.createdDate = jsonData.createDate.getTime();
+    }
+
+    for (let key in jsonData) {
+        jsonData[key] = jsonData[key].toString();
+    }
+
     return jsonData;
 };
 
