@@ -8,6 +8,7 @@ module.exports = function(app) {
 	// app.get('/upload', TestUpload.testUpload);
 	app.get('/users', Users.readAll);
 	app.get('/users/:userId', Users.readOne);
+	app.get('/auth/google', Users.oauth);
 	app.put('/users/:userId', Users.update);
 	app.post('/signup', Users.create);
 	app.post('/users/:userId/pictures', Pictures.create);

@@ -63,6 +63,13 @@ const create = (req, res) => {
 	});
 };
 
+const oauth = (req, res) => {
+    passport.authenticate('google', { scope: ['profile'] }), 
+    function(req, res) {
+		res.send("logging in with google");
+	};
+};
+
 const update = (req, res) => {
 	UserModel.update({id: req.params.userId}, {$set: req.body}).then(function(data) {
 		if (data.n == 0) {
@@ -93,4 +100,4 @@ const deleteOne = (req, res) => {
 	});
 };
 
-export { create, update, readOne, readAll, deleteOne };
+export { create, update, readOne, readAll, deleteOne, oauth };

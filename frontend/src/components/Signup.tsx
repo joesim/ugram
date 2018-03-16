@@ -11,6 +11,7 @@ class Signup extends React.Component<any, any> {
             userId: "",
         };
         this.createUser = this.createUser.bind(this);
+        this.signup = this.signup.bind(this);
     }
 
     public componentDidUpdate(prevProps, prevState): void {
@@ -23,9 +24,24 @@ class Signup extends React.Component<any, any> {
         }
     }
 
+    signup(res){
+        //const formData = new FormData();
+        //formData.append("name", res.w3.ig);
+        //formData.append("email",  res.w3.U3);
+        //formData.append("token", res.Zi.access_token);
+        //this.setState({ userId: event.target[4].value});
+        //this.props.signupUser(formData);
+    }
+
     public render() {
+        const responseGoogle = (response) => {
+            console.log(response);
+            this.signup(response);
+        } 
+
         return (
             <div>
+                <a href="/auth/google">Google</a>
                 <form onSubmit={this.createUser} className="signup">
                     <TextField id="firstname" required={true} type="text" hintText="Firstname" />
                     <TextField id="lastname" required={true} type="text" hintText="Lastname" />
