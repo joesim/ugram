@@ -1,15 +1,16 @@
-const AWS = require('aws-sdk');
+import AWS from 'aws-sdk';
+import logger from './logger';
 
 if (process.env.AWS_ACCESS_KEY_ID === undefined
 	|| process.env.AWS_SECRET_ACCESS_KEY === undefined
 	|| process.env.BUCKET_REGION === undefined) {
-	console.error("You need to set env variables: AWS_ACCESS_KEY_ID | AWS_SECRET_ACCESS_KEY | BUCKET_REGION");
+	logger.error("You need to set env variables: AWS_ACCESS_KEY_ID | AWS_SECRET_ACCESS_KEY | BUCKET_REGION");
 	process.exit(0);
 }
 
 AWS.config.update({
-		accessKeyId:     process.env.ACCESS_KEY,
-		secretAccessKey: process.env.SECRET_ACCESS_KEY_ID,
+		accessKeyId:     process.env.AWS_ACCESS_KEY,
+		secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY_ID,
 		region:          process.env.BUCKET_REGION
 });
 

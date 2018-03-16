@@ -5,10 +5,24 @@ import { parseEntry } from '../services';
 const readAll = (req, res) => {
 	const limit = parseInt(req.query.perPage) || 10;
 	const offset = parseInt(req.query.page) * limit;
-	
-	PictureModel.find({}).sort({createdDate: 1}).limit(limit).skip(offset).then(function(data) {
-		data = data.map(parseEntry);
-		res.json(data);
+
+	PictureModel.count({}).then(function(count) {
+		const totalEntries = count;
+		const totalPages = totalEntries == 0 ? 0 : parseInt((totalEntries - 1) / limit) + 1;
+		
+		PictureModel.find({}).sort({createdDate: 1}).limit(limit).skip(offset).then(function(rawData) {
+			const data = {};
+			data.totalEntries = totalEntries;
+			data.totalPages = totalPages;
+			data.items = rawData.map(parseEntry);
+			res.json(data);
+		}, function(err) {
+			console.log(err);
+			res.status(500).send('An error occured');
+		}).catch(function(err) {
+			console.log(err);
+			res.status(500).send('An error occured');
+		});
 	}, function(err) {
 		console.log(err);
 		res.status(500).send('An error occured');
@@ -23,7 +37,7 @@ const readAllOfUser = (req, res) => {
 	const offset = parseInt(req.query.page) * limit;
 
 	// Just to check for error with user
-	UserModel.findOne({_id: req.params.userId}).then(function(data) {
+	UserModel.findOne({id: req.params.userId}).then(function(data) {
 	}, function(err) {
 		console.log(err);
 		res.status(400).send('Missing parameter or unexisting user');	
@@ -32,9 +46,23 @@ const readAllOfUser = (req, res) => {
 		res.status(500).send('An error occured');
 	});
 
-	PictureModel.find({userId: req.params.userId}).sort({createdDate: 1}).limit(limit).skip(offset).then(function(data) {
-		data = data.map(parseEntry);
-		res.json(data);
+	PictureModel.count({userId: req.params.userId}).then(function(count) {
+		const totalEntries = count;
+		const totalPages = totalEntries == 0 ? 0 : parseInt((totalEntries - 1) / limit) + 1;
+
+		PictureModel.find({userId: req.params.userId}).sort({createdDate: 1}).limit(limit).skip(offset).then(function(rawData) {
+			const data = {};
+			data.totalEntries = totalEntries;
+			data.totalPages = totalPages;
+			data.items = rawData.map(parseEntry);
+			res.json(data);
+		}, function(err) {
+			console.log(err);
+			res.status(500).send('An error occured');
+		}).catch(function(err) {
+			console.log(err);
+			res.status(500).send('An error occured');
+		});
 	}, function(err) {
 		console.log(err);
 		res.status(500).send('An error occured');

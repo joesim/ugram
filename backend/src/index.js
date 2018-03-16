@@ -1,10 +1,11 @@
-const express = require("express");
-const bodyParser = require("body-parser");
-const morgan = require("morgan");
-const cors = require("cors");
-const errors = require("./common/errors");
-const logger = require("./common/logger");
-require("dotenv").config();
+import {} from 'dotenv/config';
+import logger from './common/logger';
+
+const express = require('express');
+const bodyParser = require('body-parser');
+const morgan = require('morgan');
+const cors = require('cors');
+const errors = require('./common/errors');
 
 const app = express();
 const corsOptions = {
@@ -13,24 +14,14 @@ const corsOptions = {
   credentials: true
 };
 
-// const winston = require('winston');
-// const winstonCloudWatch = require('winston-cloudwatch');
-//
-// winston.add(winstonCloudWatch, {
-//     logGroupName: 'glo3012',
-//     logStreamName: 'sample'
-// });
-
-app.set("views", __dirname + "/views");
-app.set("view engine", "ejs");
+app.set('views', __dirname + '/views');
+app.set('view engine', 'ejs');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(__dirname + "/public"));
 
 app.use(errors.genericErrorHandler);
-// Enables access-logs on each calls
-//app.use(morgan('combined', {'stream': logger.stream}));
 
 
 require("./controllers")(app);

@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import logger from "./logger";
 
 const env = process.env.NODE_ENV || "dev";
 
@@ -32,5 +33,6 @@ if (env == "test") {
 }
 
 mongoose.connect(mongoUri);
+logger.info("Connected to mongodb");
 
 export { mongoose };
