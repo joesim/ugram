@@ -52,6 +52,8 @@ const readOne = (req, res) => {
 const create = (req, res) => {
 	const user = new UserModel(req.body);
 	user.registrationDate = Date.now();
+
+
 	user.save().then(function(data) {
 		res.status(201).send('Created');
 	}, function(err) {
@@ -64,10 +66,12 @@ const create = (req, res) => {
 };
 
 const oauth = (req, res) => {
-    passport.authenticate('google', { scope: ['profile'] }), 
-    function(req, res) {
-		res.send("logging in with google");
-	};
+	res.redirect('/');
+};
+
+const oauthRedirect = (req, res) => {
+	console.log(req);
+	res.redirect('/');
 };
 
 const update = (req, res) => {
@@ -100,4 +104,4 @@ const deleteOne = (req, res) => {
 	});
 };
 
-export { create, update, readOne, readAll, deleteOne, oauth };
+export { create, update, readOne, readAll, deleteOne, oauth, oauthRedirect };

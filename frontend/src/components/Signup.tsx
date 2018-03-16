@@ -41,7 +41,7 @@ class Signup extends React.Component<any, any> {
 
         return (
             <div>
-                <a href="/auth/google">Google</a>
+                <a href="http://localhost:3000/auth/google">Google</a>
                 <form onSubmit={this.createUser} className="signup">
                     <TextField id="firstname" required={true} type="text" hintText="Firstname" />
                     <TextField id="lastname" required={true} type="text" hintText="Lastname" />
