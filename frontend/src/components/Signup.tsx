@@ -5,6 +5,19 @@ import { setDefaultsFromLocalStorage } from "../axios";
 import Login from "./Login";
 
 class Signup extends React.Component<any, any> {
+    loginUser = () => {
+        const formData = new FormData();
+
+        formData.append("email", document.getElementById("email")["value"]);
+        formData.append("password", document.getElementById("password")["value"]);
+        this.setState({ email: document.getElementById("email")["value"]});
+        this.setState({ password: document.getElementById("password")["value"]});
+
+        console.log(document.getElementById("email")["value"]);
+        console.log(document.getElementById("password")["value"]);
+        this.props.logIn(formData);
+    };
+    
     public constructor(props) {
         super(props);
 
@@ -43,16 +56,6 @@ class Signup extends React.Component<any, any> {
                 </form>
             </div>
         );
-    }
-
-    private loginUser() {
-        event.preventDefault();
-        const formData = new FormData();
-        console.log("i'm here");
-        formData.append("email", event.target[4].value);
-        formData.append("password", event.target[5].value);
-        this.setState({ email: event.target[4].value});
-        this.setState({ password: event.target[5].value});
     }
 
     private createUser(event) {

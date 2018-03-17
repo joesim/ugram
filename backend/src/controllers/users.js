@@ -89,6 +89,10 @@ const oauthRedirect = (req, res) => {
 	res.redirect(`http://localhost:8080/#/?accessToken=${req.user}`);
 };
 
+const login = (req, res) => {
+	//todo
+};
+
 const update = (req, res) => {
 	UserModel.update({id: req.params.userId}, {$set: req.body}).then(function(data) {
 		if (data.n == 0) {
