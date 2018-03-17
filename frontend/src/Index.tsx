@@ -8,9 +8,11 @@ import {Pictures} from "./components/Pictures";
 import AppBarUgram from "./containers/AppBar";
 import ErrorModal from "./containers/ErrorModal";
 import Home from "./containers/Home";
+import Login from "./containers/Login";
 import Profile from "./containers/Profile";
 import Signup from "./containers/Signup";
 import Users from "./containers/Users";
+import Search from "./components/Search";
 
 import { grey800 } from "material-ui/styles/colors";
 import getMuiTheme from "material-ui/styles/getMuiTheme";
@@ -22,20 +24,45 @@ import {BrowserRouter, HashRouter, Redirect, Route, Switch} from "react-router-d
 import { isUndefined } from "util";
 import * as userActions from "./actions/Profile";
 import { store } from "./store";
+import { setDefaultsFromLocalStorage } from "./axios";
 
 import "../scss/app.scss";
 
 let token =  window.localStorage.getItem("token-06");
 
+function getParameterByName(name) {
+	const url = window.location.href;
+	name = name.replace(/[\[\]]/g, "\\$&");
+	const regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)");
+	const results = regex.exec(url);
+	if (!results) {
+		return null;
+	}
+	if (!results[2]) {
+		return "";
+	}
+	return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
+
 const PrivateRoute = ({ component: Component, ...rest }) => {
-    token = window.localStorage.getItem("token-06");
+	const newAccessToken = getParameterByName("accessToken");
+	const newUserId = getParameterByName("userId");
+	const currentToken = window.localStorage.getItem("token-06");
+	if (newAccessToken && newAccessToken !== "" && newAccessToken !== currentToken) {
+		window.localStorage.setItem("token-06", newAccessToken);
+		if (newUserId && newUserId !== "") {
+			window.localStorage.setItem("userId-06", newUserId);
+		}
+		setDefaultsFromLocalStorage();
+		document.location.href = "/";
+	}
     return (
     <Route
 	    {...rest}
 	    render={(props) => (
-        token !== null
+        currentToken && window.localStorage.getItem("userId-06")
 			? <Component {...props}  />
-			: <Redirect to="/signup" />
+			: <Redirect to="/login" />
 	)} />
     );
 };
@@ -61,7 +88,9 @@ ReactDOM.render(
                                 <PrivateRoute path="/pictures" title={"Pictures"} component={Pictures}/>
                                 <PrivateRoute path="/users/:id" title={"User profile"} component={Profile}/>
                                 <PrivateRoute path="/users" title={"Users"} component={Users}/>
+                                <Route path="/search/:id" title={"Search"} component={Search}/>
                                 <Route path="/signup" title={"Signup"} render={(props) => <Signup/>}/>
+	                            <Route path="/login" title={"Login"} render={(props) => <Login/>}/>
                                 <Route component={Page404}/>
                             </Switch>
                         </div>

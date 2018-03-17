@@ -12,6 +12,7 @@ export function mapStateToProps({signup}) {
 export function mapDispatchToProps(dispatch: Dispatch<actions.SignupAction>) {
     return {
         signupUser: (formData) => dispatch(actions.signupUser(formData)),
+        logIn: (formData) => dispatch(actions.logIn(formData)),
     };
 }
 

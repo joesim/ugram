@@ -8,8 +8,7 @@
     "build_travis": "webpack --env.production",
     "lint": "tslint --project tsconfig.json",
     "start": "webpack-dev-server --env.dev",
-    "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "start_livrable2": "LIVRABLE_2=true webpack-dev-server --env.dev"
   },
   "author": "wfortin & vseguin",
   "license": "MIT",
