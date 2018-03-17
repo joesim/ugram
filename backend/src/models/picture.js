@@ -2,7 +2,7 @@ import { mongoose } from '../common/mongoose';
 
 const PictureSchema = mongoose.Schema({
 	createdDate: {
-		type: Date,
+		type: Number,
 		required: [true, 'createdDate is required'],
 	},
 	description: {
