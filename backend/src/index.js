@@ -26,21 +26,24 @@ const corsOptions = {
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: false}));
 app.use(express.static(__dirname + '/public'));
 
 app.use(passport.initialize());
 app.use(passport.session());
 
 app.use(errors.genericErrorHandler);
-
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true}));
-
 app.use(cors(corsOptions));
 
 require('./controllers')(app);
 
 const port = process.env.PORT || 3000;
 app.listen(port);
+if (process.env.NODE_ENV != "test") {
+    app.use(morgan("dev"));
+    logger.info(`App started on port ${port}`);
+  }
 
-logger.info(`App started on port ${port}`)
+
+export { app };

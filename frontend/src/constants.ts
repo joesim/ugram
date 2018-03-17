@@ -36,3 +36,9 @@ export type UPDATE_PICTURE = typeof UPDATE_PICTURE;
 
 export const UPLOAD_PICTURE = "UPLOAD_PICTURE";
 export type UPLOAD_PICTURE = typeof UPLOAD_PICTURE;
+
+export const RECEIVE_SEARCH = "RECEIVE_SEARCH";
+export type RECEIVE_SEARCH = typeof RECEIVE_SEARCH;
+
+export const RECEIVE_NEW_USERS = "RECEIVE_NEW_USERS";
+export type RECEIVE_NEW_USERS = typeof RECEIVE_NEW_USERS;

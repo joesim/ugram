@@ -28,6 +28,7 @@ const PictureSchema = mongoose.Schema({
 	},
 }, {collection: 'Pictures'});
 
-let PictureModel = mongoose.model('Pictures', PictureSchema);
+PictureSchema.index({ description: "text" });
+let PictureModel = mongoose.model("Pictures", PictureSchema);
 
 export { PictureModel };

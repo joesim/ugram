@@ -3,6 +3,7 @@ import * as Users from './users';
 import * as Pictures from './pictures';
 import * as TestUpload from './testUpload';
 import passport from '../common/OAuth';
+import * as Search from './search';
 
 module.exports = function(app) {
 	app.get('/', Home.home);
@@ -21,4 +22,5 @@ module.exports = function(app) {
 	app.put('/users/:userId/pictures/:pictureId', Pictures.update);
 	app.delete('/users/:userId/pictures/:pictureId', Pictures.deleteOne);
 	app.delete('/users/:id', Users.deleteOne);
+	app.get('/search',Search.search);
 };
