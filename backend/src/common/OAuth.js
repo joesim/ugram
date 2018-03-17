@@ -26,22 +26,20 @@ passport.use(
         UserModel.findOne({id:userInfo.id}, (err, res) => {
             if (res === null) {
                 const user = new UserModel(userInfo);
-                user.save().then((err) => {
-                    console.log("ERROR:", err);
+                user.save().then(() => {
 	                return cb(null, {
 		                accessToken,
 		                userId: userInfo.id
 	                });
                 });
             } else {
-                console.log("ddd")
-                UserModel.update({id:userInfo.id}, {accessToken})
-	            return cb(null, {
-		            accessToken,
-		            userId: userInfo.id
-	            });
+                UserModel.update({id:userInfo.id}, {accessToken}, () => {
+	                return cb(null, {
+		                accessToken,
+		                userId: userInfo.id
+	                });
+                });
             }
-            // TODO if problem in database
         })
     }
 ));
