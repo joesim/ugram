@@ -20,19 +20,22 @@ const search = async (req, res) => {
   };
   try {
     const users = await queryUsers(query, limit);
+    const pictures = await queryPictures(query, limit);
+    const mentions = await queryMentions(query, limit);
+
     response.users.items.push(users);
+    response.pictures.items.push(pictures);
+    response.mentions.items.push(pictures);
+
     const usersTotalEntries = users.length;
     response.users.totalEntries = usersTotalEntries;
-
-    const pictures = await queryPictures(query, limit);
-    response.pictures.items.push(pictures);
+  
     const picturesTotalEntries = pictures.length;
     response.pictures.totalEntries = picturesTotalEntries;
 
-    const mentions = await queryMentions(query, limit);
-    response.pictures.items.push(pictures);
     const mentionsTotalEntries = mentions.length;
     response.mentions.totalEntries = mentionsTotalEntries;
+    
   } catch (error) {
     errorMessage(res, 500, "Internal server error");
   }
