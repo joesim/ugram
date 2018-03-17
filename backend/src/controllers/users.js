@@ -1,6 +1,7 @@
 import { UserModel } from '../models/user';
 import { PictureModel } from '../models/picture';
 import { parseEntry } from '../services';
+import crypto from "crypto";
 import { s3 } from "../common/s3";
 
 const readAll = (req, res) => {
@@ -77,7 +78,12 @@ const login = (req, res) => {
 		if (user === null)
 			res.status(400).send('User not found');
 		else {
-			res.send("tokengenerated")
+			crypto.randomBytes(30, (err, buffer) => {
+				const accessToken = buffer.toString("hex");
+				UserModel.update({id: req.body.username, password: req.body.password}, {accessToken}, () => {
+					res.send(accessToken);
+				});
+			})
 		}
 	})
 };
