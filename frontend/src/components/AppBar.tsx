@@ -6,6 +6,7 @@ import FileUpload from "material-ui/svg-icons/file/file-upload";
 import * as React from "react";
 import UploadModal from "../containers/UploadModal";
 import SearchBar from "./SearchBar";
+import RaisedButton from "material-ui/RaisedButton";
 
 import FontIcon from "material-ui/FontIcon";
 import { Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle } from "material-ui/Toolbar";
@@ -23,6 +24,7 @@ const AppBarUgram = ({ appbar, onFileUploadModalClick }: any) => {
 
     let userConnected = null;
     let uploadImage = null;
+    let logout = null;
     if (window.localStorage.getItem("userId-06") !== null) {
         const link = "/users/" + window.localStorage.getItem("userId-06");
         userConnected = <Link to={link}><FontIcon className="material-icons items-navbar">person</FontIcon></Link>;
@@ -31,6 +33,8 @@ const AppBarUgram = ({ appbar, onFileUploadModalClick }: any) => {
                 <FontIcon onLeftIconButtonClick="" className="material-icons items-navbar">file_upload</FontIcon>
             </IconButton>
         );
+        const logoutLink =  document.location.href = "/#/login";
+        logout = <Link to={logoutLink}><RaisedButton label="Logout" type="submit" primary={true} onClick={onLogout}/></Link>;
     }
 
     return (
@@ -49,11 +53,16 @@ const AppBarUgram = ({ appbar, onFileUploadModalClick }: any) => {
                         <Link to="/users"><FontIcon className="material-icons items-navbar">group</FontIcon></Link>
                         {userConnected}
                         {uploadImage}
+                        {logout}
                     </div>
                 </div>
             </div>
         </div>
     );
 };
+
+const onLogout = (any : any) => {
+    window.localStorage.clear();
+}
 
 export default AppBarUgram;
