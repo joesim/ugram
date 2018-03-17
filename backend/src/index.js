@@ -17,7 +17,8 @@ const corsOptions = {
         'POST',
         'PATCH',
         'DELETE',
-        'UPDATE'
+        'UPDATE',
+        "OPTIONS"
     ],
     credentials: true
 };
@@ -25,14 +26,17 @@ const corsOptions = {
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: false}));
 app.use(express.static(__dirname + '/public'));
 
 app.use(passport.initialize());
 app.use(passport.session());
 
 app.use(errors.genericErrorHandler);
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
+
+app.use(cors(corsOptions));
 
 require('./controllers')(app);
 

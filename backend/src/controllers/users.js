@@ -71,26 +71,21 @@ const login = (req, res) => {
 	if (req.body.username === undefined
 		|| req.body.password === undefined)
 		res.status(400).send('Missing username or password');
-	UserModel.findOne({id: req.body.username, password: req.body.password}, (err, res) => {
-		console.log(res);
-		if (res === null)
+	UserModel.findOne({id: req.body.username, password: req.body.password}, (err, user) => {
+		if (user === null)
 			res.status(400).send('User not found');
 		else {
-			console.log(res);
+			res.send("tokengenerated")
 		}
 	})
 };
 
 const oauth = (req, res) => {
-	res.redirect('/');
+	res.redirect('http://localhost:8080/#/login');
 };
 
 const oauthRedirect = (req, res) => {
-	res.redirect(`http://localhost:8080/#/?accessToken=${req.user}`);
-};
-
-const login = (req, res) => {
-	//todo
+	res.redirect(`http://localhost:8080/#/?accessToken=${req.user.accessToken}&userId=${req.user.userId}`);
 };
 
 const update = (req, res) => {

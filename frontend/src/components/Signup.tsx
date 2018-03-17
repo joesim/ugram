@@ -5,45 +5,24 @@ import { setDefaultsFromLocalStorage } from "../axios";
 import Login from "./Login";
 
 class Signup extends React.Component<any, any> {
-    loginUser = () => {
-        const formData = new FormData();
-
-        formData.append("email", document.getElementById("email")["value"]);
-        formData.append("password", document.getElementById("password")["value"]);
-        this.setState({ email: document.getElementById("email")["value"]});
-        this.setState({ password: document.getElementById("password")["value"]});
-
-        console.log(document.getElementById("email")["value"]);
-        console.log(document.getElementById("password")["value"]);
-        this.props.logIn(formData);
-    };
-    
     public constructor(props) {
         super(props);
 
         this.state = {
+	        email: "",
+	        password: "",
             userId: "",
-            email: "",
-            password: "",
         };
         this.createUser = this.createUser.bind(this);
-        this.loginUser = this.loginUser.bind(this);
     }
 
     public componentDidUpdate(prevProps, prevState): void {
-        if (this.props.signup.tokenUrl !== "") {
-            window.localStorage.setItem("token-06", this.props.signup.tokenUrl.split("token=")[1]);
-            window.localStorage.setItem("userId-06", this.state.userId);
-            setDefaultsFromLocalStorage();
-
-            document.location.href = "/";
-        }
+        document.location.href = "/#/login";
     }
 
     public render() {
         return (
             <div>
-                <a href="http://localhost:3000/auth/google">Google</a>
                 <form onSubmit={this.createUser} className="signup">
                     <TextField id="firstname" required={false} type="text" floatingLabelText="First Name"/>
                     <TextField id="lastname" required={false} type="text" floatingLabelText="Last Name"/>
@@ -52,7 +31,6 @@ class Signup extends React.Component<any, any> {
                     <TextField id="email" required={true} type="email" floatingLabelText="Email" />
                     <TextField id="password" required={true} type="password" floatingLabelText="Password" />
                     <RaisedButton label="Create User" type="submit" primary={true} />
-                    <RaisedButton label="Login" onClick={this.loginUser} primary={true} />
                 </form>
             </div>
         );
@@ -60,18 +38,18 @@ class Signup extends React.Component<any, any> {
 
     private createUser(event) {
         event.preventDefault();
-        const formData = new FormData();
-
-        formData.append("firstName", event.target[0].value);
-        formData.append("lastName", event.target[1].value);
-        formData.append("id", event.target[2].value);        
-        formData.append("phoneNumber", event.target[3].value);
-        formData.append("email",  event.target[4].value);
-        formData.append("password", event.target[5].value);
+        const data = {
+	        firstName: event.target[0].value,
+    	    lastName: event.target[1].value,
+	        id: event.target[3].value,
+	        phoneNumber: event.target[2].value,
+	        email:  event.target[4].value,
+	        password: event.target[5].value,
+        };
         this.setState({ userId: event.target[2].value});
-        this.setState({ password: event.target[5].value});        
+        this.setState({ password: event.target[5].value});
 
-        this.props.signupUser(formData);
+        this.props.signupUser(data);
     }
 }
 

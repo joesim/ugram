@@ -6,16 +6,13 @@ const parseEntry = (data) => {
     delete jsonData._id;
     delete jsonData.__v;
 
-    if (jsonData.registrationDate != undefined) {
-        jsonData.registrationDate = jsonData.registrationDate.getTime();
-    }
-    if (jsonData.createdDate != undefined) {
-        jsonData.createdDate = jsonData.createDate.getTime();
-    }
+    // if (jsonData.registrationDate != undefined) {
+    //     jsonData.registrationDate = jsonData.registrationDate.getTime();
+    // }
 
-    for (let key in jsonData) {
-        jsonData[key] = jsonData[key].toString();
-    }
+    // if (jsonData.createdDate != undefined) {
+    //     jsonData.createdDate = jsonData.createDate.getTime();
+    // }
 
     return jsonData;
 };

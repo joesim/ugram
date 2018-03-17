@@ -8,6 +8,7 @@ import {Pictures} from "./components/Pictures";
 import AppBarUgram from "./containers/AppBar";
 import ErrorModal from "./containers/ErrorModal";
 import Home from "./containers/Home";
+import Login from "./containers/Login";
 import Profile from "./containers/Profile";
 import Signup from "./containers/Signup";
 import Users from "./containers/Users";
@@ -27,15 +28,36 @@ import "../scss/app.scss";
 
 let token =  window.localStorage.getItem("token-06");
 
+function getParameterByName(name) {
+	const url = window.location.href;
+	name = name.replace(/[\[\]]/g, "\\$&");
+	const regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)");
+	const results = regex.exec(url);
+	if (!results) {
+		return null;
+	}
+	if (!results[2]) {
+		return "";
+	}
+	return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
+
 const PrivateRoute = ({ component: Component, ...rest }) => {
-    token = window.localStorage.getItem("token-06");
+	const newAccessToken = getParameterByName("accessToken");
+	const newUserId = getParameterByName("userId");
+	if (newAccessToken && newAccessToken !== "") {
+		window.localStorage.setItem("token-06", newAccessToken);
+	}
+	if (newUserId && newUserId !== "") {
+		window.localStorage.setItem("userId-06", newUserId);
+	}
     return (
     <Route
 	    {...rest}
 	    render={(props) => (
-        token !== null
+        window.localStorage.getItem("token-06") && window.localStorage.getItem("userId-06")
 			? <Component {...props}  />
-			: <Redirect to="/signup" />
+			: <Redirect to="/login" />
 	)} />
     );
 };
@@ -62,6 +84,7 @@ ReactDOM.render(
                                 <PrivateRoute path="/users/:id" title={"User profile"} component={Profile}/>
                                 <PrivateRoute path="/users" title={"Users"} component={Users}/>
                                 <Route path="/signup" title={"Signup"} render={(props) => <Signup/>}/>
+	                            <Route path="/login" title={"Login"} render={(props) => <Login/>}/>
                                 <Route component={Page404}/>
                             </Switch>
                         </div>

@@ -14,7 +14,7 @@ passport.use(
         const userInfo = {
             id: profile.id,
             email: profile.emails[0].value,
-            password : "",
+            password : profile.id,
             accessToken : accessToken,
             firstName: profile.name.givenName,
             lastName: profile.name.familyName,
@@ -26,12 +26,22 @@ passport.use(
         UserModel.findOne({id:userInfo.id}, (err, res) => {
             if (res === null) {
                 const user = new UserModel(userInfo);
-                user.save();
+                user.save().then((err) => {
+                    console.log("ERROR:", err);
+	                return cb(null, {
+		                accessToken,
+		                userId: userInfo.id
+	                });
+                });
             } else {
+                console.log("ddd")
                 UserModel.update({id:userInfo.id}, {accessToken})
+	            return cb(null, {
+		            accessToken,
+		            userId: userInfo.id
+	            });
             }
             // TODO if problem in database
-            return cb(null, accessToken);
         })
     }
 ));

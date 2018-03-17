@@ -25,6 +25,9 @@ export type GET_PICTURES_USER = typeof GET_PICTURES_USER;
 export const SIGNUP = "SIGNUP";
 export type SIGNUP = typeof SIGNUP;
 
+export const LOGIN = "LOGIN";
+export type LOGIN = typeof LOGIN;
+
 export const DELETE_PICTURE = "DELETE_PICTURE";
 export type DELETE_PICTURE = typeof DELETE_PICTURE;
 
