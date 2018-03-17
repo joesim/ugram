@@ -1,9 +1,9 @@
 import { mongoose } from "../common/mongoose";
 import { s3 } from "../common/s3";
 
-const uploadSample = (body) => {
+const uploadSample = (keyName, body) => {
 	const bucketName = 'images-ugram';
-	const keyName = 'hello_world.txt';
+	//const keyName = 'hello_world.txt';
 	const params = {
 		Bucket: bucketName,
 		Key: keyName,

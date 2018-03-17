@@ -6,9 +6,12 @@ import passport from '../common/OAuth';
 import * as Search from './search';
 import { isAuthenticated } from "../middlewares/authentification";
 
+let multer = require('multer');
+let upload = multer();
+
 module.exports = function(app) {
 	app.get('/', Home.home);
-	// app.get('/upload', TestUpload.testUpload);
+	app.get('/upload', TestUpload.testUpload);
 	app.get('/users', Users.readAll);
 	app.get('/users/:userId', isAuthenticated, Users.readOne);
 	app.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email' ]}), Users.oauth);
@@ -16,7 +19,7 @@ module.exports = function(app) {
 	app.put('/users/:userId', isAuthenticated, Users.update);
 	app.post('/signup', Users.create);
 	app.post('/login', Users.login);
-	app.post('/users/:userId/pictures', Pictures.create);
+	app.post('/users/:userId/pictures', upload.any(), Pictures.create);
 	app.get('/pictures', Pictures.readAll);
 	app.get('/users/:userId/pictures', isAuthenticated, Pictures.readAllOfUser);
 	app.get('/users/:userId/pictures/:pictureId', isAuthenticated, Pictures.readOne);
