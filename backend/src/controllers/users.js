@@ -1,4 +1,5 @@
 import { UserModel } from '../models/user';
+import { PictureModel } from '../models/picture';
 import { parseEntry } from '../services';
 import { s3 } from "../common/s3";
 
@@ -150,7 +151,13 @@ const deleteOne = (req, res) => {
 		if (data.n == 0) {
 			res.status(400).send('Missing parameter or unexisting picture for user');
 		}
-		res.status(204).send('No Content');
+        PictureModel.remove({userId: req.params.id}).then(function(data) {
+            res.status(204).send('No Content');
+		}, function(err) {
+            console.log(err);
+            res.status(400).send('Missing parameter or unexisting picture for user');
+        });
+
 	}, function(err) {
 		console.log(err);
 		res.status(400).send('Missing parameter or unexisting picture for user');
