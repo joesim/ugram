@@ -1,23 +1,26 @@
-import * as HomeServices from './home';
-import * as UploadServices from './upload';
+import * as HomeServices from "./home";
+import * as UploadServices from "./upload";
 
-const parseEntry = (data) => {
-    let jsonData = data.toJSON();
-    delete jsonData._id;
-    delete jsonData.__v;
+const parseEntry = data => {
+  let jsonData = data.toJSON();
 
-    if (jsonData.registrationDate != undefined) {
-        jsonData.registrationDate = jsonData.registrationDate.getTime();
-    }
-    if (jsonData.createdDate != undefined) {
-        jsonData.createdDate = jsonData.createDate.getTime();
-    }
+  delete jsonData._id;
+  delete jsonData.__v;
 
-    for (let key in jsonData) {
-        jsonData[key] = jsonData[key].toString();
-    }
+  if (jsonData.registrationDate != undefined) {
+    jsonData.registrationDate = jsonData.registrationDate.getTime();
+  }
 
-    return jsonData;
+//   if (jsonData.createdDate != undefined) {
+//     jsonData.createdDate = jsonData.createDate.getTime();
+//   }
+// TODO need to fix this bug ASAP
+
+  for (let key in jsonData) {
+    jsonData[key] = jsonData[key].toString();
+  }
+
+  return jsonData;
 };
 
 export { HomeServices, UploadServices, parseEntry };

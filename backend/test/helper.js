@@ -29,14 +29,16 @@ const createUsers = async () => {
     .send({
       email: "gab@hotmail.com",
       firstName: "gab",
-      lastName: "legault"
+      lastName: "legault",
+      id: "Gabswim"
     });
   await request(app)
     .post("/signup")
     .send({
       email: "gab2@hotmail.com",
       firstName: "gab2",
-      lastName: "legault2"
+      lastName: "legault2",
+      id: "Gabswim2"
     });
 };
 
