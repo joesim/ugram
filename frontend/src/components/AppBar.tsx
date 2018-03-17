@@ -20,49 +20,56 @@ const inlineBlock = {
     display: "inline-block"
 }
 
-const AppBarUgram = ({ appbar, onFileUploadModalClick }: any) => {
+class AppBarUgram extends React.Component<any, any> {
+	constructor(props) {
+		super(props);
+	}
 
-    let userConnected = null;
-    let uploadImage = null;
-    let logout = null;
-    if (window.localStorage.getItem("userId-06") !== null) {
-        const link = "/users/" + window.localStorage.getItem("userId-06");
-        userConnected = <Link to={link}><FontIcon className="material-icons items-navbar">person</FontIcon></Link>;
-        uploadImage = (
-            <IconButton onClick={onFileUploadModalClick} className="upload">
-                <FontIcon onLeftIconButtonClick="" className="material-icons items-navbar">file_upload</FontIcon>
-            </IconButton>
-        );
-        const logoutLink =  document.location.href = "/#/login";
-        logout = <Link to={logoutLink}><RaisedButton label="Logout" type="submit" primary={true} onClick={onLogout}/></Link>;
-    }
+	public onLogout = () => {
+		window.localStorage.clear();
+		this.forceUpdate();
+	};
 
-    return (
-        <div>
-            <UploadModal
-                visibility={appbar.upload.isVisible}
-                visibilityFunc={onFileUploadModalClick}
-            />
-            <div className="navbar">
-                <div className="container flex-justify-between flex-align-items-center height-100">
-                    <div >
-                        <Link to="/" className="no-decoration"><div className="items-navbar title-navbar">UGram</div></Link>
-                    </div>
-                    <SearchBar />
-                    <div>
-                        <Link to="/users"><FontIcon className="material-icons items-navbar">group</FontIcon></Link>
-                        {userConnected}
-                        {uploadImage}
-                        {logout}
+	public render() {
+		let userConnected = null;
+		let uploadImage = null;
+		let logout = null;
+		if (window.localStorage.getItem("userId-06") !== null) {
+			const link = "/users/" + window.localStorage.getItem("userId-06");
+			userConnected = <Link to={link}><FontIcon className="material-icons items-navbar">person</FontIcon></Link>;
+			uploadImage = (
+                <IconButton onClick={this.props.onFileUploadModalClick} className="upload"> <FontIcon
+                    onLeftIconButtonClick="" className="material-icons items-navbar">file_upload</FontIcon>
+                </IconButton>
+			);
+			logout = (
+                <IconButton onClick={this.onLogout} href="/#/login" className="upload"> <FontIcon
+                    onLeftIconButtonClick="" className="material-icons items-navbar">exit_to_app</FontIcon>
+                </IconButton>
+			);
+		}
+
+		return (
+            <div>
+                <UploadModal visibility={this.props.appbar.upload.isVisible}
+                             visibilityFunc={this.props.onFileUploadModalClick} />
+                <div className="navbar">
+                    <div className="container flex-justify-between flex-align-items-center height-100">
+                        <div>
+                            <Link to="/" className="no-decoration">
+                                <div className="items-navbar title-navbar">UGram</div>
+                            </Link>
+                        </div>
+                        <SearchBar />
+                        <div>
+                            <Link to="/users"><FontIcon
+                                className="material-icons items-navbar">group</FontIcon></Link> {userConnected} {uploadImage} {logout}
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    );
-};
-
-const onLogout = (any : any) => {
-    window.localStorage.clear();
+		);
+	}
 }
 
 export default AppBarUgram;
