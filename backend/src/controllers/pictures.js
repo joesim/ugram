@@ -95,18 +95,13 @@ const create = (req, res) => {
 	const picture = new PictureModel(req.body);
 	picture.createdDate = Date.now();
 	picture.userId = req.params.userId;
+	const fileName = picture.userId + '/' + picture._id + req.files[0].originalname;
+	const file = req.files[0].buffer;
 
-	console.log('------------------ req body =', req.body);
-    console.log('------------------ req params =', req.params);
-
-	// Todo: upload image
-	picture.url = 'http://i0.kym-cdn.com/entries/icons/original/000/004/949/trolldad.jpg';
-	
-
+    picture.url = 'https://s3.ca-central-1.amazonaws.com/images-ugram/' + fileName;
 
 	picture.save().then(function(data) {
-		UploadServices.uploadSample("foobar.jpeg", req.body.pictureModel[3]).then(function(data) {
-			console.log('data = ', data);
+        UploadServices.uploadSample(fileName, file).then(function(data) {
             res.status(201).json({id: picture._id});
         }).catch(function(err) {
             console.log(err);
