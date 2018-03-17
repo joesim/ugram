@@ -5,6 +5,7 @@ export const isAuthenticated = (req, res, next) => {
 
 	if (accessToken) {
 		accessToken = accessToken.replace("Bearer ", "");
+		console.log(accessToken)
 
 		try {
 			UserModel.findOne({accessToken}, function (err, user) {
