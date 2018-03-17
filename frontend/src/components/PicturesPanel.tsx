@@ -28,8 +28,6 @@ class PicturesPanel extends React.Component<Props, any> {
             pictureDetails: null,
             userId: null,
         };
-
-
         this.props.pictures_panel.pictures = [];
 
 

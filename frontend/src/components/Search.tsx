@@ -13,6 +13,7 @@ class Search extends React.Component<any, any> {
         super(props);
         this.state = {
             value: 'all',
+            searchterm: this.props.match.params.id
         };
         this.handleChange = this.handleChange.bind(this)
     }
@@ -23,12 +24,15 @@ class Search extends React.Component<any, any> {
         });
     };
 
+    public componentWillReceiveProps(nextProps) {
+        this.setState({searchterm: nextProps.match.params.id})
+    }
 
     public render(): JSX.Element {
 
         let searchAll = null;
         if (this.state.value === "all"){
-            searchAll = <SearchAll handler={this.handleChange} query={this.props.match.params.id}/>
+            searchAll = <SearchAll handler={this.handleChange} query={this.state.searchterm}/>
         }
         
         let users = null;
