@@ -36,7 +36,6 @@ const UserSchema = new mongoose.Schema({
 	password: {
 		type: String,
 		required: [true, "Password is required"],
-		maxlength: [60, 'Password is too long (max 60 characters)'],
 	},
 	accessToken: {
 		type: String,
