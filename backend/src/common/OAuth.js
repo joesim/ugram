@@ -1,4 +1,4 @@
-import UserModel from '../models/user';
+import { UserModel } from '../models/user';
 
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
@@ -14,18 +14,24 @@ passport.use(
         const userInfo = {
             id: profile.id,
             email: profile.emails[0].value,
+            //password : "",
+            //accessToken : profile.accessToken
             firstName: profile.name.givenName,
             lastName: profile.name.familyName,
             phoneNumber: "",
             pictureUrl: profile.image !== undefined ? profile.image.url : "",
             registrationDate: Date.now()
         }
-//        console.log(userInfo);
 
-        return cb(null, userInfo);
-        //User.findOrCreate({ googleId: profile.id }, function (err, user) {
-        //    return cb(err, user);
-        //});
+        UserModel.findOne({id:userInfo.id}, (err, res) => {
+            if (res === null) {
+                const user = new UserModel(userInfo);
+                user.save();
+            }
+
+            // TODO if problem in database 
+            return cb(null, accessToken);
+        })
     }
 ));
 

@@ -10,7 +10,7 @@ module.exports = function(app) {
 	app.get('/users', Users.readAll);
 	app.get('/users/:userId', Users.readOne);
 	app.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email' ]}), Users.oauth);
-	app.get('/auth/google/redirect', passport.authenticate('google', { successRedirect: '/', failureRedirect: '/signup' }), Users.oauthRedirect);
+	app.get('/auth/google/redirect', passport.authenticate('google', { failureRedirect: 'http://localhost:8080/signup' }), Users.oauthRedirect);
 	app.put('/users/:userId', Users.update);
 	app.post('/signup', Users.create);
 	app.post('/users/:userId/pictures', Pictures.create);

@@ -52,8 +52,6 @@ const readOne = (req, res) => {
 const create = (req, res) => {
 	const user = new UserModel(req.body);
 	user.registrationDate = Date.now();
-
-
 	user.save().then(function(data) {
 		res.status(201).send('Created');
 	}, function(err) {
@@ -70,8 +68,7 @@ const oauth = (req, res) => {
 };
 
 const oauthRedirect = (req, res) => {
-	console.log(req);
-	res.redirect('/');
+	res.redirect(`http://localhost:8080/?accessToken=${req.user}`);
 };
 
 const update = (req, res) => {
