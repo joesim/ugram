@@ -5,6 +5,11 @@ node_js:
 
 services: mongodb
 
+branches: 
+  only: 
+    - dev 
+    - master 
+
 cache:
   directories:
   - node_modules
