@@ -6,11 +6,11 @@ const parseEntry = (data) => {
     delete jsonData._id;
     delete jsonData.__v;
 
-    if (jsonData.registrationDate != undefined) {
+    if (typeof jsonData.registrationDate != 'undefined') {
         jsonData.registrationDate = jsonData.registrationDate.getTime();
     }
-    if (jsonData.createdDate != undefined) {
-        jsonData.createdDate = jsonData.createDate.getTime();
+    if (typeof jsonData.createdDate != 'undefined') {
+        jsonData.createdDate = jsonData.createdDate.getTime();
     }
 
     for (let key in jsonData) {
