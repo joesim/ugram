@@ -25,11 +25,10 @@ const PictureSchema = mongoose.Schema({
 	userId: {
 		type: String,
 		required: [true, 'userId is required'],
-		minlength: [24, 'userId is too short (min 24 characters)'],
-		maxlength: [24, 'userId is too long (max 24 characters)'],
 	},
 }, {collection: 'Pictures'});
 
-let PictureModel = mongoose.model('Pictures', PictureSchema);
+PictureSchema.index({ description: "text" });
+let PictureModel = mongoose.model("Pictures", PictureSchema);
 
 export { PictureModel };

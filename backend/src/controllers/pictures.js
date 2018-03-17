@@ -9,12 +9,13 @@ const readAll = (req, res) => {
 	PictureModel.count({}).then(function(count) {
 		const totalEntries = count;
 		const totalPages = totalEntries == 0 ? 0 : parseInt((totalEntries - 1) / limit) + 1;
-		
+
 		PictureModel.find({}).sort({createdDate: 1}).limit(limit).skip(offset).then(function(rawData) {
 			const data = {};
 			data.totalEntries = totalEntries;
 			data.totalPages = totalPages;
 			data.items = rawData.map(parseEntry);
+			console.log(data.items);
 			res.json(data);
 		}, function(err) {
 			console.log(err);
@@ -40,7 +41,7 @@ const readAllOfUser = (req, res) => {
 	UserModel.findOne({id: req.params.userId}).then(function(data) {
 	}, function(err) {
 		console.log(err);
-		res.status(400).send('Missing parameter or unexisting user');	
+		res.status(400).send('Missing parameter or unexisting user');
 	}).catch(function(err) {
 		console.log(err);
 		res.status(500).send('An error occured');
@@ -111,12 +112,12 @@ const create = (req, res) => {
 const update = (req, res) => {
 	PictureModel.update({_id: req.params.pictureId, userId: req.params.userId}, {$set: req.body}).then(function() {
 		if (data.n == 0) {
-			res.status(400).send('Missing parameter or unexisting picture for user');	
+			res.status(400).send('Missing parameter or unexisting picture for user');
 		}
 		res.status(201).send('Created');
 	}, function(err) {
 		console.log(err);
-		res.status(400).send('Missing parameter or unexisting picture for user');	
+		res.status(400).send('Missing parameter or unexisting picture for user');
 	}).catch(function(err) {
 		console.log(err);
 		res.status(500).send('An error occured');
@@ -126,12 +127,12 @@ const update = (req, res) => {
 const deleteOne = (req, res) => {
 	PictureModel.remove({_id: req.params.pictureId, userId: req.params.userId}).then(function(data) {
 		if (data.n == 0) {
-			res.status(400).send('Missing parameter or unexisting picture for user');	
+			res.status(400).send('Missing parameter or unexisting picture for user');
 		}
-		res.status(204).send('No Content');	
+		res.status(204).send('No Content');
 	}, function(err) {
 		console.log(err);
-		res.status(400).send('Missing parameter or unexisting picture for user');	
+		res.status(400).send('Missing parameter or unexisting picture for user');
 	}).catch(function(err) {
 		console.log(err);
 		res.status(500).send('An error occured');
