@@ -1,6 +1,7 @@
 import { PictureModel } from '../models/picture';
 import { UserModel } from '../models/user';
 import { parseEntry } from '../services';
+import { UploadServices } from '../services';
 
 const readAll = (req, res) => {
 	const limit = parseInt(req.query.perPage) || 10;
@@ -95,11 +96,22 @@ const create = (req, res) => {
 	picture.createdDate = Date.now();
 	picture.userId = req.params.userId;
 
+	console.log('------------------ req body =', req.body);
+    console.log('------------------ req params =', req.params);
+
 	// Todo: upload image
 	picture.url = 'http://i0.kym-cdn.com/entries/icons/original/000/004/949/trolldad.jpg';
+	
+
 
 	picture.save().then(function(data) {
-		res.status(201).json({id: picture._id});
+		UploadServices.uploadSample("foobar.jpeg", req.body.pictureModel[3]).then(function(data) {
+			console.log('data = ', data);
+            res.status(201).json({id: picture._id});
+        }).catch(function(err) {
+            console.log(err);
+            res.status(500).send('An error occured');
+        });
 	}, function(err) {
 		console.log(err);
 		res.status(500).send('An error occured');
