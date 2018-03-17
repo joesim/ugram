@@ -90,10 +90,12 @@ const oauthRedirect = (req, res) => {
 
 const update = (req, res) => {
 	UserModel.update({id: req.params.userId}, {$set: req.body}).then(function(data) {
-		if (data.n == 0) {
+		if (data.n === 0) {
 			res.status(400).send('Missing parameter or unexisting user');
 		}
-		res.status(201).send('Created');
+		UserModel.findOne({id: req.params.userId}).then(function(data) {
+			res.status(201).send(data);
+		});
 	}, function(err) {
 		console.log(err);
 		res.status(400).send('Missing parameter or unexisting user');
