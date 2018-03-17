@@ -1,6 +1,7 @@
 import { UserModel } from '../models/user';
 import { PictureModel } from '../models/picture';
 import { parseEntry } from '../services';
+import crypto from "crypto";
 import { s3 } from "../common/s3";
 
 const password = require('crypto-password-helper');
@@ -86,11 +87,18 @@ const login = (req, res) => {
 		else {
 			const isMatch = password.compareSync(req.body.password, user.password);
 
-			if (isMatch)
-				res.send("tokengenerated");
-			else
+			if (!isMatch)
 				res.status(401).send('Bad username or password');
-		}
+      else {
+			crypto.randomBytes(30, (err, buffer) => {
+				const accessToken = buffer.toString("hex");
+				UserModel.update({id: req.body.username, password: req.body.password}, {accessToken}, () => {
+					res.send(accessToken);
+				});
+			})
+      }
+
+    }
 	})
 };
 
