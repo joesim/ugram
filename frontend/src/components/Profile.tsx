@@ -11,7 +11,6 @@ import TextField from "material-ui/TextField";
 import FlatButton from "material-ui/FlatButton";
 import { Redirect } from 'react-router-dom';
 
-
 interface Props {
     user: {
         firstName: string,
@@ -24,6 +23,7 @@ interface Props {
     error: any;
     fetchData: any;
     editProfile: any;
+    removeProfile: any;
     match: any;
 }
 
@@ -57,9 +57,7 @@ class Profile extends React.Component<Props, any> {
 
     public handleSubmit = () => {
         this.setState({ open: false, accountDeleted: true, openSnackbar:true });
-        //Call api pour delete account 
-        //delete le token et userid 
-        //redirect main page this.props.onSubmit(this.props.user.id, this.state.user);
+        this.props.removeProfile(this.props.user.id);
     }
 
     public handleRequestClose = () => {
