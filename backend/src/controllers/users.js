@@ -1,5 +1,6 @@
 import { UserModel } from '../models/user';
 import { parseEntry } from '../services';
+import crypto from "crypto";
 
 const readAll = (req, res) => {
 	const limit = parseInt(req.query.perPage) || 10;
@@ -75,7 +76,12 @@ const login = (req, res) => {
 		if (user === null)
 			res.status(400).send('User not found');
 		else {
-			res.send("tokengenerated")
+			crypto.randomBytes(30, (err, buffer) => {
+				const accessToken = buffer.toString("hex");
+				UserModel.update({id: req.body.username, password: req.body.password}, {accessToken}, () => {
+					res.send(accessToken);
+				});
+			})
 		}
 	})
 };
