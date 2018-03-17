@@ -34,7 +34,10 @@ const UserSchema = new mongoose.Schema({
 		type: Date,
 		required: [true, 'Registration date is required'],
 	},
-	//TODO password
+	password: {
+		type: String,
+		required: [20, 'Password if too long (max 20 characters)']
+	},
 	//facebook: {...}
 }, {collection: 'Users'});
 
