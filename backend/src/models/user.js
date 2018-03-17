@@ -30,7 +30,7 @@ const UserSchema = new mongoose.Schema({
 		maxlength: [255, 'Picture url is too long (max 255 characters)'],
 	},
 	registrationDate: {
-		type: Date,
+		type: Number,
 		required: [true, 'Registration date is required'],
 	},
 	password: {
