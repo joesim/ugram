@@ -7,13 +7,25 @@ export interface ProfileSuccess {
     user: object;
 }
 
-export type ProfilePanelActions = ProfileSuccess;
+export interface RemoveProfileSuccess {
+	type: constants.REMOVE_PROFILE_SUCCESS;
+	user: object;
+}
+
+export type ProfilePanelActions = ProfileSuccess | RemoveProfileSuccess;
 
 function profileFetchDataSuccess(user: object) {
     return {
         type: constants.PROFILE_FETCH_DATA_SUCCESS,
         user,
     };
+}
+
+function removeProfileSuccess(user: object) {
+	return {
+		type: constants.REMOVE_PROFILE_SUCCESS,
+		user,
+	};
 }
 
 export function profileFetchData(id: string) {
@@ -43,4 +55,16 @@ export function editProfile(id: string, user: object) {
             dispatch(throwError("Sorry! There was an error editing this profile.", error));
         });
     };
+}
+
+export function removeProfile(id: string) {
+	return (dispatch) => {
+		axios.delete("/users/" + id)
+			.then((response) => {
+				dispatch(removeProfileSuccess(response));
+			})
+			.catch((error) => {
+				dispatch(throwError("Sorry! There was an error removing this profile.", error));
+			});
+	};
 }
