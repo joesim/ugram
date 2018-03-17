@@ -23,19 +23,24 @@ const UserSchema = new mongoose.Schema({
 		maxlength: [100, 'Last name is too long (max 100 characters)'],
 	},
 	phoneNumber: {
-		type: String,
-		maxlength: [20, 'First name is too long (max 20 characters)'],
+		type: Number,
 	},
 	pictureUrl: {
 		type: String,
-		maxlength: [255, 'First name is too long (max 255 characters)'],
+		maxlength: [255, 'Picture url is too long (max 255 characters)'],
 	},
 	registrationDate: {
 		type: Date,
 		required: [true, 'Registration date is required'],
 	},
-	//TODO password
-	//facebook: {...}
+	password: {
+		type: String,
+		required: [true, "Password is required"],
+		maxlength: [20, 'Password is too long (max 20 characters)'],
+	},
+	accessToken: {
+		type: String,
+	}
 }, {collection: 'Users'});
 
 let UserModel = mongoose.model('Users', UserSchema);

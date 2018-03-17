@@ -42,7 +42,7 @@ const readOne = (req, res) => {
 		}
 	}, function(err) {
 		console.log(err);
-		res.status(500).send('An error occured');	
+		res.status(500).send('An error occured');
 	}).catch(function(err) {
 		console.log(err);
 		res.status(500).send('An error occured');
@@ -50,8 +50,12 @@ const readOne = (req, res) => {
 };
 
 const create = (req, res) => {
-	const user = new UserModel(req.body);
-	user.registrationDate = Date.now();
+	const userInfos = {
+		...req.body,
+		registrationDate: Date.now(),
+		accessToken: ""
+	};
+	const user = new UserModel(userInfos);
 	user.save().then(function(data) {
 		res.status(201).send('Created');
 	}, function(err) {
@@ -63,23 +67,37 @@ const create = (req, res) => {
 	});
 };
 
+const login = (req, res) => {
+	if (req.body.username === undefined
+		|| req.body.password === undefined)
+		res.status(400).send('Missing username or password');
+	UserModel.findOne({id: req.body.username, password: req.body.password}, (err, res) => {
+		console.log(res);
+		if (res === null)
+			res.status(400).send('User not found');
+		else {
+			console.log(res);
+		}
+	})
+};
+
 const oauth = (req, res) => {
 	res.redirect('/');
 };
 
 const oauthRedirect = (req, res) => {
-	res.redirect(`http://localhost:8080/?accessToken=${req.user}`);
+	res.redirect(`http://localhost:8080/#/?accessToken=${req.user}`);
 };
 
 const update = (req, res) => {
 	UserModel.update({id: req.params.userId}, {$set: req.body}).then(function(data) {
 		if (data.n == 0) {
-			res.status(400).send('Missing parameter or unexisting user');	
+			res.status(400).send('Missing parameter or unexisting user');
 		}
 		res.status(201).send('Created');
 	}, function(err) {
 		console.log(err);
-		res.status(400).send('Missing parameter or unexisting user');	
+		res.status(400).send('Missing parameter or unexisting user');
 	}).catch(function(err) {
 		console.log(err);
 		res.status(500).send('An error occured');
@@ -89,16 +107,16 @@ const update = (req, res) => {
 const deleteOne = (req, res) => {
 	UserModel.remove({id: req.params.id}).then(function(data) {
 		if (data.n == 0) {
-			res.status(400).send('Missing parameter or unexisting picture for user');	
+			res.status(400).send('Missing parameter or unexisting picture for user');
 		}
-		res.status(204).send('No Content');	
+		res.status(204).send('No Content');
 	}, function(err) {
 		console.log(err);
-		res.status(400).send('Missing parameter or unexisting picture for user');	
+		res.status(400).send('Missing parameter or unexisting picture for user');
 	}).catch(function(err) {
 		console.log(err);
 		res.status(500).send('An error occured');
 	});
 };
 
-export { create, update, readOne, readAll, deleteOne, oauth, oauthRedirect };
+export { create, update, readOne, readAll, deleteOne, oauth, oauthRedirect, login };

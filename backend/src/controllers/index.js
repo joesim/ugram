@@ -13,6 +13,7 @@ module.exports = function(app) {
 	app.get('/auth/google/redirect', passport.authenticate('google', { failureRedirect: 'http://localhost:8080/signup' }), Users.oauthRedirect);
 	app.put('/users/:userId', Users.update);
 	app.post('/signup', Users.create);
+	app.post('/login', Users.login);
 	app.post('/users/:userId/pictures', Pictures.create);
 	app.get('/pictures', Pictures.readAll);
 	app.get('/users/:userId/pictures', Pictures.readAllOfUser);
