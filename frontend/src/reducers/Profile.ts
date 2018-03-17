@@ -7,7 +7,7 @@ export function user(state = {}, action: ProfilePanelActions) {
             return action.user;
         case REMOVE_PROFILE_SUCCESS:
 	        window.localStorage.clear();
-	        location.href = "/#/login";
+	        location.reload();
 	        return action.user;
         default:
             return state;
