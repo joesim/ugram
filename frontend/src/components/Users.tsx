@@ -20,7 +20,7 @@ class Users extends React.Component<Props, any> {
 
         this.state = {
             page: 0,
-            perPage: 20,
+            perPage: 20
         };
 
         this.scrollHandler = this.scrollHandler.bind(this);
@@ -33,6 +33,20 @@ class Users extends React.Component<Props, any> {
                 this.props.getAllUsersFiltered(this.props.query, this.state.page, this.state.perPage);
             } else {
                 this.props.getAllUsers(this.state.page, this.state.perPage);
+            }
+        }
+    }
+
+    public componentWillReceiveProps(nextProps){
+        if (this.props.query !== nextProps.query){
+            nextProps.receivingNewUsers();
+            if (nextProps.usersPassed === undefined) {
+                this.setState({page:0,perPage:20});
+                if (nextProps.query !== undefined) {
+                    nextProps.getAllUsersFiltered(nextProps.query, this.state.page, this.state.perPage);
+                } else {
+                    nextProps.getAllUsers(this.state.page, this.state.perPage);
+                }
             }
         }
     }
@@ -51,7 +65,7 @@ class Users extends React.Component<Props, any> {
     }
 
     public render(): JSX.Element {
-        console.log(this.props.usersPassed)
+        
         if (this.props.usersPassed !== undefined && this.props.usersPassed.length>0) {
             return (
                 <List>
@@ -66,7 +80,6 @@ class Users extends React.Component<Props, any> {
                 </List>
             );
         } else if (this.props.users !== undefined && this.props.users.length>0) {
-            console.log("here");
             return (
                 <div className="container">
                     <List>
