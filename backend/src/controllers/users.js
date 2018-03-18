@@ -5,7 +5,7 @@ import crypto from "crypto";
 import { errorMessage } from "./errorMessageHelper";
 import { frontend_url } from "../constants";
 import { emptyBucket } from "../services";
-
+import logger from "../common/logger";
 const password = require('crypto-password-helper');
 
 const readAll = (req, res) => {
@@ -21,20 +21,19 @@ const readAll = (req, res) => {
 			data.totalEntries = totalEntries;
 			data.totalPages = totalPages;
 			data.items = rawData.map(parseEntry);
-			console.log(data);
 			res.json(data);
 		}, function(err) {
-			console.log(err);
+			logger.error(err.message);
 			errorMessage(res, 500, "Internal server error");
 		}).catch(function(err) {
-			console.log(err);
+			logger.error(err.message);
 			errorMessage(res, 500, "Internal server error");
 		});
 	}, function(err) {
-		console.log(err);
+		logger.error(err.message);
 		errorMessage(res, 500, "Internal server error");
 	}).catch(function(err) {
-		console.log(err);
+		logger.error(err.message);
 		errorMessage(res, 500, "Internal server error");
 	});
 };
@@ -48,10 +47,10 @@ const readOne = (req, res) => {
 			res.json(data);
 		}
 	}, function(err) {
-		console.log(err);
+		logger.error(err.message);
 		errorMessage(res, 500, "Internal server error");
 	}).catch(function(err) {
-		console.log(err);
+		logger.error(err.message);
 		errorMessage(res, 500, "Internal server error");
 	});
 };
@@ -70,10 +69,10 @@ const create = (req, res) => {
 	user.save().then(function(data) {
 		res.status(201).send("Created");
 	}, function(err) {
-		console.log(err);
+		logger.error(err.message);
 		errorMessage(res, 400, "Missing parameter or username already used");
 	}).catch(function(err) {
-		console.log(err);
+		logger.error(err.message);
 		errorMessage(res, 500, "Internal server error");
 	});
 };
@@ -116,10 +115,10 @@ const update = (req, res) => {
 			res.status(201).send(data);
 		});
 	}, function(err) {
-		console.log(err);
+		logger.error(err.message);
 		errorMessage(res, 400, "Missing parameter or unexisting user");
 	}).catch(function(err) {
-		console.log(err);
+		logger.error(err.message);
 		errorMessage(res, 500, "Internal server error");
 	});
 };
@@ -133,15 +132,15 @@ const deleteOne = (req, res) => {
 	        emptyBucket(req, res);
 	        res.status(204).send('No Content');
 		}, function(err) {
-            console.log(err);
+            logger.error(err.message);
 			errorMessage(res, 400, "Missing parameter or unexisting picture for user");
         });
 
 	}, function(err) {
-		console.log(err);
+		logger.error(err.message);
 		errorMessage(res, 400, "Missing parameter or unexisting picture for user");
 	}).catch(function(err) {
-		console.log(err);
+		logger.error(err.message);
 		errorMessage(res, 500, "Internal server error");
 	});
 };

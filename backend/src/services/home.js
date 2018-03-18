@@ -1,7 +1,7 @@
 import { mongoose } from "../common/mongoose";
 
 const getSample = () => {
-	return 'This is a sample';
+	return 'Ugram API';
 };
 
 export { getSample };

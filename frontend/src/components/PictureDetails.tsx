@@ -93,7 +93,6 @@ class PictureDetails extends React.Component<any, any> {
             mentions: this.props.picture.mentions,
             tags: this.props.picture.tags,
         };
-	    console.log(this.props)
 	    this.props.picture.description = data.description;
 	    this.props.editPicture(this.state.userId, this.props.picture.id, data);
     }

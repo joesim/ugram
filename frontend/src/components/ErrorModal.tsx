@@ -1,7 +1,6 @@
 import Dialog from "material-ui/Dialog";
 import FlatButton from "material-ui/FlatButton";
 import * as React from "react";
-import { isUndefined } from "util";
 
 class ErrorModal extends React.Component<any, any> {
 	public state = {
