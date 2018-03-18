@@ -127,7 +127,7 @@ class PicturesPanel extends React.Component<Props, any> {
         const col2 = this.getColumnPictures(pictures, 1, 3);
         const col3 = this.getColumnPictures(pictures, 2, 3);
 
-        let scrollhandler = null;
+	    let scrollhandler = null;
         if (this.props.picturesPassed === undefined) {
             scrollhandler = <ScrollLoader scrollHandler={this.scrollHandler} />
         }
@@ -160,10 +160,10 @@ class PicturesPanel extends React.Component<Props, any> {
     }
 
     private openDialog(indexPicture) {
-        if (this.props.picturesPassed === undefined) {
-            this.setState({ open: true, pictureDetails: this.props.pictures_panel.pictures[indexPicture] });
+        if (this.props.picturesPassed === undefined){
+            this.setState({ open: true, pictureDetails: this.filterByDate(this.props.pictures_panel.pictures)[indexPicture] });
         } else {
-            this.setState({ open: true, pictureDetails: this.props.picturesPassed[indexPicture] });
+            this.setState({ open: true, pictureDetails: this.filterByDate(this.props.picturesPassed)[indexPicture] });
         }
     }
 
