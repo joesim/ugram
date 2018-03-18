@@ -57,7 +57,7 @@ class PicturesPanel extends React.Component<Props, any> {
         }
     }
 
-    public render() {
+    public componentDidMount(){
         if (this.props.picturesPassed === undefined && this.props.userId !== this.state.userId) {
             this.props.pictures_panel.pictures = [];
             this.setState({ page: 0, userId: this.props.userId });
@@ -73,6 +73,29 @@ class PicturesPanel extends React.Component<Props, any> {
                 this.props.getAllPicturesFromUser(this.state.page, this.state.perPage, this.props.userId);
             }
         }
+    }
+
+    public componentWillReceiveProps(nextProps) {
+        if (this.props.query !== nextProps.query) {
+            if (nextProps.picturesPassed === undefined) {
+                nextProps.pictures_panel.pictures = [];
+                this.setState({ page: 0, userId: nextProps.userId });
+                if (isUndefined(nextProps.userId)) {
+                    if (nextProps.query === undefined) {
+                        nextProps.getAllPictures(this.state.page, this.state.perPage);
+                    } else if (nextProps.category === "description") {
+                        nextProps.getAllPicturesFilteredDesc(nextProps.query, this.state.page, this.state.perPage);
+                    } else if (nextProps.category === "hashtags") {
+                        nextProps.getAllPicturesFilteredHashtags(nextProps.query, this.state.page, this.state.perPage);
+                    }
+                } else {
+                    nextProps.getAllPicturesFromUser(this.state.page, this.state.perPage, nextProps.userId);
+                }
+            }
+        }
+    }
+
+    public render() {
 
         let pictures = [];
 
@@ -94,7 +117,7 @@ class PicturesPanel extends React.Component<Props, any> {
             });
         }
 
-        if (pictures.length == 0){
+        if (pictures.length == 0) {
             return <div className="ma-20">No results</div>
         }
 

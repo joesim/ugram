@@ -8,6 +8,10 @@ interface ReceiveUsers {
     users: User[];
 }
 
+interface ReceiveNewUsers {
+    type: constants.RECEIVE_NEW_USERS;
+}
+
 function receiveAllUsers(users): ReceiveUsers {
     return {
         type: constants.RECEIVE_USERS,
@@ -15,13 +19,13 @@ function receiveAllUsers(users): ReceiveUsers {
     };
 }
 
-function receiveNewUsers() {
+function receiveNewUsers(): ReceiveNewUsers {
     return {
         type: constants.RECEIVE_NEW_USERS,
     };
 }
 
-export function getAllUsers(page, perPage) {
+export function getAllUsers(page:number, perPage:number) {
     return async (dispatch) => {
         try {
             const data = await axios.get(`/users/?page=${page}&perPage=${perPage}`);
@@ -32,7 +36,7 @@ export function getAllUsers(page, perPage) {
     };
 }
 
-export function getAllUsersFiltered(query, page, perPage) {
+export function getAllUsersFiltered(query: string, page: number, perPage:number) {
     return async (dispatch) => {
         try {
             const data = await axios.get(`/search?q=${query}&page=${page}&perPage=${perPage}&usersOnly=true`);
