@@ -61,7 +61,7 @@ export function getAllPicturesFromUser(page:number, perPage:number, userId:strin
 
 export function getAllPicturesFilteredDesc(query:string, page:number, perPage:number) {
     return async (dispatch) => {
-        axios.get(`/search?q=${query}&page=${page}&perPage=${perPage}&picturesOnly=true`).then(
+        axios.get(`/search?q=${query}&picturesOnly=true`).then(
             (pictures) => dispatch(getPictures(pictures, page)),
             (error) => dispatch(throwError("Get all pictures from user filtered by description", error)),
         );
@@ -70,7 +70,7 @@ export function getAllPicturesFilteredDesc(query:string, page:number, perPage:nu
 
 export function getAllPicturesFilteredHashtags(query:string, page:number, perPage:number) {
     return async (dispatch) => {
-        axios.get(`/search?q=${query}&page=${page}&perPage=${perPage}&mentionsOnly=true`).then(
+        axios.get(`/search?q=${query}&mentionsOnly=true`).then(
             (pictures) => dispatch(getPictures(pictures, page)),
             (error) => dispatch(throwError("Get all pictures from user filtered by hashtags", error)),
         );
