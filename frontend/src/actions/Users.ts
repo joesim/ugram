@@ -39,7 +39,7 @@ export function getAllUsers(page:number, perPage:number) {
 export function getAllUsersFiltered(query: string, page: number, perPage:number) {
     return async (dispatch) => {
         try {
-            const data = await axios.get(`/search?q=${query}&page=${page}&perPage=${perPage}&usersOnly=true`);
+            const data = await axios.get(`/search?q=${query}&page=${page}&perPage=${Number.MAX_SAFE_INTEGER}&usersOnly=true`);
             dispatch(receiveAllUsers(data.data));
         } catch (error) {
             dispatch(throwError("Could not get users", error));
