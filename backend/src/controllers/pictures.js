@@ -2,6 +2,7 @@ import { PictureModel } from '../models/picture';
 import { UserModel } from '../models/user';
 import { parseEntry } from '../services';
 import { UploadServices } from '../services';
+import { errorMessage } from "./errorMessageHelper";
 
 const readAll = (req, res) => {
 	const limit = parseInt(req.query.perPage) || 10;
@@ -25,17 +26,17 @@ const readAll = (req, res) => {
 			res.json(data);
 		}, function(err) {
 			console.log(err);
-			res.status(500).send('An error occured');
+			errorMessage(res, 500, "Internal server error");
 		}).catch(function(err) {
 			console.log(err);
-			res.status(500).send('An error occured');
+			errorMessage(res, 500, "Internal server error");
 		});
 	}, function(err) {
 		console.log(err);
-		res.status(500).send('An error occured');
+		errorMessage(res, 500, "Internal server error");
 	}).catch(function(err) {
 		console.log(err);
-		res.status(500).send('An error occured');
+		errorMessage(res, 500, "Internal server error");
 	});
 };
 
@@ -47,10 +48,10 @@ const readAllOfUser = (req, res) => {
 	UserModel.findOne({id: req.params.userId}).then(function(data) {
 	}, function(err) {
 		console.log(err);
-		res.status(400).send('Missing parameter or unexisting user');
+		errorMessage(res, 400, "Missing parameter or unexisting user");
 	}).catch(function(err) {
 		console.log(err);
-		res.status(500).send('An error occured');
+		errorMessage(res, 500, "Internal server error");
 	});
 
 	PictureModel.count({userId: req.params.userId}).then(function(count) {
@@ -65,34 +66,34 @@ const readAllOfUser = (req, res) => {
 			res.json(data);
 		}, function(err) {
 			console.log(err);
-			res.status(500).send('An error occured');
+			errorMessage(res, 500, "Internal server error");
 		}).catch(function(err) {
 			console.log(err);
-			res.status(500).send('An error occured');
+			errorMessage(res, 500, "Internal server error");
 		});
 	}, function(err) {
 		console.log(err);
-		res.status(500).send('An error occured');
+		errorMessage(res, 500, "Internal server error");
 	}).catch(function(err) {
 		console.log(err);
-		res.status(500).send('An error occured');
+		errorMessage(res, 500, "Internal server error");
 	});
 };
 
 const readOne = (req, res) => {
 	PictureModel.findOne({_id: req.params.pictureId, userId: req.params.userId}).then(function(data) {
 		if (data === null) {
-			res.status(400).send('Missing parameter or unexisting picture for user');
+			errorMessage(res, 400, "Missing parameter or unexisting picture for user");
 		} else {
 			data = parseEntry(data);
 			res.json(data);
 		}
 	}, function(err) {
 		console.log(err);
-		res.status(400).send('Missing parameter or unexisting picture for user');
+		errorMessage(res, 400, "Missing parameter or unexisting picture for user");
 	}).catch(function(err) {
 		console.log(err);
-		res.status(500).send('An error occured');
+		errorMessage(res, 500, "Internal server error");
 	});
 };
 
@@ -110,44 +111,44 @@ const create = (req, res) => {
             res.status(201).json({id: picture._id});
         }).catch(function(err) {
             console.log(err);
-            res.status(500).send('An error occured');
+			errorMessage(res, 500, "Internal server error");
         });
 	}, function(err) {
 		console.log(err);
-		res.status(500).send('An error occured');
+		errorMessage(res, 500, "Internal server error");
 	}).catch(function(err) {
 		console.log(err);
-		res.status(400).send('Missing parameter or unexisting user');
+		errorMessage(res, 400, "Missing parameter or unexisting user");
 	});
 };
 
 const update = (req, res) => {
 	PictureModel.update({_id: req.params.pictureId, userId: req.params.userId}, {$set: req.body}).then(function(data) {
 		if (data.n === 0) {
-			res.status(400).send('Missing parameter or unexisting picture for user');
+			errorMessage(res, 400, "Missing parameter or unexisting picture for user");
 		}
 		res.status(201).send('Created');
 	}, function(err) {
 		console.log(err);
-		res.status(400).send('Missing parameter or unexisting picture for user');
+		errorMessage(res, 400, "Missing parameter or unexisting picture for user");
 	}).catch(function(err) {
 		console.log(err);
-		res.status(500).send('An error occured');
+		errorMessage(res, 500, "Internal server error");
 	});
 };
 
 const deleteOne = (req, res) => {
 	PictureModel.remove({_id: req.params.pictureId, userId: req.params.userId}).then(function(data) {
 		if (data.n == 0) {
-			res.status(400).send('Missing parameter or unexisting picture for user');
+			errorMessage(res, 400, "Missing parameter or unexisting picture for user");
 		}
 		res.status(204).send('No Content');
 	}, function(err) {
 		console.log(err);
-		res.status(400).send('Missing parameter or unexisting picture for user');
+		errorMessage(res, 400, "Missing parameter or unexisting picture for user");
 	}).catch(function(err) {
 		console.log(err);
-		res.status(500).send('An error occured');
+		errorMessage(res, 500, "Internal server error");
 	});
 };
 
