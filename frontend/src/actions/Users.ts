@@ -35,10 +35,7 @@ export function getAllUsers(page, perPage) {
 export function getAllUsersFiltered(query, page, perPage) {
     return async (dispatch) => {
         try {
-
-            axios.defaults.baseURL = "http://localhost:3000";
-            const data = await axios.get(`/users`);
-            axios.defaults.baseURL = "http://api.ugram.net";
+            const data = await axios.get(`/search?q=${query}&page=${page}&perPage=${perPage}&usersOnly=true`);
             dispatch(receiveAllUsers(data.data));
         } catch (error) {
             dispatch(throwError("Could not get users", error));

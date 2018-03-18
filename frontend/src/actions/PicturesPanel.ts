@@ -61,22 +61,18 @@ export function getAllPicturesFromUser(page, perPage, userId) {
 
 export function getAllPicturesFilteredDesc(query, page, perPage) {
     return async (dispatch) => {
-        axios.defaults.baseURL = "http://localhost:3000";
-        axios.get(`/pictures?page=${page}&perPage=${perPage}`).then(
+        axios.get(`/search?q=${query}&page=${page}&perPage=${perPage}&picturesOnly=true`).then(
             (pictures) => dispatch(getPictures(pictures, page)),
-            (error) => dispatch(throwError("Get all pictures from user", error)),
+            (error) => dispatch(throwError("Get all pictures from user filtered by description", error)),
         );
-        axios.defaults.baseURL = "http://api.ugram.net";
     };
 }
 
 export function getAllPicturesFilteredHashtags(query, page, perPage) {
     return async (dispatch) => {
-        axios.defaults.baseURL = "http://localhost:3000";
-        axios.get(`/pictures?page=${page}&perPage=${perPage}`).then(
+        axios.get(`/search?q=${query}&page=${page}&perPage=${perPage}&mentionsOnly=true`).then(
             (pictures) => dispatch(getPictures(pictures, page)),
-            (error) => dispatch(throwError("Get all pictures from user", error)),
+            (error) => dispatch(throwError("Get all pictures from user filtered by hashtags", error)),
         );
-        axios.defaults.baseURL = "http://api.ugram.net";
     };
 }
