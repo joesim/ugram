@@ -1,14 +1,19 @@
 import { UserModel } from '../models/user';
 
+if (process.env.GOOGLE_CLIENT_ID === undefined
+	|| process.env.GOOGLE_CLIENT_SECRET === undefined) {
+	console.error("You need to set env variables: GOOGLE_CLIENT_ID | GOOGLE_CLIENT_SECRET");
+	process.exit(0);
+}
+
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
-const LocalStrategy = require('passport-local').Strategy;
 
 passport.use(
 	new GoogleStrategy({
 		callbackURL: '/auth/google/redirect',
-		clientID: '187358751033-lii503ugl0h09fed2p6vli6pn7t5325o.apps.googleusercontent.com',
-		clientSecret: 'P7JfcwoEuHr78QAsfOXLKJeF'
+		clientID: process.env.GOOGLE_CLIENT_ID,
+		clientSecret: process.env.GOOGLE_CLIENT_SECRET
     },
     function(accessToken, refreshToken, profile, cb) {
         const userInfo = {

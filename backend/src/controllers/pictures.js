@@ -3,6 +3,7 @@ import { UserModel } from '../models/user';
 import { parseEntry } from '../services';
 import { UploadServices } from '../services';
 import { errorMessage } from "./errorMessageHelper";
+import logger from "../common/logger";
 
 const readAll = (req, res) => {
 	const limit = parseInt(req.query.perPage) || 10;
@@ -25,17 +26,17 @@ const readAll = (req, res) => {
 			});
 			res.json(data);
 		}, function(err) {
-			console.log(err);
+			logger.error(err.message);
 			errorMessage(res, 500, "Internal server error");
 		}).catch(function(err) {
-			console.log(err);
+			logger.error(err.message);
 			errorMessage(res, 500, "Internal server error");
 		});
 	}, function(err) {
-		console.log(err);
+		logger.error(err.message);
 		errorMessage(res, 500, "Internal server error");
 	}).catch(function(err) {
-		console.log(err);
+		logger.error(err.message);
 		errorMessage(res, 500, "Internal server error");
 	});
 };
@@ -47,10 +48,10 @@ const readAllOfUser = (req, res) => {
 	// Just to check for error with user
 	UserModel.findOne({id: req.params.userId}).then(function(data) {
 	}, function(err) {
-		console.log(err);
+		logger.error(err.message);
 		errorMessage(res, 400, "Missing parameter or unexisting user");
 	}).catch(function(err) {
-		console.log(err);
+		logger.error(err.message);
 		errorMessage(res, 500, "Internal server error");
 	});
 
@@ -65,17 +66,17 @@ const readAllOfUser = (req, res) => {
 			data.items = rawData.map(parseEntry);
 			res.json(data);
 		}, function(err) {
-			console.log(err);
+			logger.error(err.message);
 			errorMessage(res, 500, "Internal server error");
 		}).catch(function(err) {
-			console.log(err);
+			logger.error(err.message);
 			errorMessage(res, 500, "Internal server error");
 		});
 	}, function(err) {
-		console.log(err);
+		logger.error(err.message);
 		errorMessage(res, 500, "Internal server error");
 	}).catch(function(err) {
-		console.log(err);
+		logger.error(err.message);
 		errorMessage(res, 500, "Internal server error");
 	});
 };
@@ -89,10 +90,10 @@ const readOne = (req, res) => {
 			res.json(data);
 		}
 	}, function(err) {
-		console.log(err);
+		logger.error(err.message);
 		errorMessage(res, 400, "Missing parameter or unexisting picture for user");
 	}).catch(function(err) {
-		console.log(err);
+		logger.error(err.message);
 		errorMessage(res, 500, "Internal server error");
 	});
 };
@@ -104,20 +105,20 @@ const create = (req, res) => {
 	const fileName = picture.userId + '/' + picture._id + req.files[0].originalname;
 	const file = req.files[0].buffer;
 
-    picture.url = 'https://s3.ca-central-1.amazonaws.com/images-ugram/' + fileName;
+    picture.url = process.env.BUCKET_IMAGE_LINK + fileName;
 
 	picture.save().then(function(data) {
         UploadServices.uploadSample(fileName, file).then(function(data) {
             res.status(201).json({id: picture._id});
         }).catch(function(err) {
-            console.log(err);
+            logger.error(err.message);
 			errorMessage(res, 500, "Internal server error");
         });
 	}, function(err) {
-		console.log(err);
+		logger.error(err.message);
 		errorMessage(res, 500, "Internal server error");
 	}).catch(function(err) {
-		console.log(err);
+		logger.error(err.message);
 		errorMessage(res, 400, "Missing parameter or unexisting user");
 	});
 };
@@ -129,10 +130,10 @@ const update = (req, res) => {
 		}
 		res.status(201).send('Created');
 	}, function(err) {
-		console.log(err);
+		logger.error(err.message);
 		errorMessage(res, 400, "Missing parameter or unexisting picture for user");
 	}).catch(function(err) {
-		console.log(err);
+		logger.error(err.message);
 		errorMessage(res, 500, "Internal server error");
 	});
 };
@@ -144,10 +145,10 @@ const deleteOne = (req, res) => {
 		}
 		res.status(204).send('No Content');
 	}, function(err) {
-		console.log(err);
+		logger.error(err.message);
 		errorMessage(res, 400, "Missing parameter or unexisting picture for user");
 	}).catch(function(err) {
-		console.log(err);
+		logger.error(err.message);
 		errorMessage(res, 500, "Internal server error");
 	});
 };
