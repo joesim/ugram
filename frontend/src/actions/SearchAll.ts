@@ -17,12 +17,12 @@ function receiveSearch(searchResults): ReceiveSearch {
 
 export function getSearchResults(query) {
     return async (dispatch) => {
-        axios.defaults.baseURL = "http://localhost:3000";
-        axios.get(`/search`).then(
-            (search) => dispatch(receiveSearch(search.data)),
-            (error) => dispatch(throwError("Get search results from every category", error)),
-        );
-        axios.defaults.baseURL = "http://api.ugram.net";
-        
+        axios.get(`/search?q=${query}`)
+        .then((response) => {
+            dispatch(receiveSearch(response.data));
+        })
+        .catch((error) => {
+            dispatch(throwError("Get search results from every category", error));
+        });        
     };
 }
