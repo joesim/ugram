@@ -20,7 +20,7 @@ class Users extends React.Component<Props, any> {
 
         this.state = {
             page: 0,
-            perPage: 3
+            perPage: 20
         };
 
         this.scrollHandler = this.scrollHandler.bind(this);
