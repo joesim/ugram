@@ -4,7 +4,7 @@ import { PictureModel } from "../models/picture";
 import { parseEntry } from "../services";
 
 const search = async (req, res) => {
-  const limit = parseInt(req.query.limit) || 3;
+  let limit = parseInt(req.query.limit) || 3;
   const query = req.query.q || null;
   const usersOnly = req.query.usersOnly === "true" || false;
   const picturesOnly = req.query.picturesOnly === "true" || false;
@@ -15,9 +15,12 @@ const search = async (req, res) => {
     mentionsOnly: mentionsOnly
   };
   validateQueryOptionalQuery(options, query, res);
-  
+
   let response;
   try {
+    if (usersOnly || picturesOnly || mentionsOnly) {
+      limit = Number.MAX_SAFE_INTEGER;
+    }
     const users = await queryUsers(query, limit);
     const pictures = await queryPictures(query, limit);
     const mentions = await queryMentions(query, limit);
@@ -85,7 +88,11 @@ const responseBuilder = (users, pictures, mentions, options) => {
 
 const queryUsers = async (query, limit) => {
   let data = await UserModel.find({
-    $or: [{ firstName: {'$regex': query, '$options': 'i'} }, { lastName: {'$regex': query, '$options': 'i'} }, { id: {'$regex': query, '$options': 'i'} }]
+    $or: [
+      { firstName: { $regex: query, $options: "i" } },
+      { lastName: { $regex: query, $options: "i" } },
+      { id: { $regex: query, $options: "i" } }
+    ]
   })
     .limit(limit)
     .exec();
@@ -94,7 +101,9 @@ const queryUsers = async (query, limit) => {
 };
 
 const queryPictures = async (query, limit) => {
-  let data = await PictureModel.find({ description: {'$regex': query, '$options': 'i'}})
+  let data = await PictureModel.find({
+    description: { $regex: query, $options: "i" }
+  })
     .limit(limit)
     .exec();
   data = data.map(parseEntry);
@@ -104,7 +113,7 @@ const queryPictures = async (query, limit) => {
 
 const queryMentions = async (query, limit) => {
   let data = await PictureModel.find({
-    mentions: {'$regex': query, '$options': 'i'}
+    mentions: { $regex: query, $options: "i" }
   })
     .limit(limit)
     .exec();
