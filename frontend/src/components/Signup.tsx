@@ -16,18 +16,14 @@ class Signup extends React.Component<any, any> {
         this.createUser = this.createUser.bind(this);
     }
 
-    public componentDidUpdate(prevProps, prevState): void {
-        document.location.href = "/#/login";
-    }
-
     public render() {
         return (
             <div>
                 <form onSubmit={this.createUser} className="signup">
-                    <TextField id="firstname" required={false} type="text" floatingLabelText="First Name"/>
-                    <TextField id="lastname" required={false} type="text" floatingLabelText="Last Name"/>
-                    <TextField id="number" required={false} type="tel" hintText="Phone Number" floatingLabelText="format: 5555555555" />
-                    <TextField id="id" required={false} type="text" floatingLabelText="id" />
+                    <TextField id="firstname" required={true} type="text" floatingLabelText="First Name"/>
+                    <TextField id="lastname" required={true} type="text" floatingLabelText="Last Name"/>
+                    <TextField id="number" required={true} type="tel" hintText="Phone Number" floatingLabelText="format: 5555555555" />
+                    <TextField id="id" required={true} type="text" floatingLabelText="id" />
                     <TextField id="email" required={true} type="email" floatingLabelText="Email" />
                     <TextField id="password" required={true} type="password" floatingLabelText="Password" />
                     <RaisedButton label="Create User" type="submit" primary={true} />
