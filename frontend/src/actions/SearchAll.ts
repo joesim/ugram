@@ -15,7 +15,7 @@ function receiveSearch(searchResults): ReceiveSearch {
     };
 }
 
-export function getSearchResults(query) {
+export function getSearchResults(query: string) {
     return async (dispatch) => {
         axios.get(`/search?q=${query}`)
         .then((response) => {
