@@ -3,6 +3,9 @@ const parseEntry = (data) => {
 	delete jsonData._id;
 	delete jsonData.__v;
 
+	if (jsonData.accessToken !== undefined)
+		delete jsonData.accessToken;
+
 	return jsonData;
 };
 

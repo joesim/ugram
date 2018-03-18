@@ -70,21 +70,23 @@ const login = (req, res) => {
 	if (req.body.username === undefined
 		|| req.body.password === undefined)
 		errorMessage(res, 400, "Missing username or password");
-	const hash = password.encryptSync(req.body.password);
-	crypto.randomBytes(30, (err, buffer) => {
-		const accessToken = buffer.toString("hex");
-		UserModel.findOneAndUpdate({id: req.body.username}, {accessToken}, (err, user) => {
-			if (user === null)
-				errorMessage(res, 400, "User not found");
-			else {
-				const isMatch = password.compareSync(req.body.password, user.password);
-				if (!isMatch)
-					errorMessage(res, 401, "Bad username or password");
-				else
-					res.send(accessToken);
-			}
+	else {
+		const hash = password.encryptSync(req.body.password);
+		crypto.randomBytes(30, (err, buffer) => {
+			const accessToken = buffer.toString("hex");
+			UserModel.findOneAndUpdate({ id: req.body.username }, { accessToken }, (err, user) => {
+				if (user === null)
+					errorMessage(res, 400, "User not found");
+				else {
+					const isMatch = password.compareSync(req.body.password, user.password);
+					if (!isMatch)
+						errorMessage(res, 401, "Bad username or password");
+					else
+						res.send(accessToken);
+				}
+			})
 		})
-	})
+	}
 };
 
 const oauth = (req, res) => {
