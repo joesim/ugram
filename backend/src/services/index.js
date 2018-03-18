@@ -1,12 +1,6 @@
 import * as HomeServices from "./home";
 import * as UploadServices from "./upload";
+import parseEntry from "./parseEntry";
+import emptyBucket from "./emptyBucket";
 
-const parseEntry = (data) => {
-		let jsonData = data.toJSON();
-		delete jsonData._id;
-		delete jsonData.__v;
-
-		return jsonData;
-};
-
-export { HomeServices, UploadServices, parseEntry };
+export { HomeServices, UploadServices, parseEntry, emptyBucket };
