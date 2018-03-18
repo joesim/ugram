@@ -28,8 +28,6 @@ class PicturesPanel extends React.Component<Props, any> {
             pictureDetails: null,
             userId: null,
         };
-
-
         this.props.pictures_panel.pictures = [];
 
 
@@ -94,6 +92,10 @@ class PicturesPanel extends React.Component<Props, any> {
                     img: pic.url,
                 });
             });
+        }
+
+        if (pictures.length == 0){
+            return <div className="ma-20">No results</div>
         }
 
         pictures = this.filterByDate(pictures);

@@ -5,6 +5,8 @@ import crypto from "crypto";
 import { s3 } from "../common/s3";
 import { frontend_url } from "../constants";
 
+const password = require('crypto-password-helper');
+
 const readAll = (req, res) => {
 	const limit = parseInt(req.query.perPage) || 10;
 	const offset = parseInt(req.query.page) * limit;
@@ -54,6 +56,10 @@ const readOne = (req, res) => {
 };
 
 const create = (req, res) => {
+	const newpassword = req.body.password;
+    const hash = password.encryptSync(newpassword);
+
+    req.body.password = hash;
 	const userInfos = {
 		...req.body,
 		registrationDate: Date.now(),
@@ -75,17 +81,25 @@ const login = (req, res) => {
 	if (req.body.username === undefined
 		|| req.body.password === undefined)
 		res.status(400).send('Missing username or password');
-	UserModel.findOne({id: req.body.username, password: req.body.password}, (err, user) => {
+	const hash = password.encryptSync(req.body.password);
+	UserModel.findOne({id: req.body.username}, (err, user) => {
 		if (user === null)
 			res.status(400).send('User not found');
 		else {
+			const isMatch = password.compareSync(req.body.password, user.password);
+
+			if (!isMatch)
+				res.status(401).send('Bad username or password');
+      else {
 			crypto.randomBytes(30, (err, buffer) => {
 				const accessToken = buffer.toString("hex");
 				UserModel.update({id: req.body.username, password: req.body.password}, {accessToken}, () => {
 					res.send(accessToken);
 				});
 			})
-		}
+      }
+
+    }
 	})
 };
 
