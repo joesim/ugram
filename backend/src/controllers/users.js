@@ -3,6 +3,7 @@ import { PictureModel } from '../models/picture';
 import { parseEntry } from '../services';
 import crypto from "crypto";
 import { s3 } from "../common/s3";
+import { errorMessage } from "./errorMessageHelper";
 import { frontend_url } from "../constants";
 
 const password = require('crypto-password-helper');
@@ -24,34 +25,34 @@ const readAll = (req, res) => {
 			res.json(data);
 		}, function(err) {
 			console.log(err);
-			res.status(500).send('An error occured');
+			errorMessage(res, 500, "Internal server error");
 		}).catch(function(err) {
 			console.log(err);
-			res.status(500).send('An error occured');
+			errorMessage(res, 500, "Internal server error");
 		});
 	}, function(err) {
 		console.log(err);
-		res.status(500).send('An error occured');
+		errorMessage(res, 500, "Internal server error");
 	}).catch(function(err) {
 		console.log(err);
-		res.status(500).send('An error occured');
+		errorMessage(res, 500, "Internal server error");
 	});
 };
 
 const readOne = (req, res) => {
 	UserModel.findOne({id: req.params.userId}).then(function(data) {
 		if (data === null) {
-			res.status(400).send('Missing parameter or unexisting user');
+			errorMessage(res, 400, "Missing parameter or unexisting user");
 		} else {
 			data = parseEntry(data);
 			res.json(data);
 		}
 	}, function(err) {
 		console.log(err);
-		res.status(500).send('An error occured');
+		errorMessage(res, 500, "Internal server error");
 	}).catch(function(err) {
 		console.log(err);
-		res.status(500).send('An error occured');
+		errorMessage(res, 500, "Internal server error");
 	});
 };
 
@@ -67,29 +68,29 @@ const create = (req, res) => {
 	};
 	const user = new UserModel(userInfos);
 	user.save().then(function(data) {
-		res.status(201).send('Created');
+		res.status(201).send("Created");
 	}, function(err) {
 		console.log(err);
-		res.status(400).send('Missing parameter');
+		errorMessage(res, 400, "Missing parameter");
 	}).catch(function(err) {
 		console.log(err);
-		res.status(500).send('An error occured');
+		errorMessage(res, 500, "Internal server error");
 	});
 };
 
 const login = (req, res) => {
 	if (req.body.username === undefined
 		|| req.body.password === undefined)
-		res.status(400).send('Missing username or password');
+		errorMessage(res, 400, "Missing username or password");
 	const hash = password.encryptSync(req.body.password);
 	UserModel.findOne({id: req.body.username}, (err, user) => {
 		if (user === null)
-			res.status(400).send('User not found');
+			errorMessage(res, 400, "User not found");
 		else {
 			const isMatch = password.compareSync(req.body.password, user.password);
 
 			if (!isMatch)
-				res.status(401).send('Bad username or password');
+				errorMessage(res, 401, "Bad username or password");
       else {
 			crypto.randomBytes(30, (err, buffer) => {
 				const accessToken = buffer.toString("hex");
@@ -114,17 +115,17 @@ const oauthRedirect = (req, res) => {
 const update = (req, res) => {
 	UserModel.update({id: req.params.userId}, {$set: req.body}).then(function(data) {
 		if (data.n === 0) {
-			res.status(400).send('Missing parameter or unexisting user');
+			errorMessage(res, 400, "Missing parameter or unexisting user");
 		}
 		UserModel.findOne({id: req.params.userId}).then(function(data) {
 			res.status(201).send(data);
 		});
 	}, function(err) {
 		console.log(err);
-		res.status(400).send('Missing parameter or unexisting user');
+		errorMessage(res, 400, "Missing parameter or unexisting user");
 	}).catch(function(err) {
 		console.log(err);
-		res.status(500).send('An error occured');
+		errorMessage(res, 500, "Internal server error");
 	});
 };
 
@@ -139,7 +140,7 @@ const deleteOne = (req, res) => {
         s3.listObjects(params, function(err, data) {
             if (err) {
                 console.log(err);
-                res.status(500).send('An error occured');
+				errorMessage(res, 500, "Internal server error");
             }
 
             if (data && data.Contents && data.Contents.length != 0) {
@@ -153,7 +154,7 @@ const deleteOne = (req, res) => {
                 s3.deleteObjects(params, function(err, data) {
                     if (err) {
                         console.log(err);
-                        res.status(500).send('An error occured');
+						errorMessage(res, 500, "Internal server error");
                     }
                     if (data && data.Contents && data.Contents.length == 1000) {
                         emptyBucket();
@@ -170,21 +171,21 @@ const deleteOne = (req, res) => {
 
 	UserModel.remove({id: req.params.id}).then(function(data) {
 		if (data.n == 0) {
-			res.status(400).send('Missing parameter or unexisting picture for user');
+			errorMessage(res, 400, "Missing parameter or unexisting picture for user");
 		}
         PictureModel.remove({userId: req.params.id}).then(function(data) {
             res.status(204).send('No Content');
 		}, function(err) {
             console.log(err);
-            res.status(400).send('Missing parameter or unexisting picture for user');
+			errorMessage(res, 400, "Missing parameter or unexisting picture for user");
         });
 
 	}, function(err) {
 		console.log(err);
-		res.status(400).send('Missing parameter or unexisting picture for user');
+		errorMessage(res, 400, "Missing parameter or unexisting picture for user");
 	}).catch(function(err) {
 		console.log(err);
-		res.status(500).send('An error occured');
+		errorMessage(res, 500, "Internal server error");
 	});
 };
 
