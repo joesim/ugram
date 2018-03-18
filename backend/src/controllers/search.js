@@ -1,7 +1,6 @@
-import { errorMessage } from "./errorMessageHelper";
 import { UserModel } from "../models/user";
 import { PictureModel } from "../models/picture";
-import { parseEntry } from "../services";
+import { parseEntry, errorMessage } from "../services";
 
 const search = async (req, res) => {
   const limit = parseInt(req.query.limit) || 3;

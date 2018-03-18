@@ -1,4 +1,5 @@
 import { UserModel } from "../models/user";
+import { errorMessage } from '../services';
 
 export const isAuthenticated = (req, res, next) => {
 	let accessToken = retrieveToken(req);
@@ -13,22 +14,16 @@ export const isAuthenticated = (req, res, next) => {
 						req.user = user;
 						return next()
 					} else {
-						return res.status(401).send({
-							message: 'User associated with token was not found'
-						});
+						errorMessage(res, 401, "User associated with token was not found");
 					}
 				}
 			});
 		} catch (err) {
-			return res.status(401).send({
-				message: 'Error retrieving user associated with token'
-			});
+			errorMessage(res, 401, "Error retrieving user associated with token");
 		}
 
 	} else {
-		return res.status(401).send({
-			message: 'Access token is missing'
-		});
+		errorMessage(res, 401, "Access token is missing");
 	}
 };
 
