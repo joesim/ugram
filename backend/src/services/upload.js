@@ -9,7 +9,6 @@ if (process.env.BUCKET_IMAGE_NAME === undefined
 
 const uploadSample = (keyName, body) => {
 	const bucketName = process.env.BUCKET_IMAGE_NAME;
-	//const keyName = 'hello_world.txt';
 	const params = {
 		Bucket: bucketName,
 		Key: keyName,

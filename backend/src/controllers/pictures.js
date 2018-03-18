@@ -1,6 +1,6 @@
 import { PictureModel } from '../models/picture';
 import { UserModel } from '../models/user';
-import { parseEntry, errorMessage, UploadServices } from '../services';
+import { parseEntry, errorMessage, UploadServices, deleteImage } from '../services';
 
 const readAll = (req, res) => {
 	const limit = parseInt(req.query.perPage) || 10;
@@ -55,7 +55,13 @@ const readAllOfUser = (req, res) => {
 			const data = {};
 			data.totalEntries = totalEntries;
 			data.totalPages = totalPages;
-			data.items = rawData.map(parseEntry);
+            data.items = rawData.map((data) => {
+                let jsonData = data.toJSON();
+            	jsonData.id = jsonData._id;
+            	delete jsonData._id;
+            	delete jsonData.__v;
+            	return jsonData;
+        	});
 			res.json(data);
 		}, function(err) {
 			errorMessage(res, 500, "Internal server error");
@@ -92,6 +98,7 @@ const create = (req, res) => {
 	const file = req.files[0].buffer;
 
     picture.url = process.env.BUCKET_IMAGE_LINK + fileName;
+    picture.name = fileName;
 
 	picture.save().then(function(data) {
         UploadServices.uploadSample(fileName, file).then(function(data) {
@@ -120,16 +127,23 @@ const update = (req, res) => {
 };
 
 const deleteOne = (req, res) => {
-	PictureModel.remove({_id: req.params.pictureId, userId: req.params.userId}).then(function(data) {
-		if (data.n == 0) {
-			errorMessage(res, 400, "Missing parameter or unexisting picture for user");
-		}
-		res.status(204).send('No Content');
-	}, function(err) {
-		errorMessage(res, 400, "Missing parameter or unexisting picture for user");
-	}).catch(function(err) {
-		errorMessage(res, 500, "Internal server error");
-	});
+    PictureModel.findOne({_id: req.params.pictureId, userId: req.params.userId}).then(function(data) {
+    	deleteImage(data.name, res);
+        PictureModel.remove({_id: req.params.pictureId, userId: req.params.userId}).then(function(data) {
+            if (data.n == 0) {
+                errorMessage(res, 400, "Missing parameter or unexisting picture for user");
+            }
+            res.status(204).send('No Content');
+        }, function(err) {
+            errorMessage(res, 400, "Missing parameter or unexisting picture for user");
+        }).catch(function(err) {
+            errorMessage(res, 500, "Internal server error");
+        });
+    }).catch(function(err) {
+        errorMessage(res, 500, "Internal server error");
+    });
+
+
 };
 
 export { readAll, readOne, readAllOfUser, deleteOne, create, update };
