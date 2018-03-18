@@ -9,13 +9,11 @@ const search = async (req, res) => {
   const usersOnly = req.query.usersOnly === "true" || false;
   const picturesOnly = req.query.picturesOnly === "true" || false;
   const mentionsOnly = req.query.mentionsOnly === "true" || false;
-  console.log('ici')
   const options = {
     usersOnly: usersOnly,
     picturesOnly: picturesOnly,
     mentionsOnly: mentionsOnly
   };
-  console.log('ici')
   validateQueryOptionalQuery(options, query, res);
   
   let response;
@@ -87,7 +85,7 @@ const responseBuilder = (users, pictures, mentions, options) => {
 
 const queryUsers = async (query, limit) => {
   let data = await UserModel.find({
-    $or: [{ firstName: query }, { lastName: query }, { id: query }]
+    $or: [{ firstName: {'$regex': query} }, { lastName: {'$regex': query} }, { id: {'$regex': query} }]
   })
     .limit(limit)
     .exec();
@@ -96,7 +94,7 @@ const queryUsers = async (query, limit) => {
 };
 
 const queryPictures = async (query, limit) => {
-  let data = await PictureModel.find({ $text: { $search: query } })
+  let data = await PictureModel.find({ description: {'$regex': query}})
     .limit(limit)
     .exec();
   data = data.map(parseEntry);
@@ -106,7 +104,7 @@ const queryPictures = async (query, limit) => {
 
 const queryMentions = async (query, limit) => {
   let data = await PictureModel.find({
-    mentions: query
+    mentions: {'$regex': query}
   })
     .limit(limit)
     .exec();

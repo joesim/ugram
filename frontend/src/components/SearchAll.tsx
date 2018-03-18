@@ -40,11 +40,10 @@ class SearchAll extends React.Component<Props, any> {
     }
 
     public render(): JSX.Element {
-        console.log(this.props);
         let searchUsers = null;
         let searchPictures = null;
         let searchMentions = null;
-        if (this.props.searchResults.users!==undefined){
+        if (this.props.searchResults.users!==undefined && this.props.searchResults.users.items!==undefined){
             searchUsers = <Users usersPassed={this.props.searchResults.users.items} />
         }
 
@@ -72,7 +71,7 @@ class SearchAll extends React.Component<Props, any> {
                 <div className="mt-25">
                     <Card>
                         <CardHeader
-                            title="Images"
+                            title="Pictures"
                         />
                         {searchPictures}
                         <CardActions>
@@ -83,7 +82,7 @@ class SearchAll extends React.Component<Props, any> {
                 <div className="mt-25">
                     <Card>
                         <CardHeader
-                            title="Hashtags"
+                            title="Mentions"
                         />
                         {searchMentions}
                         <CardActions>

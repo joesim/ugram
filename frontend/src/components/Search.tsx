@@ -64,10 +64,10 @@ class Search extends React.Component<any, any> {
                             <Tab value="users" style={tabStyle} label="Users" >
                                 {users}
                             </Tab>
-                            <Tab value="images" style={tabStyle} label="Images" >
+                            <Tab value="images" style={tabStyle} label="Pictures" >
                                 {picturesDesc}
                             </Tab>
-                            <Tab value="hashtags" style={tabStyle} label="Hashtags" >
+                            <Tab value="hashtags" style={tabStyle} label="Mentions" >
                                 {picturesHashtags}
                             </Tab>
                         </Tabs>

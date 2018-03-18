@@ -94,6 +94,10 @@ class PicturesPanel extends React.Component<Props, any> {
             });
         }
 
+        if (pictures.length == 0){
+            return <div className="ma-20">No results</div>
+        }
+
         pictures = this.filterByDate(pictures);
 
         const col1 = this.getColumnPictures(pictures, 0, 3);
