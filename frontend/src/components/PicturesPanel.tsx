@@ -42,14 +42,9 @@ class PicturesPanel extends React.Component<Props, any> {
             this.setState((prevState) => {
                 return { page: prevState.page + 1 };
             });
-
             if (isUndefined(this.props.userId)) {
                 if (this.props.query === undefined) {
                     await this.props.getAllPictures(this.state.page, this.state.perPage);
-                } else if (this.props.category === "description") {
-                    await this.props.getAllPicturesFilteredDesc(this.props.query, this.state.page, this.state.perPage);
-                } else if (this.props.category === "hashtags") {
-                    await this.props.getAllPicturesFilteredHashtags(this.props.query, this.state.page, this.state.perPage);
                 }
             } else {
                 await this.props.getAllPicturesFromUser(this.state.page, this.state.perPage, this.props.userId);
