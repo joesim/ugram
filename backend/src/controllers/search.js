@@ -85,7 +85,7 @@ const responseBuilder = (users, pictures, mentions, options) => {
 
 const queryUsers = async (query, limit) => {
   let data = await UserModel.find({
-    $or: [{ firstName: {'$regex': query} }, { lastName: {'$regex': query} }, { id: {'$regex': query} }]
+    $or: [{ firstName: {'$regex': query, '$options': 'i'} }, { lastName: {'$regex': query, '$options': 'i'} }, { id: {'$regex': query, '$options': 'i'} }]
   })
     .limit(limit)
     .exec();
@@ -94,7 +94,7 @@ const queryUsers = async (query, limit) => {
 };
 
 const queryPictures = async (query, limit) => {
-  let data = await PictureModel.find({ description: {'$regex': query}})
+  let data = await PictureModel.find({ description: {'$regex': query, '$options': 'i'}})
     .limit(limit)
     .exec();
   data = data.map(parseEntry);
@@ -104,7 +104,7 @@ const queryPictures = async (query, limit) => {
 
 const queryMentions = async (query, limit) => {
   let data = await PictureModel.find({
-    mentions: {'$regex': query}
+    mentions: {'$regex': query, '$options': 'i'}
   })
     .limit(limit)
     .exec();
