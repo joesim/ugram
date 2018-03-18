@@ -3,6 +3,7 @@ import { PictureModel } from '../models/picture';
 import { parseEntry } from '../services';
 import crypto from "crypto";
 import { s3 } from "../common/s3";
+import { frontend_url } from "../constants";
 
 const readAll = (req, res) => {
 	const limit = parseInt(req.query.perPage) || 10;
@@ -89,11 +90,11 @@ const login = (req, res) => {
 };
 
 const oauth = (req, res) => {
-	res.redirect('http://localhost:8080/#/login');
+	res.redirect(`${frontend_url}/#/login`);
 };
 
 const oauthRedirect = (req, res) => {
-	res.redirect(`http://localhost:8080/#/?accessToken=${req.user.accessToken}&userId=${req.user.userId}`);
+	res.redirect(`${frontend_url}/#/?accessToken=${req.user.accessToken}&userId=${req.user.userId}`);
 };
 
 const update = (req, res) => {
