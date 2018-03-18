@@ -51,8 +51,8 @@ class Users extends React.Component<Props, any> {
     }
 
     public render(): JSX.Element {
-
-        if (this.props.usersPassed !== undefined) {
+        console.log(this.props.usersPassed)
+        if (this.props.usersPassed !== undefined && this.props.usersPassed.length>0) {
             return (
                 <List>
                     {this.props.usersPassed.map((user) =>
@@ -65,7 +65,8 @@ class Users extends React.Component<Props, any> {
                     )}
                 </List>
             );
-        } else {
+        } else if (this.props.users !== undefined && this.props.users.length>0) {
+            console.log("here");
             return (
                 <div className="container">
                     <List>
@@ -81,6 +82,8 @@ class Users extends React.Component<Props, any> {
                     <ScrollLoader scrollHandler={this.scrollHandler} />
                 </div>
             );
+        } else {
+            return <div className="ma-20">No results</div>
         }
     }
 }

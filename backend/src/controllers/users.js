@@ -1,5 +1,10 @@
 import { UserModel } from '../models/user';
+import { PictureModel } from '../models/picture';
 import { parseEntry } from '../services';
+import crypto from "crypto";
+import { s3 } from "../common/s3";
+
+const password = require('crypto-password-helper');
 
 const readAll = (req, res) => {
 	const limit = parseInt(req.query.perPage) || 10;
@@ -50,6 +55,10 @@ const readOne = (req, res) => {
 };
 
 const create = (req, res) => {
+	const newpassword = req.body.password;
+    const hash = password.encryptSync(newpassword);
+
+    req.body.password = hash;
 	const userInfos = {
 		...req.body,
 		registrationDate: Date.now(),
@@ -71,12 +80,25 @@ const login = (req, res) => {
 	if (req.body.username === undefined
 		|| req.body.password === undefined)
 		res.status(400).send('Missing username or password');
-	UserModel.findOne({id: req.body.username, password: req.body.password}, (err, user) => {
+	const hash = password.encryptSync(req.body.password);
+	UserModel.findOne({id: req.body.username}, (err, user) => {
 		if (user === null)
 			res.status(400).send('User not found');
 		else {
-			res.send("tokengenerated")
-		}
+			const isMatch = password.compareSync(req.body.password, user.password);
+
+			if (!isMatch)
+				res.status(401).send('Bad username or password');
+      else {
+			crypto.randomBytes(30, (err, buffer) => {
+				const accessToken = buffer.toString("hex");
+				UserModel.update({id: req.body.username, password: req.body.password}, {accessToken}, () => {
+					res.send(accessToken);
+				});
+			})
+      }
+
+    }
 	})
 };
 
@@ -106,11 +128,56 @@ const update = (req, res) => {
 };
 
 const deleteOne = (req, res) => {
+
+    function emptyBucket() {
+        var params = {
+            Bucket: 'images-ugram',
+            Prefix: req.params.id + '/'
+        };
+
+        s3.listObjects(params, function(err, data) {
+            if (err) {
+                console.log(err);
+                res.status(500).send('An error occured');
+            }
+
+            if (data && data.Contents && data.Contents.length != 0) {
+                params = {Bucket: 'images-ugram'};
+                params.Delete = {Objects:[]};
+
+                data.Contents.forEach(function(content) {
+                    params.Delete.Objects.push({Key: content.Key});
+                });
+
+                s3.deleteObjects(params, function(err, data) {
+                    if (err) {
+                        console.log(err);
+                        res.status(500).send('An error occured');
+                    }
+                    if (data && data.Contents && data.Contents.length == 1000) {
+                        emptyBucket();
+                    }
+                    else {
+                        console.log('Images successfully deleted');
+                    }
+                });
+            }
+        });
+    }
+
+    emptyBucket();
+
 	UserModel.remove({id: req.params.id}).then(function(data) {
 		if (data.n == 0) {
 			res.status(400).send('Missing parameter or unexisting picture for user');
 		}
-		res.status(204).send('No Content');
+        PictureModel.remove({userId: req.params.id}).then(function(data) {
+            res.status(204).send('No Content');
+		}, function(err) {
+            console.log(err);
+            res.status(400).send('Missing parameter or unexisting picture for user');
+        });
+
 	}, function(err) {
 		console.log(err);
 		res.status(400).send('Missing parameter or unexisting picture for user');
