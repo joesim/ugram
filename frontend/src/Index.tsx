@@ -89,7 +89,8 @@ ReactDOM.render(
                                 <PrivateRoute path="/users/:id" title={"User profile"} component={Profile}/>
                                 <PrivateRoute path="/users" title={"Users"} component={Users}/>
                                 <Route path="/search/:id" title={"Search"} component={Search}/>
-                                <Route path="/signup" title={"Signup"} render={(props) => <Signup/>}/>
+	                            <Route path="/search" title={"Search"} component={Search}/>
+	                            <Route path="/signup" title={"Signup"} render={(props) => <Signup/>}/>
 	                            <Route path="/login" title={"Login"} render={(props) => <Login/>}/>
                                 <Route component={Page404}/>
                             </Switch>

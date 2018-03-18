@@ -15,8 +15,13 @@ const readAll = (req, res) => {
 			const data = {};
 			data.totalEntries = totalEntries;
 			data.totalPages = totalPages;
-			data.items = rawData.map(parseEntry);
-			console.log(data.items);
+			data.items = rawData.map((data) => {
+				let jsonData = data.toJSON();
+				jsonData.id = jsonData._id;
+				delete jsonData._id;
+				delete jsonData.__v;
+				return jsonData;
+			});
 			res.json(data);
 		}, function(err) {
 			console.log(err);
@@ -117,8 +122,8 @@ const create = (req, res) => {
 };
 
 const update = (req, res) => {
-	PictureModel.update({_id: req.params.pictureId, userId: req.params.userId}, {$set: req.body}).then(function() {
-		if (data.n == 0) {
+	PictureModel.update({_id: req.params.pictureId, userId: req.params.userId}, {$set: req.body}).then(function(data) {
+		if (data.n === 0) {
 			res.status(400).send('Missing parameter or unexisting picture for user');
 		}
 		res.status(201).send('Created');
