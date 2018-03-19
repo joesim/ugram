@@ -1,11 +1,11 @@
 # Ugram
 [![Build Status](https://travis-ci.com/GLO3112-H18/ugram-team-06.svg?token=oFRzF26Q45xGBoB8qvZi&branch=dev)](https://travis-ci.com/GLO3112-H18/ugram-team-06)
-[Site dev](http://u-gram-dev.s3-website.ca-central-1.amazonaws.com)
-[Site prod](http://ugram-prod.s3-website.ca-central-1.amazonaws.com)
+[Site prod](http://u-gram-dev.s3-website.ca-central-1.amazonaws.com)
 > Clone d'instagram pour le cours GLO3112.
 
+## API
 
-
+[Api documentation](https://documenter.getpostman.com/view/2900020/ugram-team06/RVnZgdc2)
 
 ## Installation
 ```sh
@@ -38,7 +38,7 @@ cp env-sample .env
 npm install
 ```
 
-Modifier le fichier .env en y ajoutant les valeurs.
+**Modifier le fichier .env en y ajoutant les valeurs.**
 
 # Tests
 1. Télécharger [mongodb](https://www.mongodb.com/download-center?_ga=2.118641097.1175779120.1520910751-1426939000.1520370737#production) et suivre l'installation sur le site.

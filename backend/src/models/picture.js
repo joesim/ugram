@@ -5,6 +5,10 @@ const PictureSchema = mongoose.Schema({
 		type: Number,
 		required: [true, 'createdDate is required'],
 	},
+	name: {
+        type: String,
+        maxlength: [100, 'Name is too long (max 100 characters)'],
+	},
 	description: {
 		type: String,
 		maxlength: [500, 'Description is too long (max 500 characters)'],

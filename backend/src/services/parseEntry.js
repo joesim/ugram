@@ -5,7 +5,8 @@ const parseEntry = (data) => {
 
 	if (jsonData.accessToken !== undefined)
 		delete jsonData.accessToken;
-
+	if (jsonData.password !== undefined)
+		delete jsonData.password;
 	return jsonData;
 };
 

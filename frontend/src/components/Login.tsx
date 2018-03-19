@@ -2,6 +2,7 @@ import RaisedButton from "material-ui/RaisedButton";
 import TextField from "material-ui/TextField";
 import * as React from "react";
 import { setDefaultsFromLocalStorage } from "../axios";
+import { API_URL } from "../constants";
 
 class Login extends React.Component<any, any> {
 
@@ -40,7 +41,7 @@ class Login extends React.Component<any, any> {
 	                <TextField id="username" required={false} type="text" floatingLabelText="Username"/>
 	                <TextField id="password" required={false} type="password" floatingLabelText="*******"/>
                     <RaisedButton label="Login" type="submit" primary={true} />
-                    <RaisedButton label="Login with Google" href="http://localhost:3000/auth/google" primary={true} />
+                    <RaisedButton label="Login with Google" href={`${API_URL}/auth/google`} primary={true} />
                     <RaisedButton href="/#/signup" label="Signup" primary={true} />
                 </form>
             </div>
