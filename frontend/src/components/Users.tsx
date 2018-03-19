@@ -41,7 +41,7 @@ class Users extends React.Component<Props, any> {
         if (this.props.query !== nextProps.query){
             nextProps.receivingNewUsers();
             if (nextProps.usersPassed === undefined) {
-                this.setState({page:0,perPage:20});
+                this.setState({page:0});
                 if (nextProps.query !== undefined) {
                     nextProps.getAllUsersFiltered(nextProps.query, this.state.page, this.state.perPage);
                 } else {
@@ -56,9 +56,7 @@ class Users extends React.Component<Props, any> {
             return { page: prevState.page + 1 };
         });
         if (this.props.usersPassed === undefined) {
-            if (this.props.query !== undefined) {
-                this.props.getAllUsersFiltered(this.props.query, this.state.page, this.state.perPage);
-            } else {
+            if (this.props.query === undefined) {
                 this.props.getAllUsers(this.state.page, this.state.perPage);
             }
         }
