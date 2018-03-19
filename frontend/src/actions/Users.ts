@@ -25,7 +25,7 @@ function receiveNewUsers(): ReceiveNewUsers {
     };
 }
 
-export function getAllUsers(page:number, perPage:number) {
+export function getAllUsers(page: number, perPage: number) {
     return async (dispatch) => {
         try {
             const data = await axios.get(`/users/?page=${page}&perPage=${perPage}`);
@@ -36,7 +36,7 @@ export function getAllUsers(page:number, perPage:number) {
     };
 }
 
-export function getAllUsersFiltered(query: string, page: number, perPage:number) {
+export function getAllUsersFiltered(query: string, page: number, perPage: number) {
     return async (dispatch) => {
         try {
             const data = await axios.get(`/search?q=${query}&usersOnly=true`);
@@ -47,8 +47,8 @@ export function getAllUsersFiltered(query: string, page: number, perPage:number)
     };
 }
 
-export function receivingNewUsers(){
+export function receivingNewUsers() {
     return (dispatch) => {
         dispatch(receiveNewUsers());
-    }
+    };
 }

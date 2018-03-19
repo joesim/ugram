@@ -10,8 +10,9 @@ interface ReceiveSearch {
 
 function receiveSearch(searchResults): ReceiveSearch {
     return {
-        type: constants.RECEIVE_SEARCH,
         searchResults,
+        type: constants.RECEIVE_SEARCH,
+
     };
 }
 
@@ -23,6 +24,6 @@ export function getSearchResults(query: string) {
         })
         .catch((error) => {
             dispatch(throwError("Get search results from every category", error));
-        });        
+        });
     };
 }
