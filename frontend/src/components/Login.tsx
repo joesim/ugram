@@ -11,7 +11,7 @@ class Login extends React.Component<any, any> {
         this.state = {
         	username: "",
         };
-	    this.login = this.login.bind(this);
+	       this.login = this.login.bind(this);
     }
 
 	public componentDidUpdate(prevProps, prevState): void {
@@ -23,17 +23,6 @@ class Login extends React.Component<any, any> {
 			document.location.href = "/";
 		}
 	}
-
-	private login(event) {
-	    event.preventDefault();
-        const data = {
-    		password: event.target[1].value,
-		    username: event.target[0].value,
-        };
-        this.setState({username: data.username});
-        this.props.loginUser(data);
-	}
-
     public render() {
         return (
             <div>
@@ -47,6 +36,16 @@ class Login extends React.Component<any, any> {
             </div>
         );
     }
+	private login(event) {
+	    event.preventDefault();
+     const data = {
+    		password: event.target[1].value,
+		    username: event.target[0].value,
+        };
+     this.setState({username: data.username});
+     this.props.loginUser(data);
+	}
+
 }
 
 export default Login;

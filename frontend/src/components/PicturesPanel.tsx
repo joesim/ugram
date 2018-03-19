@@ -30,7 +30,6 @@ class PicturesPanel extends React.Component<Props, any> {
         };
         this.props.pictures_panel.pictures = [];
 
-
         this.getColumnPictures = this.getColumnPictures.bind(this);
         this.openDialog = this.openDialog.bind(this);
         this.closeDialog = this.closeDialog.bind(this);
@@ -52,7 +51,7 @@ class PicturesPanel extends React.Component<Props, any> {
         }
     }
 
-    public componentDidMount(){
+    public componentDidMount() {
         if (this.props.picturesPassed === undefined && this.props.userId !== this.state.userId) {
             this.props.pictures_panel.pictures = [];
             this.setState({ page: 0, userId: this.props.userId });
@@ -112,8 +111,8 @@ class PicturesPanel extends React.Component<Props, any> {
             });
         }
 
-        if (pictures.length == 0) {
-            return <div className="ma-20">No results</div>
+        if (pictures.length === 0) {
+            return <div className="ma-20">No results</div>;
         }
 
         pictures = this.filterByDate(pictures);
@@ -122,9 +121,9 @@ class PicturesPanel extends React.Component<Props, any> {
         const col2 = this.getColumnPictures(pictures, 1, 3);
         const col3 = this.getColumnPictures(pictures, 2, 3);
 
-	    let scrollhandler = null;
+	       let scrollhandler = null;
         if (this.props.picturesPassed === undefined) {
-            scrollhandler = <ScrollLoader scrollHandler={this.scrollHandler} />
+            scrollhandler = <ScrollLoader scrollHandler={this.scrollHandler} />;
         }
 
         return (
@@ -155,7 +154,7 @@ class PicturesPanel extends React.Component<Props, any> {
     }
 
     private openDialog(indexPicture) {
-        if (this.props.picturesPassed === undefined){
+        if (this.props.picturesPassed === undefined) {
             this.setState({ open: true, pictureDetails: this.filterByDate(this.props.pictures_panel.pictures)[indexPicture] });
         } else {
             this.setState({ open: true, pictureDetails: this.filterByDate(this.props.picturesPassed)[indexPicture] });
