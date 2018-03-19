@@ -19,6 +19,7 @@ const readAll = (req, res) => {
 				jsonData.id = jsonData._id;
 				delete jsonData._id;
 				delete jsonData.__v;
+				delete jsonData.name;
 				return jsonData;
 			});
 			res.json(data);
@@ -60,6 +61,7 @@ const readAllOfUser = (req, res) => {
             	jsonData.id = jsonData._id;
             	delete jsonData._id;
             	delete jsonData.__v;
+            	delete jsonData.name;
             	return jsonData;
         	});
 			res.json(data);
@@ -80,8 +82,13 @@ const readOne = (req, res) => {
 		if (data === null) {
 			errorMessage(res, 400, "Missing parameter or unexisting picture for user");
 		} else {
-			data = parseEntry(data);
-			res.json(data);
+			let jsonData = data.toJSON();
+			jsonData.id = jsonData._id;
+			delete jsonData._id;
+			delete jsonData.__v;
+			delete jsonData.name;
+			return jsonData;
+			res.json(jsonData);
 		}
 	}, function(err) {
 		errorMessage(res, 400, "Missing parameter or unexisting picture for user");

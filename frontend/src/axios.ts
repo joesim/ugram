@@ -1,6 +1,7 @@
 import axios from "axios";
+import { API_URL } from "./constants";
 
-axios.defaults.baseURL = "http://localhost:3000";
+axios.defaults.baseURL = API_URL;
 axios.defaults.headers.put["Content-Type"] = "application/json";
 axios.defaults.headers.post["Content-Type"] = "multipart/form-data";
 
