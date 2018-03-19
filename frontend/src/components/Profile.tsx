@@ -1,15 +1,15 @@
 import Avatar from "material-ui/Avatar";
 import { Card, CardActions, CardHeader, CardText } from "material-ui/Card";
 import CircularProgress from "material-ui/CircularProgress";
+import Dialog from "material-ui/Dialog";
+import FlatButton from "material-ui/FlatButton";
 import FontIcon from "material-ui/FontIcon";
 import RaisedButton from "material-ui/RaisedButton";
+import TextField from "material-ui/TextField";
 import * as React from "react";
+import { Redirect } from "react-router-dom";
 import PicturesPanel from "../containers/PicturesPanel";
 import DialogEdit from "./DialogEdit";
-import Dialog from "material-ui/Dialog";
-import TextField from "material-ui/TextField";
-import FlatButton from "material-ui/FlatButton";
-import { Redirect } from 'react-router-dom';
 
 interface Props {
     user: {
@@ -32,9 +32,9 @@ class Profile extends React.Component<Props, any> {
         super(props);
         this.state = {
             accountDeleted: false,
-            openSnackbar: false,
             open: false,
-        }
+            openSnackbar: false,
+        };
     }
 
     public componentDidMount() {
@@ -56,7 +56,7 @@ class Profile extends React.Component<Props, any> {
     }
 
     public handleSubmit = () => {
-        this.setState({ open: false, accountDeleted: true, openSnackbar:true });
+        this.setState({ open: false, accountDeleted: true, openSnackbar: true });
         this.props.removeProfile(this.props.user.id);
     }
 
@@ -64,12 +64,12 @@ class Profile extends React.Component<Props, any> {
         this.setState({
             openSnackbar: false,
         });
-    };
+    }
 
     public render() {
 
         if (this.state.accountDeleted) {
-            return <Redirect to={"/"} push={true} ></Redirect>
+            return <Redirect to={"/"} push={true}/>;
         }
 
         const actions = [
@@ -95,7 +95,7 @@ class Profile extends React.Component<Props, any> {
         let avatar = null;
         if (window.localStorage.getItem("userId-06") === this.props.user.id) {
             editButton = <DialogEdit user={this.props.user} onSubmit={this.props.editProfile} />;
-            deleteButton = <RaisedButton secondary={true} className="ma-10" labelPosition="before" label="Delete" onClick={this.handleOpen} icon={<FontIcon className="material-icons">delete_forever</FontIcon>} />
+            deleteButton = <RaisedButton secondary={true} className="ma-10" labelPosition="before" label="Delete" onClick={this.handleOpen} icon={<FontIcon className="material-icons">delete_forever</FontIcon>} />;
         }
 
         if (this.props.user.pictureUrl != null) {

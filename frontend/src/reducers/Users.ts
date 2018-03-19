@@ -1,4 +1,4 @@
-import { RECEIVE_USERS, RECEIVE_NEW_USERS } from "../constants";
+import { RECEIVE_NEW_USERS, RECEIVE_USERS } from "../constants";
 
 const initialState = {
 	users: [
@@ -14,7 +14,7 @@ export function users(state = initialState, action): object {
 			});
 			return { ...state };
 		case RECEIVE_NEW_USERS:
-			state.users = []
+			state.users = [];
 			return state;
 		default:
 			return state;
