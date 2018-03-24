@@ -71,7 +71,7 @@ const login = (req, res) => {
 		|| req.body.password === undefined)
 		errorMessage(res, 400, "Missing username or password");
 	else {
-		const hash = password.encryptSync(req.body.password);
+		password.encryptSync(req.body.password);
 		crypto.randomBytes(30, (err, buffer) => {
 			const accessToken = buffer.toString("hex");
 			UserModel.findOneAndUpdate({ id: req.body.username }, { accessToken }, (err, user) => {

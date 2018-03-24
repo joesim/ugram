@@ -1,6 +1,6 @@
 import { PictureModel } from '../models/picture';
 import { UserModel } from '../models/user';
-import { parseEntry, errorMessage, UploadServices, deleteImage } from '../services';
+import { errorMessage, UploadServices, deleteImage, parsePicture } from '../services';
 
 const readAll = (req, res) => {
 	const limit = parseInt(req.query.perPage) || 10;
@@ -14,14 +14,7 @@ const readAll = (req, res) => {
 			const data = {};
 			data.totalEntries = totalEntries;
 			data.totalPages = totalPages;
-			data.items = rawData.map((data) => {
-				let jsonData = data.toJSON();
-				jsonData.id = jsonData._id;
-				delete jsonData._id;
-				delete jsonData.__v;
-				delete jsonData.name;
-				return jsonData;
-			});
+			data.items = rawData.map(parsePicture);
 			res.json(data);
 		}, function(err) {
 			errorMessage(res, 500, "Internal server error");
@@ -56,14 +49,7 @@ const readAllOfUser = (req, res) => {
 			const data = {};
 			data.totalEntries = totalEntries;
 			data.totalPages = totalPages;
-            data.items = rawData.map((data) => {
-                let jsonData = data.toJSON();
-            	jsonData.id = jsonData._id;
-            	delete jsonData._id;
-            	delete jsonData.__v;
-            	delete jsonData.name;
-            	return jsonData;
-        	});
+            data.items = rawData.map(parsePicture);
 			res.json(data);
 		}, function(err) {
 			errorMessage(res, 500, "Internal server error");
@@ -82,12 +68,7 @@ const readOne = (req, res) => {
 		if (data === null) {
 			errorMessage(res, 400, "Missing parameter or unexisting picture for user");
 		} else {
-			let jsonData = data.toJSON();
-			jsonData.id = jsonData._id;
-			delete jsonData._id;
-			delete jsonData.__v;
-			delete jsonData.name;
-			return jsonData;
+			const jsonData = parsePicture(data);
 			res.json(jsonData);
 		}
 	}, function(err) {

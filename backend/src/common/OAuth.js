@@ -24,7 +24,7 @@ passport.use(
             firstName: profile.name.givenName,
             lastName: profile.name.familyName,
             phoneNumber: 0,
-            pictureUrl: profile.image !== undefined ? profile.image.url : "",
+            pictureUrl: profile.photos !== undefined && profile.photos.length > 0 ? profile.photos[0].value : "",
             registrationDate: Date.now()
         };
 
