@@ -1,15 +1,15 @@
+import { Card, CardActions, CardHeader, CardMedia, CardText, CardTitle } from "material-ui/Card";
+import FlatButton from "material-ui/FlatButton";
 import * as React from "react";
-import { Card, CardActions, CardHeader, CardMedia, CardTitle, CardText } from 'material-ui/Card';
-import FlatButton from 'material-ui/FlatButton';
-import Users from "../containers/Users";
 import PicturesPanel from "../containers/PicturesPanel";
+import Users from "../containers/Users";
 
 interface Props {
     getSearchResults: (query: string) => any;
     query: string;
     searchResults: any;
     handler: any;
-    match:any;
+    match: any;
 }
 
 class SearchAll extends React.Component<Props, any> {
@@ -17,24 +17,24 @@ class SearchAll extends React.Component<Props, any> {
         super(props);
     }
 
-    handleUser = () => {
-        this.props.handler("users")
+    public handleUser = () => {
+        this.props.handler("users");
     }
 
-    handleImages = () => {
-        this.props.handler("images")
+    public handleImages = () => {
+        this.props.handler("images");
     }
 
-    handleHashtags = () => {
-        this.props.handler("hashtags")
+    public handleHashtags = () => {
+        this.props.handler("hashtags");
     }
 
     public componentDidMount() {
         this.props.getSearchResults(this.props.query);
     }
 
-    public componentWillReceiveProps(nextProps){
-        if (this.props.query !== nextProps.query){
+    public componentWillReceiveProps(nextProps) {
+        if (this.props.query !== nextProps.query) {
             this.props.getSearchResults(nextProps.query);
         }
     }
@@ -43,16 +43,16 @@ class SearchAll extends React.Component<Props, any> {
         let searchUsers = null;
         let searchPictures = null;
         let searchMentions = null;
-        if (this.props.searchResults.users!==undefined && this.props.searchResults.users.items!==undefined){
-            searchUsers = <Users usersPassed={this.props.searchResults.users.items} />
+        if (this.props.searchResults.users !== undefined && this.props.searchResults.users.items !== undefined) {
+            searchUsers = <Users usersPassed={this.props.searchResults.users.items} />;
         }
 
-        if (this.props.searchResults.pictures!==undefined && this.props.searchResults.pictures.items!==undefined){
-            searchPictures = <PicturesPanel picturesPassed={this.props.searchResults.pictures.items} />
+        if (this.props.searchResults.pictures !== undefined && this.props.searchResults.pictures.items !== undefined) {
+            searchPictures = <PicturesPanel picturesPassed={this.props.searchResults.pictures.items} />;
         }
 
-        if (this.props.searchResults.mentions!==undefined && this.props.searchResults.mentions.items!==undefined){
-            searchMentions = <PicturesPanel picturesPassed={this.props.searchResults.mentions.items} />
+        if (this.props.searchResults.mentions !== undefined && this.props.searchResults.mentions.items !== undefined) {
+            searchMentions = <PicturesPanel picturesPassed={this.props.searchResults.mentions.items} />;
         }
 
         return (

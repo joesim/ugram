@@ -1,33 +1,33 @@
-import * as React from "react";
 import FontIcon from "material-ui/FontIcon";
+import * as React from "react";
 import { Link } from "react-router-dom";
-import { Redirect } from 'react-router-dom'
+import { Redirect } from "react-router-dom";
 
 class SearchBar extends React.Component<any, any> {
 
     public constructor(props) {
         super(props);
         this.state = {
-            value: '',
-            navigate: false
+            navigate: false,
+            value: "",
         };
     }
 
-    handleChange = (event) => {
+    public handleChange = (event) => {
         this.setState({ value: event.target.value });
     }
 
-    handleKeyPress = (e) => {
-        if(e.key === 'Enter') {
+    public handleKeyPress = (e) => {
+        if (e.key === "Enter") {
             this.setState({navigate: true});
         }
     }
 
     public render(): JSX.Element {
 
-        if (this.state.navigate){
+        if (this.state.navigate) {
             this.setState({navigate: false});
-            return <Redirect to={"/search/" + this.state.value} push={true} ></Redirect>
+            return <Redirect to={"/search/" + this.state.value} push={true}/>;
         }
 
         return (

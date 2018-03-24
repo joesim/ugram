@@ -17,7 +17,7 @@ export interface GetPicturesFromUser {
 
 export type PicturesPanelAction = GetPictures | GetPicturesFromUser;
 
-function getPictures(pictures:any, page:number): GetPictures {
+function getPictures(pictures: any, page: number): GetPictures {
     return {
         page,
         pictures,
@@ -25,7 +25,7 @@ function getPictures(pictures:any, page:number): GetPictures {
     };
 }
 
-function getPicturesFromUser(pictures:any, page:number): GetPicturesFromUser {
+function getPicturesFromUser(pictures: any, page: number): GetPicturesFromUser {
     return {
         page,
         pictures,
@@ -33,15 +33,15 @@ function getPicturesFromUser(pictures:any, page:number): GetPicturesFromUser {
     };
 }
 
-function fetchAllPictures(page:number, perPage:number) {
+function fetchAllPictures(page: number, perPage: number) {
     return axios.get(`/pictures?page=${page}&perPage=${perPage}`);
 }
 
-function fetchAllPicturesFromUser(page:number, perPage:number, userId:string) {
+function fetchAllPicturesFromUser(page: number, perPage: number, userId: string) {
     return axios.get(`/users/${userId}/pictures?page=${page}&perPage=${perPage}`);
 }
 
-export function getAllPictures(page:number, perPage:number) {
+export function getAllPictures(page: number, perPage: number) {
     return async (dispatch) => {
         return fetchAllPictures(page, perPage).then(
             (pictures) => dispatch(getPictures(pictures, page)),
@@ -50,7 +50,7 @@ export function getAllPictures(page:number, perPage:number) {
     };
 }
 
-export function getAllPicturesFromUser(page:number, perPage:number, userId:string) {
+export function getAllPicturesFromUser(page: number, perPage: number, userId: string) {
     return async (dispatch) => {
         return fetchAllPicturesFromUser(page, perPage, userId).then(
             (pictures) => dispatch(getPicturesFromUser(pictures, page)),
@@ -59,7 +59,7 @@ export function getAllPicturesFromUser(page:number, perPage:number, userId:strin
     };
 }
 
-export function getAllPicturesFilteredDesc(query:string, page:number, perPage:number) {
+export function getAllPicturesFilteredDesc(query: string, page: number, perPage: number) {
     return async (dispatch) => {
         axios.get(`/search?q=${query}&picturesOnly=true`).then(
             (pictures) => dispatch(getPictures(pictures, page)),
@@ -68,7 +68,7 @@ export function getAllPicturesFilteredDesc(query:string, page:number, perPage:nu
     };
 }
 
-export function getAllPicturesFilteredHashtags(query:string, page:number, perPage:number) {
+export function getAllPicturesFilteredHashtags(query: string, page: number, perPage: number) {
     return async (dispatch) => {
         axios.get(`/search?q=${query}&mentionsOnly=true`).then(
             (pictures) => dispatch(getPictures(pictures, page)),
