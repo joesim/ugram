@@ -1,10 +1,8 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 
 import { Page404 } from "./components/Page404";
-import { Pictures } from "./components/Pictures";
 import Search from "./components/Search";
 import AppBarUgram from "./containers/AppBar";
 import ErrorModal from "./containers/ErrorModal";
@@ -102,11 +100,6 @@ ReactDOM.render(
                   path="/"
                   title={"Home"}
                   component={Home}
-                />
-                <PrivateRoute
-                  path="/pictures"
-                  title={"Pictures"}
-                  component={Pictures}
                 />
                 <PrivateRoute
                   path="/users/:id"

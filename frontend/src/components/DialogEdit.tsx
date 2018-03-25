@@ -15,10 +15,11 @@ interface Props {
     phoneNumber: string,
     email: string,
   };
+  onSubmit: any;
 }
 
 export default class DialogEdit extends React.Component<any, any> {
-  constructor(props: any) {
+  constructor(props: Props) {
     super(props);
     this.state = {
       open: false,
