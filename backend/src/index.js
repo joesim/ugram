@@ -36,7 +36,7 @@ require('./controllers')(app);
 
 const port = process.env.PORT || 3000;
 app.listen(port);
-if (process.env.NODE_ENV != "test") {
+if (process.env.NODE_ENV !== "test") {
     app.use(morgan("dev"));
     logger.info(`App started on port ${port}`);
   }
