@@ -1,4 +1,5 @@
-export const API_URL = "http://ugram-env.us-east-2.elasticbeanstalk.com";
+// export const API_URL = "http://ugram-env.us-east-2.elasticbeanstalk.com";
+export const API_URL = "http://localhost:3000";
 
 export const SET_VISIBILITY_UPLOAD_MODAL = "SET_VISIBILITY_UPLOAD_MODAL";
 export type SET_VISIBILITY_UPLOAD_MODAL = typeof SET_VISIBILITY_UPLOAD_MODAL;

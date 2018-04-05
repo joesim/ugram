@@ -1,6 +1,15 @@
 import { PictureModel } from '../models/picture';
 import { UserModel } from '../models/user';
 import { parseEntry, errorMessage, UploadServices, deleteImage } from '../services';
+import Jimp from 'jimp';
+
+const formats = [[306, 190, "_t"], [1200, 600, "_p"], [0, 0, ""]];
+
+function getFileNameWithSuffix(fileName, suffix) {
+	let actualFileName = fileName.substr(0, fileName.lastIndexOf("."));
+	actualFileName += suffix + fileName.substr(fileName.lastIndexOf("."));
+	return actualFileName;
+}
 
 const readAll = (req, res) => {
 	const limit = parseInt(req.query.perPage) || 10;
@@ -20,6 +29,13 @@ const readAll = (req, res) => {
 				delete jsonData._id;
 				delete jsonData.__v;
 				delete jsonData.name;
+
+				for (let i in formats) {
+					if (formats[i][2] != "") {
+						jsonData["url" + formats[i][2]] = getFileNameWithSuffix(jsonData.url, formats[i][2]);
+					}
+				}
+
 				return jsonData;
 			});
 			res.json(data);
@@ -62,6 +78,13 @@ const readAllOfUser = (req, res) => {
             	delete jsonData._id;
             	delete jsonData.__v;
             	delete jsonData.name;
+
+				for (let i in formats) {
+					if (formats[i][2] != "") {
+						jsonData["url" + formats[i][2]] = getFileNameWithSuffix(jsonData.url, formats[i][2]);
+					}
+				}
+
             	return jsonData;
         	});
 			res.json(data);
@@ -87,6 +110,13 @@ const readOne = (req, res) => {
 			delete jsonData._id;
 			delete jsonData.__v;
 			delete jsonData.name;
+
+			for (let i in formats) {
+				if (formats[i][2] != "") {
+					jsonData["url" + formats[i][2]] = getFileNameWithSuffix(jsonData.url, formats[i][2]);
+				}
+			}
+
 			return jsonData;
 			res.json(jsonData);
 		}
@@ -104,15 +134,46 @@ const create = (req, res) => {
 	const fileName = picture.userId + '/' + picture._id + req.files[0].originalname;
 	const file = req.files[0].buffer;
 
-    picture.url = process.env.BUCKET_IMAGE_LINK + fileName;
-    picture.name = fileName;
+	picture.url = process.env.BUCKET_IMAGE_LINK + fileName;
+	picture.name = fileName;
 
 	picture.save().then(function(data) {
-        UploadServices.uploadSample(fileName, file).then(function(data) {
-            res.status(201).json({id: picture._id});
-        }).catch(function(err) {
+		Jimp.read(req.files[0].buffer).then(function (pic) {
+
+			for (let i in formats) {
+				formats[i][0] = formats[i][0] == 0 ? pic.bitmap.width : formats[i][0];
+				formats[i][1] = formats[i][1] == 0 ? pic.bitmap.height : formats[i][1];
+
+				let width = pic.bitmap.width > pic.bitmap.height ? formats[i][0] : formats[i][1] * pic.bitmap.width / pic.bitmap.height;
+				let height = pic.bitmap.width > pic.bitmap.height ? formats[i][0] * pic.bitmap.height / pic.bitmap.width : formats[i][1];
+				if (width > formats[i][0]) {
+					width = formats[i][0];
+					height = width * pic.bitmap.height / pic.bitmap.width;
+				}
+				if (height > formats[i][1]) {
+					height = formats[i][1];
+					width = height * pic.bitmap.width / pic.bitmap.height;
+				}
+
+				pic.resize(width, height);
+
+				pic.getBuffer(Jimp.AUTO, (err, buffer) => {
+					if (err) {
+						errorMessage(res, 500, "Internal server error");
+					}
+
+				    UploadServices.uploadSample(getFileNameWithSuffix(fileName, formats[i][2]), buffer).then(function(data) {
+						if (i == formats.length - 1) {
+							res.status(201).json({id: picture._id});
+						}
+				    }).catch(function(err) {
+						errorMessage(res, 500, "Internal server error");
+				    });
+				});
+			}
+		}).catch(function (err) {
 			errorMessage(res, 500, "Internal server error");
-        });
+		});
 	}, function(err) {
 		errorMessage(res, 500, "Internal server error");
 	}).catch(function(err) {
@@ -135,7 +196,9 @@ const update = (req, res) => {
 
 const deleteOne = (req, res) => {
     PictureModel.findOne({_id: req.params.pictureId, userId: req.params.userId}).then(function(data) {
-    	deleteImage(data.name, res);
+		for (let i in formats) {
+	    	deleteImage(getFileNameWithSuffix(data.name, formats[i][2]), res);
+		}
         PictureModel.remove({_id: req.params.pictureId, userId: req.params.userId}).then(function(data) {
             if (data.n == 0) {
                 errorMessage(res, 400, "Missing parameter or unexisting picture for user");

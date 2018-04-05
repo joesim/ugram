@@ -99,7 +99,7 @@ class PicturesPanel extends React.Component<Props, any> {
                 pictures.push({
                     author: pic.userId,
                     createdDate: new Date(pic.createdDate),
-                    img: pic.url,
+                    img: pic.url_t,
                 });
             });
         } else {
