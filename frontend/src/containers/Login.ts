@@ -1,7 +1,6 @@
 import { connect, Dispatch, PropTypes } from "react-redux";
-import * as actions from "../actions/";
+import * as actions from "../actions/Login";
 import Login from "../components/Login";
-import { StoreState } from "../types";
 
 export function mapStateToProps({login}) {
 	return {

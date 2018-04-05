@@ -1,5 +1,5 @@
 import { connect, Dispatch, PropTypes } from "react-redux";
-import * as actions from "../actions/";
+import * as actions from "../actions/Signup";
 import Signup from "../components/Signup";
 import { StoreState } from "../types";
 
