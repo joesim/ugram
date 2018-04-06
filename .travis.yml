@@ -5,10 +5,10 @@ node_js:
 
 services: mongodb
 
-branches: 
-  only: 
-    - dev 
-    - master 
+branches:
+  only:
+    - dev
+    - master
 
 cache:
   directories:
@@ -43,7 +43,7 @@ deploy:
     acl: bucket_owner_full_control
     on:
       repo: GLO3112-H18/ugram-team-06
-      condition: $TRAVIS_BRANCH == "master" || $TRAVIS_BRANCH == "dev"
+      condition: $TRAVIS_BRANCH == "master"
       branch: $TRAVIS_BRANCH
 
   - provider: elasticbeanstalk
@@ -55,7 +55,7 @@ deploy:
     bucket_name: "elasticbeanstalk-us-east-2-977610490635"
     on:
         repo: GLO3112-H18/ugram-team-06
-        condition: $TRAVIS_BRANCH == "master" || $TRAVIS_BRANCH == "dev"
+        condition: $TRAVIS_BRANCH == "master"
         branch: $TRAVIS_BRANCH
 
 notifications:

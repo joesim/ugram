@@ -1,5 +1,4 @@
-import { LoginAction } from "../actions/";
-import { LOGIN, THROW_ERROR } from "../constants";
+import { LOGIN } from "../constants";
 
 const initialState = {
 	tokenUrl: "",

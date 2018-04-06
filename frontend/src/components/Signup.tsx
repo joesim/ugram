@@ -35,12 +35,12 @@ class Signup extends React.Component<any, any> {
     private createUser(event) {
         event.preventDefault();
         const data = {
-	        firstName: event.target[0].value,
+            email:  event.target[4].value,
+            firstName: event.target[0].value,
+            id: event.target[3].value,
     	    lastName: event.target[1].value,
-	        id: event.target[3].value,
+            password: event.target[5].value,
 	        phoneNumber: event.target[2].value,
-	        email:  event.target[4].value,
-	        password: event.target[5].value,
         };
         this.setState({ userId: event.target[2].value});
         this.setState({ password: event.target[5].value});

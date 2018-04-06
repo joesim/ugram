@@ -20,7 +20,7 @@ class Users extends React.Component<Props, any> {
 
         this.state = {
             page: 0,
-            perPage: 20
+            perPage: 20,
         };
 
         this.scrollHandler = this.scrollHandler.bind(this);
@@ -37,11 +37,11 @@ class Users extends React.Component<Props, any> {
         }
     }
 
-    public componentWillReceiveProps(nextProps){
-        if (this.props.query !== nextProps.query){
+    public componentWillReceiveProps(nextProps) {
+        if (this.props.query !== nextProps.query) {
             nextProps.receivingNewUsers();
             if (nextProps.usersPassed === undefined) {
-                this.setState({page:0});
+                this.setState({page: 0});
                 if (nextProps.query !== undefined) {
                     nextProps.getAllUsersFiltered(nextProps.query, this.state.page, this.state.perPage);
                 } else {
@@ -63,8 +63,8 @@ class Users extends React.Component<Props, any> {
     }
 
     public render(): JSX.Element {
-        
-        if (this.props.usersPassed !== undefined && this.props.usersPassed.length>0) {
+
+        if (this.props.usersPassed !== undefined && this.props.usersPassed.length > 0) {
             return (
                 <List>
                     {this.props.usersPassed.map((user) =>
@@ -77,7 +77,7 @@ class Users extends React.Component<Props, any> {
                     )}
                 </List>
             );
-        } else if (this.props.users !== undefined && this.props.users.length>0) {
+        } else if (this.props.users !== undefined && this.props.users.length > 0) {
             return (
                 <div className="container">
                     <List>
@@ -94,10 +94,9 @@ class Users extends React.Component<Props, any> {
                 </div>
             );
         } else {
-            return <div className="ma-20">No results</div>
+            return <div className="ma-20">No results</div>;
         }
     }
 }
-
 
 export default Users;

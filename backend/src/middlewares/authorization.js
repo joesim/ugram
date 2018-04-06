@@ -1,4 +1,3 @@
-import { UserModel } from "../models/user";
 import { errorMessage } from '../services';
 
 export const isAuthorized = (req, res, next) => {

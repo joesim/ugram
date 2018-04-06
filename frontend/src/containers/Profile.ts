@@ -1,9 +1,7 @@
 import { connect, Dispatch } from "react-redux";
-import { Store } from "redux";
-import * as actions from "../actions/";
+import * as actions from "../actions/Profile";
 import {editProfile, profileFetchData, removeProfile} from "../actions/Profile";
 import Profile from "../components/Profile";
-import { StoreState } from "../types";
 
 export function mapStateToProps( state ) {
     return {

@@ -1,8 +1,8 @@
-import * as HomeServices from "./home";
 import * as UploadServices from "./upload";
 import parseEntry from "./parseEntry";
 import emptyBucket from "./emptyBucket";
 import deleteImage from "./deleteImage";
+import parsePicture from "./parsePicture";
 import { errorMessage } from "./errorMessageHelper";
 
-export { HomeServices, UploadServices, parseEntry, emptyBucket, errorMessage, deleteImage};
+export { UploadServices, parseEntry, emptyBucket, errorMessage, deleteImage, parsePicture };

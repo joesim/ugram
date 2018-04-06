@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import * as actions from "../actions/";
+import * as actions from "../actions/SearchAll";
 import SearchAll from "../components/SearchAll";
 
 function mapStateToProps(state) {

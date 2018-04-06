@@ -1,5 +1,4 @@
 import { s3 } from "../common/s3";
-import logger from "../common/logger";
 
 const deleteImage = (fileName, res) => {
     let params = {

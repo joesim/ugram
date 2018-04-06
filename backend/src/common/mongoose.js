@@ -19,7 +19,7 @@ if (
   process.exit(0);
 }
 
-if (env == "test") {
+if (env === "test") {
   mongoHost = process.env.MONGO_HOST_TEST;
   mongoDatabase = process.env.MONGO_DATABASE_TEST;
   mongoPort = process.env.MONGO_PORT_TEST;

@@ -1,4 +1,3 @@
-import { PictureDetailsAction } from "../actions";
 import { DELETE_PICTURE, THROW_ERROR, UPDATE_PICTURE } from "../constants";
 
 const initialState = {

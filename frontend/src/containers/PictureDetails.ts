@@ -1,7 +1,6 @@
 import { connect, Dispatch, PropTypes } from "react-redux";
-import * as actions from "../actions/";
+import * as actions from "../actions/PictureDetails";
 import PictureDetails from "../components/PictureDetails";
-import { StoreState } from "../types";
 
 export function mapStateToProps({ picture_details }, props) {
     return {

@@ -1,5 +1,4 @@
-import { PicturesPanelAction } from "../actions/";
-import { GET_PICTURES, GET_PICTURES_USER, THROW_ERROR } from "../constants";
+import { GET_PICTURES, GET_PICTURES_USER } from "../constants";
 
 const initialState = {
     error: null,

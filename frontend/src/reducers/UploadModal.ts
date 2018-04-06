@@ -1,4 +1,3 @@
-import { UploadModalAction } from "../actions";
 import { UPLOAD_PICTURE } from "../constants";
 
 const initialState = {
