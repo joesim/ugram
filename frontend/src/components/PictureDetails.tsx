@@ -181,7 +181,7 @@ class PictureDetails extends React.Component<any, any> {
     }
 
     private displayImage() {
-        switch(this.state.display) {
+        switch (this.state.display) {
             case "download":
                 this.download();
 
