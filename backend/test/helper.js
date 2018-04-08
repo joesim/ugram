@@ -1,16 +1,16 @@
 import {} from "dotenv/config";
-import { app } from "../src/index";
+import { server } from "../src/index";
 import { mongoose } from "../src/common/mongoose";
 import request from "supertest";
 
 before(() => {
-  global.app = app;
+  global.server = server;
   dropDatabase();
 });
 
 after(() => {
   dropDatabase();
-  delete global.app;
+  delete global.server;
 });
 
 beforeEach(() => {
@@ -24,7 +24,7 @@ const dropDatabase = () => {
 };
 
 const createUsers = async () => {
-  await request(app)
+  await request(server)
     .post("/signup")
     .send({
       email: "gab@hotmail.com",
@@ -32,7 +32,7 @@ const createUsers = async () => {
       lastName: "legault",
       id: "Gabswim"
     });
-  await request(app)
+  await request(server)
     .post("/signup")
     .send({
       email: "gab2@hotmail.com",
