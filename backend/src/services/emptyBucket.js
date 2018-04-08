@@ -23,7 +23,6 @@ const emptyBucket = (req, res) => {
 
 			s3.deleteObjects(params, function(err, data) {
 				if (err) {
-					logger.error(err.message);
 					errorMessage(res, 500, "Internal server error");
 				}
 				if (data && data.Contents && data.Contents.length === 1000) {

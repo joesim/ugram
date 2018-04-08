@@ -1,14 +1,13 @@
 import { connect, Dispatch } from "react-redux";
-import * as actions from "../actions/";
+import { HomeAction } from "../actions/Home";
 import Home from "../components/Home";
-import { StoreState } from "../types";
 
 export function mapStateToProps() {
 	return {
 	};
 }
 
-export function mapDispatchToProps(dispatch: Dispatch<actions.HomeAction>) {
+export function mapDispatchToProps(dispatch: Dispatch<HomeAction>) {
 	return {
 	};
 }

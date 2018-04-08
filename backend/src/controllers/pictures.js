@@ -1,9 +1,8 @@
 import { PictureModel } from '../models/picture';
 import { UserModel } from '../models/user';
-import { parseEntry, errorMessage, UploadServices, deleteImage } from '../services';
+import { parsePicture, parseEntry, errorMessage, UploadServices, deleteImage } from '../services';
+import { formats } from "../constants"
 import Jimp from 'jimp';
-
-const formats = [[306, 190, "_t"], [1200, 600, "_p"], [0, 0, ""]];
 
 function getFileNameWithSuffix(fileName, suffix) {
 	let actualFileName = fileName.substr(0, fileName.lastIndexOf("."));
@@ -23,21 +22,7 @@ const readAll = (req, res) => {
 			const data = {};
 			data.totalEntries = totalEntries;
 			data.totalPages = totalPages;
-			data.items = rawData.map((data) => {
-				let jsonData = data.toJSON();
-				jsonData.id = jsonData._id;
-				delete jsonData._id;
-				delete jsonData.__v;
-				delete jsonData.name;
-
-				for (let i in formats) {
-					if (formats[i][2] != "") {
-						jsonData["url" + formats[i][2]] = getFileNameWithSuffix(jsonData.url, formats[i][2]);
-					}
-				}
-
-				return jsonData;
-			});
+			data.items = rawData.map(parsePicture);
 			res.json(data);
 		}, function(err) {
 			errorMessage(res, 500, "Internal server error");
@@ -72,21 +57,7 @@ const readAllOfUser = (req, res) => {
 			const data = {};
 			data.totalEntries = totalEntries;
 			data.totalPages = totalPages;
-            data.items = rawData.map((data) => {
-                let jsonData = data.toJSON();
-            	jsonData.id = jsonData._id;
-            	delete jsonData._id;
-            	delete jsonData.__v;
-            	delete jsonData.name;
-
-				for (let i in formats) {
-					if (formats[i][2] != "") {
-						jsonData["url" + formats[i][2]] = getFileNameWithSuffix(jsonData.url, formats[i][2]);
-					}
-				}
-
-            	return jsonData;
-        	});
+            data.items = rawData.map(parsePicture);
 			res.json(data);
 		}, function(err) {
 			errorMessage(res, 500, "Internal server error");
@@ -105,20 +76,7 @@ const readOne = (req, res) => {
 		if (data === null) {
 			errorMessage(res, 400, "Missing parameter or unexisting picture for user");
 		} else {
-			let jsonData = data.toJSON();
-			jsonData.id = jsonData._id;
-			delete jsonData._id;
-			delete jsonData.__v;
-			delete jsonData.name;
-
-			for (let i in formats) {
-				if (formats[i][2] != "") {
-					jsonData["url" + formats[i][2]] = getFileNameWithSuffix(jsonData.url, formats[i][2]);
-				}
-			}
-
-			return jsonData;
-			res.json(jsonData);
+			res.json(parsePicture(data));
 		}
 	}, function(err) {
 		errorMessage(res, 400, "Missing parameter or unexisting picture for user");

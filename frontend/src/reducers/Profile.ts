@@ -1,4 +1,4 @@
-import { ProfilePanelActions } from "../actions/";
+import { ProfilePanelActions } from "../actions/Profile";
 import { PROFILE_FETCH_DATA_SUCCESS, REMOVE_PROFILE_SUCCESS } from "../constants";
 
 export function user(state = {}, action: ProfilePanelActions) {

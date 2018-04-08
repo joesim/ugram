@@ -1,5 +1,5 @@
 import { connect, Dispatch } from "react-redux";
-import * as actions from "../actions/";
+import * as actions from "../actions/UploadModal";
 import UploadModal from "../components/UploadModal";
 import { StoreState } from "../types";
 

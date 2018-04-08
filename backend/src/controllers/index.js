@@ -6,8 +6,8 @@ import * as Search from './search';
 import { isAuthenticated } from "../middlewares/authentification";
 import { isAuthorized } from "../middlewares/authorization";
 import { frontend_url } from "../constants";
+import multer from "multer";
 
-const multer = require('multer');
 const upload = multer();
 
 module.exports = function(app) {

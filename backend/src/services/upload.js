@@ -1,4 +1,3 @@
-import { mongoose } from "../common/mongoose";
 import { s3 } from "../common/s3";
 
 if (process.env.BUCKET_IMAGE_NAME === undefined

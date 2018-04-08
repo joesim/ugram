@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import * as actions from "../actions/";
+import * as actions from "../actions/Users";
 import Users from "../components/Users";
 import { User } from "../types/";
 
@@ -23,7 +23,7 @@ function mapDispatchToProps(dispatch): DispatchProps {
     return {
         getAllUsers: (page, perPage) => dispatch(actions.getAllUsers(page, perPage)),
         getAllUsersFiltered: (query, page, perPage) => dispatch(actions.getAllUsersFiltered(query, page, perPage)),
-        receivingNewUsers: () => dispatch(actions.receivingNewUsers())
+        receivingNewUsers: () => dispatch(actions.receivingNewUsers()),
     };
 }
 
