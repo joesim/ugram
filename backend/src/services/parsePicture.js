@@ -1,4 +1,5 @@
 import { formats } from "../constants"
+import { getFileNameWithSuffix } from '../services';
 
 const parsePicture = (data) => {
 	let jsonData = data.toJSON();

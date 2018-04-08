@@ -18,7 +18,7 @@ module.exports = function(env) {
 		},
 		module: {
 			rules: [
-				{test: /\.tsx?$/, enforce: 'pre', loader: 'tslint-loader', options: {failOnHint: true}},
+				//{test: /\.tsx?$/, enforce: 'pre', loader: 'tslint-loader', options: {failOnHint: true}},
 				{test: /\.tsx?$/, loader: 'ts-loader'},
 				{test: /\.scss$/,
 					use: ExtractTextPlugin.extract({

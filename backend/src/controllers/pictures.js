@@ -1,14 +1,8 @@
 import { PictureModel } from '../models/picture';
 import { UserModel } from '../models/user';
-import { parsePicture, parseEntry, errorMessage, UploadServices, deleteImage } from '../services';
+import { getFileNameWithSuffix, parsePicture, parseEntry, errorMessage, UploadServices, deleteImage } from '../services';
 import { formats } from "../constants"
 import Jimp from 'jimp';
-
-function getFileNameWithSuffix(fileName, suffix) {
-	let actualFileName = fileName.substr(0, fileName.lastIndexOf("."));
-	actualFileName += suffix + fileName.substr(fileName.lastIndexOf("."));
-	return actualFileName;
-}
 
 const readAll = (req, res) => {
 	const limit = parseInt(req.query.perPage) || 10;
