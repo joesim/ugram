@@ -22,6 +22,7 @@ before_install:
 install:
   - cd frontend
   - npm install
+  - npm run lint:prod
   - npm run build_travis
   - cd ..
   - mv ./backend/* .

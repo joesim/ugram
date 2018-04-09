@@ -7,6 +7,7 @@
     "build": "webpack --env.dev",
     "build_travis": "webpack --env.production",
     "lint": "tslint --project tsconfig.json",
+    "lint:prod": "./node_modules/tslint/bin/tslint --project tsconfig.json",
     "start": "webpack-dev-server --env.dev",
     "start_livrable2": "LIVRABLE_2=true webpack-dev-server --env.dev"
   },
@@ -43,8 +44,11 @@
     "axios": "^0.17.1",
     "material-ui": "^0.20.0",
     "prop-types": "^15.6.0",
+    "query-string": "^6.0.0",
     "react": "16.2.0",
     "react-dom": "16.2.0",
+    "react-image-gallery": "^0.8.7",
+    "react-images": "^0.5.17",
     "react-material-grid": "0.0.8",
     "react-photo-gallery": "^6.0.22",
     "react-redux": "^5.0.6",
@@ -52,6 +56,7 @@
     "react-router-dom": "^4.2.2",
     "react-router-redux": "^4.0.8",
     "redux": "^3.7.2",
-    "redux-thunk": "^2.2.0"
+    "redux-thunk": "^2.2.0",
+    "unsplash-js": "^4.8.0"
   }
 }
