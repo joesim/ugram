@@ -11,6 +11,7 @@ import passport from './common/OAuth';
 import errors from './common/errors';
 import controllers from './controllers';
 import { events } from './events/index';
+import { cleanDB } from './common/cleanDB';
 
 const app = express();
 const server = http.createServer(app);
@@ -46,6 +47,7 @@ const port = process.env.PORT || 3000;
 
 server.listen(port);
 
+cleanDB();
 
 if (process.env.NODE_ENV !== "test") {
     app.use(morgan("dev"));

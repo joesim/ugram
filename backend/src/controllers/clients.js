@@ -1,6 +1,5 @@
 import { ConnectedClientsModel, UserModel } from "../models";
 import logger from "../common/logger";
-import { mongoose } from "../common/mongoose";
 
 const connectClient = async (socketId, data) => {
   try {
