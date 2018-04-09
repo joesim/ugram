@@ -1,9 +1,13 @@
 .picture-details {
 	display: flex;
 	justify-content: center;
+	flex-direction: column;
+
+	height: 600px;
 
 	.image {
 		width: 50%;
+		margin: 0 auto;
 
 		img {
 			width: 100%;
@@ -24,6 +28,8 @@
 		display: flex;
 		align-items: center;
 		flex-direction: row;
+		width: 500px;
+		margin: 0 auto;
 
 		.field-name {
 			width: 30%;
@@ -47,6 +53,8 @@
 		flex-direction: row;
 		justify-content: space-between;
 		margin-top: 15px;
+		width: 500px;
+		margin: 0 auto;
 
 		.size-button {
 			width: 40%;
