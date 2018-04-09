@@ -16,18 +16,19 @@ class UnsplashAuth extends React.Component<{}, UnsplashAuthState> {
 				secret: process.env.UNSPLASH_SECRET,
 			}),
 		};
+		this.auth = this.auth.bind(this);
 	}
 
 	public render() {
 		return (
 			<div id="unsplashAuth">
-				<RaisedButton label="Login Unsplash" primary={true} onClick={() => this.auth(this.state)} />
+				<RaisedButton label="Login Unsplash" primary={true} onClick={() => this.auth()} />
 			</div>
 		);
 	}
 
-	private auth(state) {
-		const authenticationUrl = state.unsplash.auth.getAuthenticationUrl([
+	private auth() {
+		const authenticationUrl = this.state.unsplash.auth.getAuthenticationUrl([
 			"public",
 			"read_user",
 			"read_photos",

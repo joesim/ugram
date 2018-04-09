@@ -31,7 +31,7 @@ class UnsplashRandom extends React.Component<{}, UnsplashRandomState> {
 		this.fetchRandomPhotos(5);
 	}
 
-	public fetchRandomPhotos(count) {
+	public fetchRandomPhotos(count: number) {
 		const photos = [];
 		this.state.unsplash.photos.getRandomPhoto({ count, height: 400, width: 400 })
 			.then(toJson)

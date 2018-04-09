@@ -21,9 +21,10 @@ interface UnsplashUserPhotosState {
 	perPage: number;
 	photos: Photo[];
 	unsplash: any;
+	username: string;
 }
 
-class UnsplashUserPhotos extends React.Component<UnsplashUserPhotosProps, any> {
+class UnsplashUserPhotos extends React.Component<UnsplashUserPhotosProps, UnsplashUserPhotosState> {
 	constructor(props) {
 		super(props);
 
@@ -37,6 +38,7 @@ class UnsplashUserPhotos extends React.Component<UnsplashUserPhotosProps, any> {
 			username: this.props.profile.username,
 		};
 		this.fetchUserPhotos = this.fetchUserPhotos.bind(this);
+		this.fetchUserPhotos();
 	}
 
 	public fetchUserPhotos() {
@@ -51,7 +53,6 @@ class UnsplashUserPhotos extends React.Component<UnsplashUserPhotosProps, any> {
 				json.forEach((img) => {
 					photos.push({
 						original: img.urls.regular,
-						thumbnail: img.urls.thumb,
 					});
 				});
 				this.setState({
@@ -65,8 +66,11 @@ class UnsplashUserPhotos extends React.Component<UnsplashUserPhotosProps, any> {
 		if (this.state.username === null) {
 			return null;
 		} else if (this.state.photos.length === 0) {
-			this.fetchUserPhotos();
-			return null;
+			return (
+				<div id="unsplashUserPhotos">
+					<h2>Photos 0</h2>
+				</div>
+				);
 		}
 		return (
 			<div id="unsplashUserPhotos">
