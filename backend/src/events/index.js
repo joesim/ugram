@@ -5,7 +5,7 @@ const events = (io) => {
         const socketId = socket.id;
 
         socket.on('join', (data) => Clients.connectClient(socketId, data))
-        socket.on('disconnect', (reason) => Clients.disconnectClient(reason ,socketId))
+        socket.on('disconnect', (reason) => Clients.disconnectClient(socketId))
     })
     
 }
