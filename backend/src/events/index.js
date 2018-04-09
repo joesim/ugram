@@ -1,12 +1,11 @@
+import * as Clients from '../controllers/clients';
+
 const events = (io) => {
     io.on("connection", (socket) => {
-        socket.on('join', (data) => {
-            console.log(`client connecté: ${socket.id}`)
-            console.log(`token: ${data.accessToken}`)
-        })
-        socket.on('disconnect', (reason) => {
-            console.log(`client déconnecté: ${socket.id}`);
-        })
+        const socketId = socket.id;
+
+        socket.on('join', (data) => Clients.connectClient(socketId, data))
+        socket.on('disconnect', (reason) => Clients.disconnectClient(reason ,socketId))
     })
     
 }
