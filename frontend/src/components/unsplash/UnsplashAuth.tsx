@@ -7,9 +7,9 @@ class UnsplashAuth extends React.Component<any, any> {
 		super(props);
 		this.state = {
 			unsplash: new Unsplash({
-				applicationId: "fa07f718dd9ce0fb8db48f9985fcaddb944b618f0c6960d765dcc78c266654a2",
-				callbackUrl: "http://localhost:8080",
-				secret: "f1dffafebe6086721ca22331e02b91c2acb44a3307c8578b9a248b7b6e588953",
+				applicationId: process.env.UNSPLASH_APPLICATION_ID,
+				callbackUrl: process.env.UNSPLASH_CALLBACK,
+				secret: process.env.UNSPLASH_SECRET,
 			}),
 		};
 	}

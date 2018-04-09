@@ -11,9 +11,7 @@ class UnsplashProfile extends React.Component<any, any> {
 		this.state = {
 			profile: null,
 			unsplash: new Unsplash({
-				applicationId: "fa07f718dd9ce0fb8db48f9985fcaddb944b618f0c6960d765dcc78c266654a2",
 				bearerToken: localStorage.getItem("unsplashBearer"),
-				secret: "f1dffafebe6086721ca22331e02b91c2acb44a3307c8578b9a248b7b6e588953",
 			}),
 		};
 		this.fetchProfilePhoto = this.fetchProfilePhoto.bind(this);

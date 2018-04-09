@@ -111,12 +111,12 @@ ReactDOM.render(
                 <Route
                   path="/signup"
                   title={"Signup"}
-                  render={(props) => <Signup />}
+                  render={() => <Signup />}
                 />
                 <Route
                   path="/login"
                   title={"Login"}
-                  render={(props) => <Login />}
+                  render={() => <Login />}
                 />
                 <Route component={Page404} />
               </Switch>
