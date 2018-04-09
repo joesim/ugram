@@ -10,6 +10,10 @@ export interface DeletedPicture {
     type: constants.DELETE_PICTURE;
 }
 
+export interface UpdatedPictureLikeState {
+    type: constants.UPDATE_PICTURE_LIKE_STATE;
+}
+
 export type PictureDetailsAction = UpdatePicture;
 
 function updatePicture(): UpdatePicture {
@@ -21,6 +25,12 @@ function updatePicture(): UpdatePicture {
 function deletedPicture(): DeletedPicture {
     return {
         type: constants.DELETE_PICTURE,
+    };
+}
+
+function updatedPictureLikeState(): UpdatedPictureLikeState {
+    return {
+        type: constants.UPDATE_PICTURE_LIKE_STATE,
     };
 }
 
@@ -42,6 +52,17 @@ export function deletePicture(userId, pictureId) {
             dispatch(deletedPicture());
         } catch (error) {
             dispatch(throwError("Could not delete picture", error));
+        }
+    };
+}
+
+export function updatePictureLikeState(userId, pictureId) {
+    return async (dispatch) => {
+        try {
+            const response = axios.put(`/users/${userId}/pictures/${pictureId}`);
+            dispatch(updatedPictureLikeState());
+        } catch (error) {
+            dispatch(throwError("Could not update the like state", error));
         }
     };
 }

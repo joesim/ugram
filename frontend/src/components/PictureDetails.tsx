@@ -6,16 +6,20 @@ import FloatingActionButton from "material-ui/FloatingActionButton";
 import MenuItem from "material-ui/MenuItem";
 import RaisedButton from "material-ui/RaisedButton";
 import ContentAdd from "material-ui/svg-icons/content/add";
+import IconButton from "material-ui/IconButton";
+import FontIcon from "material-ui/FontIcon";
 import TextField from "material-ui/TextField";
 import PropTypes from "prop-types";
 import * as React from "react";
+import { blue500, grey500 } from "material-ui/styles/colors";
 
 class PictureDetails extends React.Component<any, any> {
     constructor(props) {
         super(props);
 
         this.state = {
-	        display: "image",
+            display: "image",
+            like: false,
 	        mentions: [],
 	        open: false,
 	        tags: [],
@@ -27,11 +31,19 @@ class PictureDetails extends React.Component<any, any> {
         this.displayInfos = this.displayInfos.bind(this);
         this.updatePicture = this.updatePicture.bind(this);
         this.deletePicture = this.deletePicture.bind(this);
+        this.updatePictureLikeState = this.updatePictureLikeState.bind(this);
     }
 
 	public render() {
 		if (this.props.picture === null) { return <div/>; }
 		const actions = [
+            (
+                <div>
+                    <IconButton onClick={this.props.updatePictureLikeState} className="like">
+                        <FontIcon color={this.state.like === true ? blue500 : grey500} onLeftIconButtonClick="" className="material-icons">thumb_up</FontIcon>
+                    </IconButton>
+                </div>
+            ),
 			(
                 <FlatButton
                     key={1}
@@ -83,6 +95,10 @@ class PictureDetails extends React.Component<any, any> {
 
     private deletePicture() {
         this.props.deletePicture(this.state.userId, this.props.picture.id);
+    }
+
+    private updatePictureLikeState() {
+        this.props.updatePictureLikeState(this.state.userId, this.props.picture.id);
     }
 
     private updatePicture() {
