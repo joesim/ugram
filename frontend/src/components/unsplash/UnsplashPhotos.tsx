@@ -1,13 +1,18 @@
 import * as React from "react";
 import ImageGallery from "react-image-gallery";
 
-class UnsplashPhotos extends React.Component<any, any> {
+interface Photo {
+	original: string;
+}
+
+interface UnsplashPhotosProps {
+	photos: Photo[];
+	className?: string;
+}
+
+class UnsplashPhotos extends React.Component<UnsplashPhotosProps, {}> {
 	constructor(props) {
 		super(props);
-
-		this.state = {
-			photos: this.props.photos,
-		};
 	}
 
 	public render() {

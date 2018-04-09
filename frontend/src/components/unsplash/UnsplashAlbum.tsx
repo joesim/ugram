@@ -5,7 +5,19 @@ import UnsplashUserPhotos from "./UnsplashUserPhotos";
 import UnsplashError from "./UnsplashError";
 import toJson from "../../toJson";
 
-class UnsplashAlbum extends React.Component<any, any> {
+interface UnsplashAlbumState {
+	error: any;
+	profile: {
+		downloads: number,
+		followers_count: number,
+		total_likes: number,
+		name: string,
+		username: string,
+	};
+	unsplash: any;
+}
+
+class UnsplashAlbum extends React.Component<{}, UnsplashAlbumState> {
 	constructor(props) {
 		super(props);
 

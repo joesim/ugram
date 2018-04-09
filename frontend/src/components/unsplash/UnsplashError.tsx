@@ -1,7 +1,16 @@
 import * as React from "react";
 import UnsplashAuth from "./UnsplashAuth";
 
-class UnsplashError extends React.Component<any, any> {
+interface UnsplashErrorProps {
+	error: string;
+}
+
+interface UnsplashErrorState {
+	LIMIT: string;
+	UNKNOWN: string;
+}
+
+class UnsplashError extends React.Component<UnsplashErrorProps, UnsplashErrorState> {
 	constructor(props) {
 		super(props);
 

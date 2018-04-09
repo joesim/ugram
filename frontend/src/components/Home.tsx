@@ -10,7 +10,7 @@ import UnsplashPanel from "./unsplash/UnsplashPanel";
 import UnsplashRandom from "./unsplash/UnsplashRandom";
 import UnsplashAlbum from "./unsplash/UnsplashAlbum";
 
-class Home extends React.Component {
+class Home extends React.Component<{}, {}> {
 	public render() {
 		return (
 			<div>

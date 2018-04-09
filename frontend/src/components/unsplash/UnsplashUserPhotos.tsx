@@ -3,12 +3,31 @@ import * as React from "react";
 import UnsplashPhotos from "./UnsplashPhotos";
 import toJson from "../../toJson";
 
-class UnsplashUserPhotos extends React.Component<any, any> {
+interface Profile {
+	username: string;
+}
+
+interface Photo {
+	original: string;
+}
+
+interface UnsplashUserPhotosProps {
+	profile: Profile;
+	className?: string;
+}
+
+interface UnsplashUserPhotosState {
+	page: number;
+	perPage: number;
+	photos: Photo[];
+	unsplash: any;
+}
+
+class UnsplashUserPhotos extends React.Component<UnsplashUserPhotosProps, any> {
 	constructor(props) {
 		super(props);
 
 		this.state = {
-			currentImage: 0,
 			page: 1,
 			perPage: 10,
 			photos: [],

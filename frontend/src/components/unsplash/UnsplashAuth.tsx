@@ -2,7 +2,11 @@ import Unsplash from "unsplash-js";
 import * as React from "react";
 import RaisedButton from "material-ui/RaisedButton";
 
-class UnsplashAuth extends React.Component<any, any> {
+interface UnsplashAuthState {
+	unsplash: any;
+}
+
+class UnsplashAuth extends React.Component<{}, UnsplashAuthState> {
 	constructor(props) {
 		super(props);
 		this.state = {

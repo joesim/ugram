@@ -1,11 +1,3 @@
-/***************************************
- ** O-rizon development
- ** Created by Julien Wawrzyniak
- ** 4/6/18 - 12:13 AM
- ** UnsplashPanel.jsx
- ** 2018 - All rights reserved
- ***************************************/
-
 import * as React from "react";
 import * as QueryString from "query-string";
 import Unsplash from "unsplash-js";
@@ -13,7 +5,16 @@ import {BottomNavigation, BottomNavigationItem} from "material-ui/BottomNavigati
 import UnsplashAuth from "./UnsplashAuth";
 import toJson from "../../toJson";
 
-class UnsplashPanel extends React.Component<any, any> {
+interface UnsplashPanelProps {
+	className?: string;
+	content: any;
+}
+
+interface UnsplashPanelState {
+	unsplash: any;
+}
+
+class UnsplashPanel extends React.Component<UnsplashPanelProps, UnsplashPanelState> {
 	public state = {
 		unsplash: new Unsplash({
 			applicationId: process.env.UNSPLASH_APPLICATION_ID,

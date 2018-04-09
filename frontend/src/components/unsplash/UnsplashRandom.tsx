@@ -6,7 +6,17 @@ import UnsplashPhotos from "./UnsplashPhotos";
 import UnsplashError from "./UnsplashError";
 import toJson from "../../toJson";
 
-class UnsplashRandom extends React.Component<any, any> {
+interface Photo {
+	original: string;
+}
+
+interface UnsplashRandomState {
+	error: any;
+	photos: Photo[];
+	unsplash: any;
+}
+
+class UnsplashRandom extends React.Component<{}, UnsplashRandomState> {
 	constructor(props) {
 		super(props);
 

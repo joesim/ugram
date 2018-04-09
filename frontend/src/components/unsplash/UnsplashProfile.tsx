@@ -4,7 +4,29 @@ import FontIcon from "material-ui/FontIcon";
 import Avatar from "material-ui/Avatar";
 import toJson from "../../toJson";
 
-class UnsplashProfile extends React.Component<any, any> {
+interface UnsplashProfileProps {
+	profile: {
+		downloads: number,
+		followers_count: number,
+		total_likes: number,
+		name: string,
+		username: string,
+	};
+}
+
+interface UnsplashProfileState {
+	profile: {
+		downloads: number,
+		followers: number,
+		likes: number,
+		name: string,
+		username: string,
+		profilePhoto?: string;
+	};
+	unsplash: any;
+}
+
+class UnsplashProfile extends React.Component<UnsplashProfileProps, UnsplashProfileState> {
 	constructor(props) {
 		super(props);
 
