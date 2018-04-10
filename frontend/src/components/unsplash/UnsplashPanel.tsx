@@ -4,6 +4,7 @@ import Unsplash from "unsplash-js";
 import {BottomNavigation, BottomNavigationItem} from "material-ui/BottomNavigation";
 import UnsplashAuth from "./UnsplashAuth";
 import toJson from "../../toJson";
+import { UNSPLASH_CALLBACK } from "../../constants";
 
 interface UnsplashPanelProps {
 	className?: string;
@@ -18,7 +19,7 @@ class UnsplashPanel extends React.Component<UnsplashPanelProps, UnsplashPanelSta
 	public state = {
 		unsplash: new Unsplash({
 			applicationId: process.env.UNSPLASH_APPLICATION_ID,
-			callbackUrl: process.env.UNSPLASH_CALLBACK,
+			callbackUrl: UNSPLASH_CALLBACK,
 			secret: process.env.UNSPLASH_SECRET,
 		}),
 	};

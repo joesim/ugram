@@ -1,4 +1,5 @@
 export const API_URL = process.env.API_URL || "http://localhost:3000";
+export const UNSPLASH_CALLBACK = process.env.UNSPLASH_CALLBACK || "http://localhost:8080";
 
 export const SET_VISIBILITY_UPLOAD_MODAL = "SET_VISIBILITY_UPLOAD_MODAL";
 export type SET_VISIBILITY_UPLOAD_MODAL = typeof SET_VISIBILITY_UPLOAD_MODAL;

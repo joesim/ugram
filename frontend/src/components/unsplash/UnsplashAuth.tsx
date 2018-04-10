@@ -1,6 +1,7 @@
 import Unsplash from "unsplash-js";
 import * as React from "react";
 import RaisedButton from "material-ui/RaisedButton";
+import { UNSPLASH_CALLBACK } from "../../constants";
 
 interface UnsplashAuthState {
 	unsplash: any;
@@ -12,7 +13,7 @@ class UnsplashAuth extends React.Component<{}, UnsplashAuthState> {
 		this.state = {
 			unsplash: new Unsplash({
 				applicationId: process.env.UNSPLASH_APPLICATION_ID,
-				callbackUrl: process.env.UNSPLASH_CALLBACK,
+				callbackUrl: UNSPLASH_CALLBACK,
 				secret: process.env.UNSPLASH_SECRET,
 			}),
 		};
