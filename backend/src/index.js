@@ -11,7 +11,7 @@ import passport from './common/OAuth';
 import errors from './common/errors';
 import controllers from './controllers';
 import { events } from './events/index';
-import { cleanDB } from './common/cleanDB';
+import cleanDB from './common/cleanDB';
 
 const app = express();
 const server = http.createServer(app);

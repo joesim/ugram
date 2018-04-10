@@ -8,4 +8,4 @@ const cleanDB = () => {
     });
 }
 
-export { cleanDB };
+export default cleanDB ;
