@@ -31,7 +31,7 @@ class PictureDetails extends React.Component<any, any> {
         this.displayInfos = this.displayInfos.bind(this);
         this.updatePicture = this.updatePicture.bind(this);
         this.deletePicture = this.deletePicture.bind(this);
-        this.updatePictureLikeState = this.updatePictureLikeState.bind(this);
+        this.updateReaction = this.updateReaction.bind(this);
     }
 
 	public render() {
@@ -39,7 +39,7 @@ class PictureDetails extends React.Component<any, any> {
 		const actions = [
             (
                 <div>
-                    <IconButton onClick={this.props.updatePictureLikeState} className="like">
+                    <IconButton onClick={this.updateReaction} className="like">
                         <FontIcon color={this.state.like === true ? blue500 : grey500} onLeftIconButtonClick="" className="material-icons">thumb_up</FontIcon>
                     </IconButton>
                 </div>
@@ -97,8 +97,8 @@ class PictureDetails extends React.Component<any, any> {
         this.props.deletePicture(this.state.userId, this.props.picture.id);
     }
 
-    private updatePictureLikeState() {
-        this.props.updatePictureLikeState(this.state.userId, this.props.picture.id);
+    private updateReaction() {
+        this.props.updateReaction(this.state.userId, this.props.picture.id);
     }
 
     private updatePicture() {
