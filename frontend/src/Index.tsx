@@ -12,7 +12,7 @@ import Profile from "./containers/Profile";
 import Signup from "./containers/Signup";
 import Users from "./containers/Users";
 
-import { grey800 } from "material-ui/styles/colors";
+import { grey800, lightBlue700 } from "material-ui/styles/colors";
 import getMuiTheme from "material-ui/styles/getMuiTheme";
 import { render } from "react-dom";
 import { connect, Provider } from "react-redux";
@@ -25,8 +25,6 @@ import {
   Switch,
 } from "react-router-dom";
 
-import { isUndefined } from "util";
-import * as userActions from "./actions/Profile";
 import { setDefaultsFromLocalStorage } from "./axios";
 import { store } from "./store";
 
@@ -81,6 +79,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
 const muiTheme = getMuiTheme({
   fontFamily: "Roboto, sans-serif",
   palette: {
+    accent1Color: lightBlue700,
     primary1Color: grey800,
   },
 });
@@ -112,12 +111,12 @@ ReactDOM.render(
                 <Route
                   path="/signup"
                   title={"Signup"}
-                  render={(props) => <Signup />}
+                  render={() => <Signup />}
                 />
                 <Route
                   path="/login"
                   title={"Login"}
-                  render={(props) => <Login />}
+                  render={() => <Login />}
                 />
                 <Route component={Page404} />
               </Switch>

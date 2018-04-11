@@ -1,0 +1,24 @@
+#unsplashRandom {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+
+	div {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		align-items: center;
+
+		svg {
+			height: 48px !important;
+			width: 48px !important;
+		}
+	}
+
+	.reload {
+		height: 96px !important;
+		padding: 24px !important;
+		width: 96px !important;
+	}
+}
