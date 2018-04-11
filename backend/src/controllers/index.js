@@ -1,6 +1,8 @@
 import * as Home from './home';
 import * as Users from './users';
 import * as Pictures from './pictures';
+import * as Reactions from './reactions';
+
 import passport from '../common/OAuth';
 import * as Search from './search';
 import { isAuthenticated } from "../middlewares/authentification";
@@ -24,6 +26,8 @@ module.exports = function(app) {
 	app.get('/users/:userId/pictures', Pictures.readAllOfUser);
 	app.get('/users/:userId/pictures/:pictureId', Pictures.readOne);
 	app.put('/users/:userId/pictures/:pictureId', isAuthenticated, isAuthorized,Pictures.update);
+	app.post('/users/:userId/pictures/:pictureId/reactions', isAuthenticated, isAuthorized, Reactions.create);
+	app.delete('/users/:userId/pictures/:pictureId/reactions/:reactionId', isAuthenticated, isAuthorized, Reactions.deleteOne);
 	app.delete('/users/:userId/pictures/:pictureId', isAuthenticated, isAuthorized, Pictures.deleteOne);
 	app.delete('/users/:id', isAuthenticated, isAuthorized, Users.deleteOne);
 	app.get('/search', Search.search);

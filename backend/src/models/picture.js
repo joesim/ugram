@@ -1,4 +1,6 @@
 import { mongoose } from '../common/mongoose';
+import CommentSchema from './comment';
+import ReactionSchema from './reaction';
 
 const PictureSchema = mongoose.Schema({
 	createdDate: {
@@ -30,6 +32,8 @@ const PictureSchema = mongoose.Schema({
 		type: String,
 		required: [true, 'userId is required'],
 	},
+	comments:[CommentSchema],
+	reactions:[ReactionSchema],
 }, {collection: 'Pictures'});
 
 PictureSchema.index({ description: "text" });
