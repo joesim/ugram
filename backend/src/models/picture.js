@@ -33,7 +33,7 @@ const PictureSchema = mongoose.Schema({
 		required: [true, 'userId is required'],
 	},
 	comments:[CommentSchema],
-	reaction:[ReactionSchema],
+	reactions:[ReactionSchema],
 }, {collection: 'Pictures'});
 
 PictureSchema.index({ description: "text" });

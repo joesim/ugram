@@ -2,6 +2,7 @@ import { ConnectedClientsModel, UserModel } from "../models";
 import logger from "../common/logger";
 
 const connectClient = async (socketId, data) => {
+  //TODO use $push for more atomic and efficient code
   try {
     const accessToken = data.accessToken;
     const userModel = await UserModel.findOne({ accessToken });
