@@ -24,9 +24,7 @@ install:
   - npm install
   - npm run lint:prod
   - npm run build_travis
-  - cd ..
-  - mv ./backend/* .
-  - ls
+  - cd .. && mv ./backend/* .
   - npm install
 
 script:

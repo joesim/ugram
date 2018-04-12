@@ -7,6 +7,7 @@ const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const cors = require('cors');
 const errors = require('./common/errors');
+const helmet = require('helmet');
 
 const app = express();
 const corsOptions = {
@@ -22,6 +23,8 @@ const corsOptions = {
     ],
     credentials: true
 };
+
+app.use(helmet());
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
