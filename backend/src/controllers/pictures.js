@@ -88,11 +88,9 @@ const create = (req, res) => {
 
 	picture.url = process.env.BUCKET_IMAGE_LINK + fileName;
 	picture.name = fileName;
-	console.log(picture);
 
 	picture.save().then(function(data) {
 		Jimp.read(req.files[0].buffer).then(function (pic) {
-			console.log(pic)
 
 			for (let i in formats) {
 				formats[i][0] = formats[i][0] == 0 ? pic.bitmap.width : formats[i][0];
