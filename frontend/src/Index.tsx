@@ -26,6 +26,7 @@ import {
 } from "react-router-dom";
 
 import { setDefaultsFromLocalStorage } from "./axios";
+import WebcamPage from "./containers/Webcam";
 import { store } from "./store";
 
 import "../scss/app.scss";
@@ -105,6 +106,11 @@ ReactDOM.render(
                   title={"User profile"}
                   component={Profile}
                 />
+	            <PrivateRoute
+		            path="/webcam"
+		            title={"User profile"}
+		            component={WebcamPage}
+	            />
                 <PrivateRoute path="/users" title={"Users"} component={Users} />
                 <Route path="/search/:id" title={"Search"} component={Search} />
                 <Route path="/search" title={"Search"} component={Search} />

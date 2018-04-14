@@ -12,7 +12,7 @@ const readAll = (req, res) => {
 		const totalEntries = count;
 		const totalPages = totalEntries == 0 ? 0 : parseInt((totalEntries - 1) / limit) + 1;
 
-		PictureModel.find({}).sort({createdDate: 1}).limit(limit).skip(offset).then(function(rawData) {
+		PictureModel.find({}).sort({createdDate: -1}).limit(limit).skip(offset).then(function(rawData) {
 			const data = {};
 			data.totalEntries = totalEntries;
 			data.totalPages = totalPages;
@@ -88,9 +88,11 @@ const create = (req, res) => {
 
 	picture.url = process.env.BUCKET_IMAGE_LINK + fileName;
 	picture.name = fileName;
+	console.log(picture);
 
 	picture.save().then(function(data) {
 		Jimp.read(req.files[0].buffer).then(function (pic) {
+			console.log(pic)
 
 			for (let i in formats) {
 				formats[i][0] = formats[i][0] == 0 ? pic.bitmap.width : formats[i][0];
