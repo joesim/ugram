@@ -12,7 +12,7 @@ const readAll = (req, res) => {
 		const totalEntries = count;
 		const totalPages = totalEntries == 0 ? 0 : parseInt((totalEntries - 1) / limit) + 1;
 
-		PictureModel.find({}).sort({createdDate: 1}).limit(limit).skip(offset).then(function(rawData) {
+		PictureModel.find({}).sort({createdDate: -1}).limit(limit).skip(offset).then(function(rawData) {
 			const data = {};
 			data.totalEntries = totalEntries;
 			data.totalPages = totalPages;

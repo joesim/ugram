@@ -1,0 +1,12 @@
+#WebcamPage {
+	.containerWebcam {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		flex-direction: column;
+	}
+
+	.webcam {
+		margin: 8px;
+	}
+}
