@@ -32,11 +32,13 @@ class PictureDetails extends React.Component<any, any> {
         this.updatePicture = this.updatePicture.bind(this);
         this.deletePicture = this.deletePicture.bind(this);
         this.updateReaction = this.updateReaction.bind(this);
+        this.updateReactionState = this.updateReactionState.bind(this);
     }
 
 	public render() {
-		if (this.props.picture === null) { return <div/>; }
-		const actions = [
+        if (this.props.picture === null) { return <div/>; }
+        this.updateReactionState();
+        const actions = [
             (
                 <div>
                     <IconButton onClick={this.updateReaction} className="like">
@@ -72,7 +74,7 @@ class PictureDetails extends React.Component<any, any> {
 			),
 		];
 
-		return (
+		      return (
             <Dialog
                 title={this.props.picture.description}
                 actions={actions}
@@ -92,6 +94,18 @@ class PictureDetails extends React.Component<any, any> {
             </Dialog>
 		);
 	}
+
+    private updateReactionState() {
+        const currentPictureReactions = this.props.picture.reactions;
+        console.log(this.props.picture);// tslint:disable-line
+        currentPictureReactions.forEach((reaction) => {
+            if (reaction.author === this.state.userId) {
+                // setState like to true
+            }
+        });
+
+        // setState like to false
+    }
 
     private deletePicture() {
         this.props.deletePicture(this.state.userId, this.props.picture.id);
