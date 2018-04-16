@@ -56,10 +56,10 @@ export function deletePicture(userId, pictureId) {
     };
 }
 
-export function updateReaction(userId, pictureId) {
+export function updateReaction(pictureUserId, pictureId) {
     return async (dispatch) => {
         try {
-            const response = axios.put(`/users/${userId}/pictures/${pictureId}`);
+            const response = axios.post(`/users/${pictureUserId}/pictures/${pictureId}/reactions`);
             dispatch(updatedReaction());
         } catch (error) {
             dispatch(throwError("Could not update the like state", error));

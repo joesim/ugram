@@ -98,7 +98,7 @@ class PictureDetails extends React.Component<any, any> {
     }
 
     private updateReaction() {
-        this.props.updateReaction(this.state.userId, this.props.picture.id);
+        this.props.updateReaction(this.props.picture.userId, this.props.picture.id);
     }
 
     private updatePicture() {
