@@ -30,8 +30,21 @@ import WebcamPage from "./containers/Webcam";
 import { store } from "./store";
 
 import "../scss/app.scss";
+import * as io from "socket.io-client";
+const socket = io.connect("localhost:3000");
 
 const token = window.localStorage.getItem("token-06");
+
+// TODO: Joel for notifications
+socket.on("connect", () => {
+// tslint:disable-next-line
+console.log("connecté au serveur");
+socket.emit("join", {accessToken: token});
+socket.on("notification", (data) => {
+  // tslint:disable-next-line
+  console.log(data);
+});
+});
 
 function getParameterByName(name) {
   const url = window.location.href;

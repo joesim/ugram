@@ -6,6 +6,7 @@
   "scripts": {
     "start": "babel-node src/index.js --presets es2015,stage-2",
     "start:local": "NODE_ENV=test npm start",
+    "start:localWindope": "SET NODE_ENV=test npm start",
     "test": "NODE_ENV=test  mocha --require babel-core/register --require babel-polyfill test/helper.js test/**/*.test.js --exit",
     "coverage": "opn ./coverage/lcov-report/index.html"
   },
@@ -48,6 +49,7 @@
     "passport-google-oauth20": "^1.0.0",
     "passport-local": "^1.0.0",
     "redis": "^2.6.3",
+    "socket.io": "^2.1.0",
     "winston": "^2.3.0",
     "winston-cloudwatch": "^1.7.0"
   },
