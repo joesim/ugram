@@ -3,7 +3,7 @@ import { mongoose } from "../common/mongoose";
 const CommentSchema = mongoose.Schema({
   createdDate: {
     type: Number,
-    default: Date.now()
+    default: Date.now
   },
   message: {
     type: String,

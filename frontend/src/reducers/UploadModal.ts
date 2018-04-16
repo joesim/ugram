@@ -7,7 +7,7 @@ const initialState = {
 export function upload_picture(state = initialState, action): object {
     switch (action.type) {
     case UPLOAD_PICTURE:
-        location.reload();
+        document.location.href = "/";
         return { ...state };
     default:
         return state;

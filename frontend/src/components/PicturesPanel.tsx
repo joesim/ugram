@@ -98,7 +98,7 @@ class PicturesPanel extends React.Component<Props, any> {
                 pictures.push({
                     author: pic.userId,
                     createdDate: new Date(pic.createdDate),
-                    img: pic.url,
+                    img: pic.url_t,
                 });
             });
         } else {
@@ -114,14 +114,13 @@ class PicturesPanel extends React.Component<Props, any> {
         if (pictures.length === 0) {
             return <div className="ma-20">No results</div>;
         }
-
         pictures = this.filterByDate(pictures);
 
         const col1 = this.getColumnPictures(pictures, 0, 3);
         const col2 = this.getColumnPictures(pictures, 1, 3);
         const col3 = this.getColumnPictures(pictures, 2, 3);
 
-	       let scrollhandler = null;
+        let scrollhandler = null;
         if (this.props.picturesPassed === undefined) {
             scrollhandler = <ScrollLoader scrollHandler={this.scrollHandler} />;
         }

@@ -25,13 +25,15 @@ class Login extends React.Component<any, any> {
 	}
     public render() {
         return (
-            <div>
-                <form onSubmit={this.login} className="login">
-	                <TextField id="username" required={false} type="text" floatingLabelText="Username"/>
-	                <TextField id="password" required={false} type="password" floatingLabelText="*******"/>
-                    <RaisedButton label="Login" type="submit" primary={true} />
-                    <RaisedButton label="Login with Google" href={`${API_URL}/auth/google`} primary={true} />
-                    <RaisedButton href="/#/signup" label="Signup" primary={true} />
+            <div id="loginPage">
+                <form onSubmit={this.login} className="loginForm">
+	                <TextField id="username" data-lpignore="true" required={false} type="text" floatingLabelText="Username"/>
+	                <TextField id="password" data-lpignore="true" required={false} type="password" floatingLabelText="*******"/>
+	                <div className="loginButtons">
+	                    <RaisedButton className="button" label="Login" type="submit" primary={true} />
+                        <RaisedButton className="button" label="Login with Google" href={`${API_URL}/auth/google`} primary={true} />
+                        <RaisedButton className="button" href="/#/signup" label="Signup" primary={true} />
+	                </div>
                 </form>
             </div>
         );

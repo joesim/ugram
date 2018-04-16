@@ -28,6 +28,7 @@ const UserSchema = new mongoose.Schema({
 	pictureUrl: {
 		type: String,
 		maxlength: [255, 'Picture url is too long (max 255 characters)'],
+		default: "https://i.imgur.com/sYT8Twp.jpg"
 	},
 	registrationDate: {
 		type: Number,

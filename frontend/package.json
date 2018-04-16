@@ -7,6 +7,7 @@
     "build": "webpack --env.dev",
     "build_travis": "webpack --env.production",
     "lint": "tslint --project tsconfig.json",
+    "lint:prod": "./node_modules/tslint/bin/tslint --project tsconfig.json",
     "start": "webpack-dev-server --env.dev",
     "start_livrable2": "LIVRABLE_2=true webpack-dev-server --env.dev"
   },
@@ -19,6 +20,7 @@
     "@storybook/react": "^3.3.11",
     "@types/node": "8.5.5",
     "@types/react": "16.0.34",
+    "@types/socket.io-client": "^1.4.32",
     "babel-core": "^6.26.0",
     "compression-webpack-plugin": "^1.1.3",
     "copy-webpack-plugin": "^4.3.1",
@@ -41,10 +43,15 @@
   },
   "dependencies": {
     "axios": "^0.17.1",
+    "dotenv-webpack": "^1.5.5",
     "material-ui": "^0.20.0",
     "prop-types": "^15.6.0",
+    "query-string": "^6.0.0",
+    "ramda": "^0.25.0",
     "react": "16.2.0",
     "react-dom": "16.2.0",
+    "react-image-gallery": "^0.8.7",
+    "react-images": "^0.5.17",
     "react-material-grid": "0.0.8",
     "react-photo-gallery": "^6.0.22",
     "react-redux": "^5.0.6",
@@ -52,6 +59,8 @@
     "react-router-dom": "^4.2.2",
     "react-router-redux": "^4.0.8",
     "redux": "^3.7.2",
+    "unsplash-js": "^4.8.0",
+    "socket.io-client": "^2.1.0",
     "redux-thunk": "^2.2.0"
   }
 }

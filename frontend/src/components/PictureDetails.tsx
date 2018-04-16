@@ -27,6 +27,7 @@ class PictureDetails extends React.Component<any, any> {
             value: [],
         };
 
+        this.download = this.download.bind(this);
         this.displayImage = this.displayImage.bind(this);
         this.displayInfos = this.displayInfos.bind(this);
         this.updatePicture = this.updatePicture.bind(this);
@@ -46,9 +47,18 @@ class PictureDetails extends React.Component<any, any> {
                     </IconButton>
                 </div>
             ),
-			(
+            (
                 <FlatButton
                     key={1}
+                    label="Download"
+                    primary={true}
+                    disabled={this.state.display === "download"}
+                    onClick={() => {this.setState({display: "download"}); }}
+                />
+			),
+			(
+                <FlatButton
+                    key={2}
                     label="Image"
                     primary={true}
                     disabled={this.state.display === "image"}
@@ -57,7 +67,7 @@ class PictureDetails extends React.Component<any, any> {
 			),
 			(
                 <FlatButton
-                    key={2}
+                    key={3}
                     label="Infos"
                     primary={true}
                     disabled={this.state.display === "infos"}
@@ -66,7 +76,7 @@ class PictureDetails extends React.Component<any, any> {
 			),
 			(
                 <FlatButton
-                    key={3}
+                    key={4}
                     label="Close"
                     primary={true}
                     onClick={this.props.closeDialog}
@@ -201,14 +211,29 @@ class PictureDetails extends React.Component<any, any> {
     }
 
     private displayImage() {
-        if (this.state.display !== "image") {
-            return this.displayInfos();
+        switch (this.state.display) {
+            case "download":
+                this.download();
+
+                return (
+                    <div className="image">
+                        <img src={this.props.picture.url_p} />
+                    </div>
+                );
+            case "infos":
+                return this.displayInfos();
+            default:
+                return (
+                    <div className="image">
+                        <img src={this.props.picture.url_p} />
+                    </div>
+                );
         }
-        return (
-            <div className="image">
-                <img src={this.props.picture.url} />
-            </div>
-        );
+    }
+
+    private download() {
+        window.open(this.props.picture.url);
+        this.setState({display: "image"});
     }
 }
 

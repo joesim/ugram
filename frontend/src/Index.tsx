@@ -12,7 +12,7 @@ import Profile from "./containers/Profile";
 import Signup from "./containers/Signup";
 import Users from "./containers/Users";
 
-import { grey800 } from "material-ui/styles/colors";
+import { grey800, lightBlue700 } from "material-ui/styles/colors";
 import getMuiTheme from "material-ui/styles/getMuiTheme";
 import { render } from "react-dom";
 import { connect, Provider } from "react-redux";
@@ -25,14 +25,26 @@ import {
   Switch,
 } from "react-router-dom";
 
-import { isUndefined } from "util";
-import * as userActions from "./actions/Profile";
 import { setDefaultsFromLocalStorage } from "./axios";
+import WebcamPage from "./containers/Webcam";
 import { store } from "./store";
 
 import "../scss/app.scss";
+import * as io from "socket.io-client";
+const socket = io.connect("localhost:3000");
 
 const token = window.localStorage.getItem("token-06");
+
+// TODO: Joel for notifications
+socket.on("connect", () => {
+// tslint:disable-next-line
+console.log("connecté au serveur");
+socket.emit("join", {accessToken: token});
+socket.on("notification", (data) => {
+  // tslint:disable-next-line
+  console.log(data);
+});
+});
 
 function getParameterByName(name) {
   const url = window.location.href;
@@ -81,6 +93,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
 const muiTheme = getMuiTheme({
   fontFamily: "Roboto, sans-serif",
   palette: {
+    accent1Color: lightBlue700,
     primary1Color: grey800,
   },
 });
@@ -106,18 +119,23 @@ ReactDOM.render(
                   title={"User profile"}
                   component={Profile}
                 />
+	            <PrivateRoute
+		            path="/webcam"
+		            title={"User profile"}
+		            component={WebcamPage}
+	            />
                 <PrivateRoute path="/users" title={"Users"} component={Users} />
                 <Route path="/search/:id" title={"Search"} component={Search} />
                 <Route path="/search" title={"Search"} component={Search} />
                 <Route
                   path="/signup"
                   title={"Signup"}
-                  render={(props) => <Signup />}
+                  render={() => <Signup />}
                 />
                 <Route
                   path="/login"
                   title={"Login"}
-                  render={(props) => <Login />}
+                  render={() => <Login />}
                 />
                 <Route component={Page404} />
               </Switch>
