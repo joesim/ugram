@@ -27,7 +27,7 @@ module.exports = function(app) {
 	app.get('/users/:userId/pictures/:pictureId', Pictures.readOne);
 	app.put('/users/:userId/pictures/:pictureId', isAuthenticated, isAuthorized,Pictures.update);
 	app.post('/users/:userId/pictures/:pictureId/reactions', isAuthenticated, isAuthorized, Reactions.create);
-	app.delete('/users/:userId/pictures/:pictureId/reactions/:reactionId', isAuthenticated, isAuthorized, Reactions.deleteOne);
+	app.delete('/users/:userId/pictures/:pictureId/reactions/:reactionId', isAuthenticated, Reactions.deleteOne);
 	app.delete('/users/:userId/pictures/:pictureId', isAuthenticated, isAuthorized, Pictures.deleteOne);
 	app.delete('/users/:id', isAuthenticated, isAuthorized, Users.deleteOne);
 	app.get('/search', Search.search);
