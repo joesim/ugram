@@ -33,17 +33,16 @@ class PictureDetails extends React.Component<any, any> {
         this.updatePicture = this.updatePicture.bind(this);
         this.deletePicture = this.deletePicture.bind(this);
         this.updateReaction = this.updateReaction.bind(this);
-        this.updateReactionState = this.updateReactionState.bind(this);
+        this.pictureIsLikedByCurrentUser = this.pictureIsLikedByCurrentUser.bind(this);
     }
 
 	public render() {
         if (this.props.picture === null) { return <div/>; }
-        this.updateReactionState();
         const actions = [
             (
                 <div>
                     <IconButton onClick={this.updateReaction} className="like">
-                        <FontIcon color={this.state.like === true ? blue500 : grey500} onLeftIconButtonClick="" className="material-icons">thumb_up</FontIcon>
+                        <FontIcon color={this.pictureIsLikedByCurrentUser() === true ? blue500 : grey500} onLeftIconButtonClick="" className="material-icons" id="likeThumb">thumb_up</FontIcon>
                     </IconButton>
                 </div>
             ),
@@ -105,16 +104,15 @@ class PictureDetails extends React.Component<any, any> {
 		);
 	}
 
-    private updateReactionState() {
-        const currentPictureReactions = this.props.picture.reactions;
-        console.log(this.props.picture);// tslint:disable-line
-        currentPictureReactions.forEach((reaction) => {
+    private pictureIsLikedByCurrentUser() {
+        let result = false;
+        this.props.picture.reactions.every((reaction) => {
             if (reaction.author === this.state.userId) {
-                // setState like to true
+                result = true;
+                return;
             }
         });
-
-        // setState like to false
+        return result;
     }
 
     private deletePicture() {
@@ -122,7 +120,29 @@ class PictureDetails extends React.Component<any, any> {
     }
 
     private updateReaction() {
+        const thumb = document.getElementById("likeThumb");
+        let previousColor;
+        if (thumb !== null) {
+            previousColor = thumb.style.color;
+        }
+
         this.props.updateReaction(this.props.picture.userId, this.props.picture.id);
+
+        thumb.style.color = this.getNewColor(previousColor);
+    }
+
+    private getNewColor(previousColor) {
+        let newColor = previousColor;
+        switch (previousColor) {
+            case "rgb(158, 158, 158)":
+                newColor = blue500;
+                break;
+            case "rgb(33, 150, 243)":
+            default:
+                newColor = grey500;
+                break;
+        }
+        return newColor;
     }
 
     private updatePicture() {
