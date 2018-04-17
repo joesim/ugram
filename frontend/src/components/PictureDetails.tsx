@@ -36,13 +36,22 @@ class PictureDetails extends React.Component<any, any> {
         this.pictureIsLikedByCurrentUser = this.pictureIsLikedByCurrentUser.bind(this);
     }
 
+    public componentWillReceiveProps(nextProps) {
+        if (this.props.picture !== nextProps.picture) {
+            const newState = this.pictureIsLikedByCurrentUser(nextProps);
+            this.setState({like: newState}, () => {
+                console.log("State set to : " + newState);// tslint:disable-line
+            });
+        }
+    }
+
 	public render() {
         if (this.props.picture === null) { return <div/>; }
         const actions = [
             (
                 <div>
                     <IconButton onClick={this.updateReaction} className="like">
-                        <FontIcon color={this.pictureIsLikedByCurrentUser() === true ? blue500 : grey500} onLeftIconButtonClick="" className="material-icons" id="likeThumb">thumb_up</FontIcon>
+                        <FontIcon color={this.state.like === true ? blue500 : grey500} onLeftIconButtonClick="" className="material-icons" id="likeThumb">thumb_up</FontIcon>
                     </IconButton>
                 </div>
             ),
@@ -104,14 +113,20 @@ class PictureDetails extends React.Component<any, any> {
 		);
 	}
 
-    private pictureIsLikedByCurrentUser() {
+    private pictureIsLikedByCurrentUser(nextProps) {
         let result = false;
-        this.props.picture.reactions.every((reaction) => {
-            if (reaction.author === this.state.userId) {
-                result = true;
-                return;
+        if (nextProps.picture !== null && nextProps.picture.reactions !== null) {
+            const reactions = nextProps.picture.reactions;
+            let i = 0;
+            console.log(nextProps.picture);// tslint:disable-line
+            console.log(reactions);// tslint:disable-line
+            while (i < reactions.length && result === false) {
+                if (reactions[i].author === this.state.userId) {
+                    result = true;
+                }
+                i++;
             }
-        });
+        }
         return result;
     }
 
@@ -120,29 +135,11 @@ class PictureDetails extends React.Component<any, any> {
     }
 
     private updateReaction() {
-        const thumb = document.getElementById("likeThumb");
-        let previousColor;
-        if (thumb !== null) {
-            previousColor = thumb.style.color;
-        }
-
+        const previousState = this.state.like;
         this.props.updateReaction(this.props.picture.userId, this.props.picture.id);
-
-        thumb.style.color = this.getNewColor(previousColor);
-    }
-
-    private getNewColor(previousColor) {
-        let newColor = previousColor;
-        switch (previousColor) {
-            case "rgb(158, 158, 158)":
-                newColor = blue500;
-                break;
-            case "rgb(33, 150, 243)":
-            default:
-                newColor = grey500;
-                break;
-        }
-        return newColor;
+        this.setState({like: !previousState}, () => {
+            console.log("new state : " + this.state.like);// tslint:disable-line
+        });
     }
 
     private updatePicture() {
