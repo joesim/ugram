@@ -26,8 +26,10 @@ class PictureDetails extends React.Component<any, any> {
         this.download = this.download.bind(this);
         this.displayImage = this.displayImage.bind(this);
         this.displayInfos = this.displayInfos.bind(this);
+        this.displayComms = this.displayComms.bind(this);
         this.updatePicture = this.updatePicture.bind(this);
         this.deletePicture = this.deletePicture.bind(this);
+        this.sendComms = this.sendComms.bind(this);
     }
 
 	public render() {
@@ -60,9 +62,17 @@ class PictureDetails extends React.Component<any, any> {
                     onClick={() => {this.setState({display: "infos"}); }}
                 />
 			),
-			(
+            (
                 <FlatButton
                     key={4}
+                    label="Commentaires"
+                    primary={true}
+                    onClick={() => {this.setState({display: "commentaires"}); }}
+                />
+            ),
+			(
+                <FlatButton
+                    key={5}
                     label="Close"
                     primary={true}
                     onClick={this.props.closeDialog}
@@ -105,6 +115,13 @@ class PictureDetails extends React.Component<any, any> {
         };
 	    this.props.picture.description = data.description;
 	    this.props.editPicture(this.state.userId, this.props.picture.id, data);
+    }
+
+    private sendComms() {
+        const data = {
+            message: document.getElementById("commentary")["value"],
+        };
+        this.props.sendCommentary(this.state.userId, this.props.picture.id, data);
     }
 
     private displayInfos() {
@@ -192,6 +209,8 @@ class PictureDetails extends React.Component<any, any> {
                 );
             case "infos":
                 return this.displayInfos();
+            case "commentaires":
+                return this.displayComms();
             default:
                 return (
                     <div className="image">
@@ -199,6 +218,26 @@ class PictureDetails extends React.Component<any, any> {
                     </div>
                 );
         }
+    }
+
+    private displayComms() {
+        console.log(this.props.picture);
+        return (
+            <div className="picture-infos">
+                <div className="field-name">Commentaire: </div>
+                <TextField
+                    multiLine={true}
+                    className="field"
+                    id="commentary"
+                />
+                <RaisedButton
+                    label="Send"
+                    primary={true}
+                    className="size-button"
+                    onClick={this.sendComms}
+                />
+            </div>
+        );
     }
 
     private download() {
