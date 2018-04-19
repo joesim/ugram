@@ -1,6 +1,7 @@
 import axios from "axios";
 import * as constants from "../constants";
 import { throwError } from "./Errors";
+import { sendNotification } from "./Notifications";
 
 export interface ProfileSuccess {
     type: constants.PROFILE_FETCH_DATA_SUCCESS;
@@ -50,6 +51,7 @@ export function editProfile(id: string, user: object) {
         })
         .then((response) => {
             dispatch(profileFetchDataSuccess(response.data));
+            dispatch(sendNotification("Profile successfully edited!"));
         })
         .catch((error) => {
             dispatch(throwError("Sorry! There was an error editing this profile.", error));
@@ -61,7 +63,8 @@ export function removeProfile(id: string) {
 	return (dispatch) => {
 		axios.delete("/users/" + id)
 			.then((response) => {
-				dispatch(removeProfileSuccess(response));
+                dispatch(removeProfileSuccess(response));
+                dispatch(sendNotification("Profile successfully deleted!"));
 			})
 			.catch((error) => {
 				dispatch(throwError("Sorry! There was an error removing this profile.", error));
