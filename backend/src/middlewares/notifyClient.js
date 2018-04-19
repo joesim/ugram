@@ -39,69 +39,69 @@ const findNotifications = async userId => {
     const reactions = pictureModel.reactions;
     const comments = pictureModel.comments;
 
-    await formatReactions(reactions, pictureId, notificationsResponse);
-    await formatComments(comments, pictureId, notificationsResponse);
+    const formatedReactions = formatNotifications(
+      pictureModel,
+      reactions,
+      "reaction",
+      notificationsResponse
+    );
+    const formatedComments = formatNotifications(
+      pictureModel,
+      comments,
+      "comment",
+      notificationsResponse
+    );
+    await Promise.all([formatedReactions, formatedComments]);
   }
+  console.log(notificationsResponse);
   return notificationsResponse;
 };
 
-const formatReactions = async (reactions, pictureId, notificationsResponse) => {
-  for (let reaction of reactions) {
-    const authorId = reaction.author;
-    const pictureUrlAuthor = await UserModel.findOne({ id: authorId })
-      .pictureUrl;
-    const createdDate = reaction.createdDate;
-    const type = "reaction";
-    const read = reaction.read;
-    const id = reaction._id;
+const formatNotifications = async (
+  pictureModel,
+  notifications,
+  notificationType,
+  notificationsResponse
+) => {
+  const pictureId = pictureModel._id;
+  const pictureUrl = pictureModel.url;
 
-    const reactionNotification = createNotification(
+  for (let notification of notifications) {
+    const id = notification._id;
+    const authorId = notification.author;
+    const pictureUrlAuthor = await getPictureUrlAuthor(authorId);
+    const createdDate = notification.createdDate;
+    const type = notificationType;
+    const read = notification.read;
+
+    const formatedNotification = createNotification(
       id,
       pictureId,
+      pictureUrl,
       pictureUrlAuthor,
       authorId,
       createdDate,
       type,
       read
     );
-    notificationsResponse.items.push(reactionNotification);
+
+    notificationsResponse.items.push(formatedNotification);
     const count = read ? 0 : 1;
     notificationsResponse.totalUnreads += count;
     notificationsResponse.totalEntries += 1;
   }
 };
 
-const formatComments = async (comments, pictureId, notificationsResponse) => {
-  for (let comment of comments) {
-    const authorId = comment.author;
-    const pictureUrlAuthor = await UserModel.findOne({ id: authorId })
-      .pictureUrl;
-
-    const createdDate = comment.createdDate;
-    const type = "comment";
-    const read = comment.read;
-    const id = comment._id;
-
-    const commentNotification = createNotification(
-      id,
-      pictureId,
-      pictureUrlAuthor,
-      authorId,
-      createdDate,
-      type,
-      read
-    );
-
-    notificationsResponse.items.push(commentNotification);
-    const count = read ? 0 : 1;
-    notificationsResponse.totalUnreads += count;
-    notificationsResponse.totalEntries += 1;
-  }
+const getPictureUrlAuthor = async authorId => {
+  const userModel = await UserModel.findOne({ id: authorId });
+  const pictureUrlAuthor = userModel.pictureUrl;
+  return pictureUrlAuthor;
 };
 
 const createNotification = (
   id,
   pictureId,
+  pictureUrl,
   pictureUrlAuthor,
   authorId,
   createdDate,
@@ -111,6 +111,7 @@ const createNotification = (
   return {
     id: id,
     pictureId: pictureId,
+    pictureUrl: pictureUrl,
     pictureUrlAuthor: pictureUrlAuthor,
     authorId: authorId,
     createdDate: createdDate,
