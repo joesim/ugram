@@ -14,8 +14,27 @@ Pour accéder à nos logs Cloudwatch vous pouvez vous rendre sur [CloudWatchCons
 - Username: correcteur
 - Password: &'}KlUQT$]^C
 
-## Unsplash
-Nous avons intégré le fournisseur de photos [Unsplash](https://unsplash.com/)
+Nos logs se trouve sur le serveur: **US East (Ohio)**
+
+## Fonctionnalités avancées
+
+### Unsplash
+Nous avons intégré le fournisseur de photos [Unsplash](https://unsplash.com/).
+
+Vous pouvez:
+- Afficher des photos random
+- Afficher les photos de l'utilisateur
+
+### Webcam
+Vous pouvez prendre une photo avec votre Webcam.
+
+### Notifications en temps réel
+Les notifications sont en temps réel grâce à Socket.IO
+
+## Analytics
+Vous devez utiliser ce [lien](https://analytics.google.com/analytics/web/template?uid=ADzRCOhETsmnNlWol4LuJg) pour accéder aux analytics.
+
+Si le lien ne fonctionne pas, nous avons aussi mis un rapport sous format PDF des analytics dans le dossier **analytics** à la racine du projet.
 
 ## API
 
@@ -25,7 +44,6 @@ Nous avons intégré le fournisseur de photos [Unsplash](https://unsplash.com/)
 
 ```sh
 git clone https://github.com/GLO3112-H18/ugram-team-06.git
-git checkout dev
 ```
 # Frontend:
 
@@ -54,8 +72,12 @@ sudo mkdir -p /data/db
 cp env-sample .env
 npm install
 ```
-
 **Modifier le fichier .env en y ajoutant les valeurs.**
+
+Pour démarrer le serveur en local (Après avoir démarré MongoDB):
+```sh
+npm start:local
+```
 
 # Tests
 1. Télécharger [mongodb](https://www.mongodb.com/download-center?_ga=2.118641097.1175779120.1520910751-1426939000.1520370737#production) et suivre l'installation sur le site.
