@@ -1,17 +1,13 @@
 import DatePicker from "material-ui/DatePicker";
 import Dialog from "material-ui/Dialog";
-import DropDownMenu from "material-ui/DropDownMenu";
 import FlatButton from "material-ui/FlatButton";
-import FloatingActionButton from "material-ui/FloatingActionButton";
-import MenuItem from "material-ui/MenuItem";
 import RaisedButton from "material-ui/RaisedButton";
-import ContentAdd from "material-ui/svg-icons/content/add";
 import IconButton from "material-ui/IconButton";
 import FontIcon from "material-ui/FontIcon";
 import TextField from "material-ui/TextField";
-import PropTypes from "prop-types";
 import * as React from "react";
 import { blue500, grey500 } from "material-ui/styles/colors";
+import axios from "../axios";
 
 class PictureDetails extends React.Component<any, any> {
     constructor(props) {
@@ -38,10 +34,14 @@ class PictureDetails extends React.Component<any, any> {
 
     public componentWillReceiveProps(nextProps) {
         if (this.props.picture !== nextProps.picture) {
-            const newState = this.pictureIsLikedByCurrentUser(nextProps);
-            this.setState({like: newState}, () => {
-                console.log("State set to : " + newState);// tslint:disable-line
-            });
+           axios.get(`/users/${nextProps.picture.userId}/pictures/${nextProps.picture.id}`)
+               .then((response) => {
+                   const currentUser = response.data.reactions.find((r) => r.author === this.state.userId);
+                   const like = currentUser !== undefined;
+                   if (like !== this.state.like) {
+                       this.setState({ like });
+                   }
+               });
         }
     }
 
@@ -51,7 +51,14 @@ class PictureDetails extends React.Component<any, any> {
             (
                 <div>
                     <IconButton onClick={this.updateReaction} className="like">
-                        <FontIcon color={this.state.like === true ? blue500 : grey500} onLeftIconButtonClick="" className="material-icons" id="likeThumb">thumb_up</FontIcon>
+                        <FontIcon
+                            color={this.state.like ? blue500 : grey500}
+                            onLeftIconButtonClick=""
+                            className="material-icons"
+                            id="likeThumb"
+                        >
+                            thumb_up
+                        </FontIcon>
                     </IconButton>
                 </div>
             ),
@@ -118,8 +125,6 @@ class PictureDetails extends React.Component<any, any> {
         if (nextProps.picture !== null && nextProps.picture.reactions !== null) {
             const reactions = nextProps.picture.reactions;
             let i = 0;
-            console.log(nextProps.picture);// tslint:disable-line
-            console.log(reactions);// tslint:disable-line
             while (i < reactions.length && result === false) {
                 if (reactions[i].author === this.state.userId) {
                     result = true;
@@ -137,9 +142,7 @@ class PictureDetails extends React.Component<any, any> {
     private updateReaction() {
         const previousState = this.state.like;
         this.props.updateReaction(this.props.picture.userId, this.props.picture.id);
-        this.setState({like: !previousState}, () => {
-            console.log("new state : " + this.state.like);// tslint:disable-line
-        });
+        this.setState({like: !previousState});
     }
 
     private updatePicture() {
