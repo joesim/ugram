@@ -25,6 +25,7 @@ interface Props {
     editProfile: any;
     removeProfile: any;
     match: any;
+    socket: any;
 }
 
 class Profile extends React.Component<Props, any> {

@@ -14,6 +14,7 @@ export function mapDispatchToProps(dispatch: Dispatch<actions.PictureDetailsActi
         deletePicture: (userId, pictureId) => dispatch(actions.deletePicture(userId, pictureId)),
         editPicture: (userId, pictureId, data) => dispatch(actions.editPicture(userId, pictureId, data)),
         sendCommentary: (userId, pictureId, data) => dispatch(actions.sendCommentary(userId, pictureId, data)),
+        updateReaction: (userId, pictureId) => dispatch(actions.updateReaction(userId, pictureId)),
     };
 }
 

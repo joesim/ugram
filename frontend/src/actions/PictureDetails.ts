@@ -10,6 +10,10 @@ export interface DeletedPicture {
     type: constants.DELETE_PICTURE;
 }
 
+export interface UpdatedReaction {
+    type: constants.UPDATE_REACTION;
+}
+
 export interface SendComments {
     type: constants.SEND_COMMENTARY;
 }
@@ -34,11 +38,17 @@ function sendComments(): SendComments {
     };
 }
 
+function updatedReaction(): UpdatedReaction {
+    return {
+        type: constants.UPDATE_REACTION,
+    };
+}
+
 export function editPicture(userId, pictureId, data) {
     return async (dispatch) => {
         try {
-	        const response = axios.put(`/users/${userId}/pictures/${pictureId}`, JSON.stringify(data));
-	        dispatch(updatePicture());
+            const response = axios.put(`/users/${userId}/pictures/${pictureId}`, JSON.stringify(data));
+            dispatch(updatePicture());
         } catch (error) {
             dispatch(throwError("Could not delete picture", error));
         }

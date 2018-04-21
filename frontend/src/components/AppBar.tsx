@@ -7,6 +7,7 @@ import SearchBar from "./SearchBar";
 import FontIcon from "material-ui/FontIcon";
 import { Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle } from "material-ui/Toolbar";
 import { Link } from "react-router-dom";
+import NotificationsBell from "./NotificationsBell";
 
 class AppBarUgram extends React.Component<any, any> {
 	constructor(props) {
@@ -24,6 +25,7 @@ class AppBarUgram extends React.Component<any, any> {
 		let uploadImage = null;
 		let logout = null;
 		let webcamPage = null;
+		let notificationIcon = null;
 		if (window.localStorage.getItem("userId-06") !== null) {
 			const link = "/#/users/" + window.localStorage.getItem("userId-06");
 			userConnected = (
@@ -45,6 +47,9 @@ class AppBarUgram extends React.Component<any, any> {
                 <IconButton onClick={this.onLogout} className="logout">
 	                <FontIcon className="material-icons">exit_to_app</FontIcon>
                 </IconButton>
+			);
+			notificationIcon = (
+				<NotificationsBell />
 			);
 		}
 		const group = (
@@ -68,7 +73,8 @@ class AppBarUgram extends React.Component<any, any> {
 	                        {uploadImage}
 	                        {webcamPage}
 	                        {group}
-	                        {userConnected}
+							{userConnected}
+							{notificationIcon}
 	                        {logout}
                         </div>
                     </div>

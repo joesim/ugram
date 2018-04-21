@@ -1,6 +1,7 @@
 import axios from "axios";
 import * as constants from "../constants";
 import { throwError } from "./Errors";
+import { sendNotification } from "./Notifications";
 
 export interface UploadPicture {
     type: constants.UPLOAD_PICTURE;
@@ -41,7 +42,10 @@ export function uploadPicture(pictureModel, file) {
     data.append("pictureModel", pictureModel);
     return (dispatch) => {
         return postPicture(userId, data, token).then(
-            () => dispatch(uploadedPicture()),
+            () => {
+                dispatch(uploadedPicture());
+                dispatch(sendNotification("Picture successfully uploaded!"));
+            },
             (error) => dispatch(throwError("Upload picture", error)),
         );
     };

@@ -1,6 +1,7 @@
 import axios from "axios";
 import * as constants from "../constants";
 import { throwError } from "./Errors";
+import { sendNotification } from "./Notifications";
 
 export interface LoginUser {
 	type: constants.LOGIN;
@@ -22,7 +23,10 @@ function fetchLogin(formData) {
 export function loginUser(formData) {
 	return (dispatch) => {
 		return fetchLogin(formData).then(
-			(tokenUrl) => dispatch(redirectionToken(tokenUrl.data)),
+			(tokenUrl) => {
+				dispatch(redirectionToken(tokenUrl.data));
+				dispatch(sendNotification("Login successful!"));
+			},
 			(error) => dispatch(throwError("Login", error)),
 		);
 	};

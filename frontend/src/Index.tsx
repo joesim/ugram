@@ -11,6 +11,7 @@ import Login from "./containers/Login";
 import Profile from "./containers/Profile";
 import Signup from "./containers/Signup";
 import Users from "./containers/Users";
+import Notifications from "./containers/Notifications";
 
 import { grey800, lightBlue700 } from "material-ui/styles/colors";
 import getMuiTheme from "material-ui/styles/getMuiTheme";
@@ -31,19 +32,14 @@ import { store } from "./store";
 
 import "../scss/app.scss";
 import * as io from "socket.io-client";
-const socket = io.connect("localhost:3000");
+import { API_URL } from "./constants";
+
+export const socket = io.connect(API_URL);
 
 const token = window.localStorage.getItem("token-06");
 
-// TODO: Joel for notifications
 socket.on("connect", () => {
-// tslint:disable-next-line
-console.log("connecté au serveur");
-socket.emit("join", {accessToken: token});
-socket.on("notification", (data) => {
-  // tslint:disable-next-line
-  console.log(data);
-});
+  socket.emit("join", {accessToken: token});
 });
 
 function getParameterByName(name) {
@@ -107,6 +103,7 @@ ReactDOM.render(
           <HashRouter>
             <div>
               <AppBarUgram currentUser={token} />
+              <Notifications />
               <Switch>
                 <PrivateRoute
                   exact={true}

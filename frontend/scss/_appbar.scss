@@ -1,7 +1,14 @@
 $color-secondary-appbar: #d3d3d3;
 
+.cursor-pointer {
+  cursor: pointer;
+}
+
 .no-decoration {
   text-decoration: none!important;
+}
+.no-padding {
+  padding: 0!important;
 }
 
 .height-100{
@@ -16,6 +23,13 @@ $color-secondary-appbar: #d3d3d3;
   .logout {
     margin-left: 8px !important;
   }
+}
+
+.bell-navbar {
+  padding-left: 10px !important;
+  padding-right: 10px !important;
+  padding-bottom: 0px !important;
+  padding-top: 0px !important;
 }
 
 .title-navbar {
@@ -33,7 +47,7 @@ $color-secondary-appbar: #d3d3d3;
   width: 200px;
 }
 
-@media (max-width: 500px) {
+@media (max-width: 617px) {
   .search {
     display: none;
   }
@@ -70,4 +84,9 @@ $color-secondary-appbar: #d3d3d3;
   cursor: pointer;
   font-size: 30px;
   outline: none;
+}
+
+.tooltip-root {
+  overflow: visible !important;
+  left: -31415px;
 }
