@@ -53,7 +53,6 @@ const findNotifications = async userId => {
     );
     await Promise.all([formatedReactions, formatedComments]);
   }
-  console.log(notificationsResponse);
   return notificationsResponse;
 };
 

@@ -14,6 +14,10 @@ export interface UpdatedReaction {
     type: constants.UPDATE_REACTION;
 }
 
+export interface SendComments {
+    type: constants.SEND_COMMENTARY;
+}
+
 export type PictureDetailsAction = UpdatePicture;
 
 function updatePicture(): UpdatePicture {
@@ -25,6 +29,12 @@ function updatePicture(): UpdatePicture {
 function deletedPicture(): DeletedPicture {
     return {
         type: constants.DELETE_PICTURE,
+    };
+}
+
+function sendComments(): SendComments {
+    return {
+        type: constants.SEND_COMMENTARY,
     };
 }
 
@@ -52,6 +62,17 @@ export function deletePicture(userId, pictureId) {
             dispatch(deletedPicture());
         } catch (error) {
             dispatch(throwError("Could not delete picture", error));
+        }
+    };
+}
+
+export function sendCommentary(userId, pictureId, data) {
+    return async (dispatch) => {
+        try {
+            const response = axios.post(`/users/${userId}/pictures/${pictureId}/comments`, data);
+            dispatch(sendComments());
+        } catch (error) {
+            dispatch(throwError("Could not send commentary", error));
         }
     };
 }
