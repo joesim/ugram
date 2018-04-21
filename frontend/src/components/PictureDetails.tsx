@@ -2,11 +2,14 @@ import DatePicker from "material-ui/DatePicker";
 import Dialog from "material-ui/Dialog";
 import FlatButton from "material-ui/FlatButton";
 import RaisedButton from "material-ui/RaisedButton";
+import Divider from "material-ui/Divider";
 import IconButton from "material-ui/IconButton";
 import FontIcon from "material-ui/FontIcon";
+import Avatar from "material-ui/Avatar";
 import TextField from "material-ui/TextField";
+import {List, ListItem} from "material-ui/List";
 import * as React from "react";
-import { blue500, grey500 } from "material-ui/styles/colors";
+import { blue500, grey500, darkBlack } from "material-ui/styles/colors";
 import axios from "../axios";
 
 class PictureDetails extends React.Component<any, any> {
@@ -16,7 +19,9 @@ class PictureDetails extends React.Component<any, any> {
         this.state = {
             display: "image",
             like: false,
-	        mentions: [],
+            likeNumber : 0,
+            mentions: [],
+            comments: [],
 	        open: false,
 	        tags: [],
             userId: window.localStorage.getItem("userId-06"),
@@ -31,18 +36,18 @@ class PictureDetails extends React.Component<any, any> {
         this.deletePicture = this.deletePicture.bind(this);
         this.sendComms = this.sendComms.bind(this);
         this.updateReaction = this.updateReaction.bind(this);
-        this.pictureIsLikedByCurrentUser = this.pictureIsLikedByCurrentUser.bind(this);
     }
 
     public componentWillReceiveProps(nextProps) {
         if (this.props.picture !== nextProps.picture) {
            axios.get(`/users/${nextProps.picture.userId}/pictures/${nextProps.picture.id}`)
                .then((response) => {
-                   const currentUser = response.data.reactions.find((r) => r.author === this.state.userId);
+                   const likeList = response.data.reactions;
+                   const likeNumber = likeList.length;
+                   const comments = this.formatComments(response.data.comments);
+                   const currentUser = likeList.find((r) => r.author === this.state.userId);
                    const like = currentUser !== undefined;
-                   if (like !== this.state.like) {
-                       this.setState({ like });
-                   }
+                   this.setState({ likeNumber, comments, like });
                });
         }
     }
@@ -51,7 +56,8 @@ class PictureDetails extends React.Component<any, any> {
         if (this.props.picture === null) { return <div/>; }
         const actions = [
             (
-                <div>
+                <div style={{display: "inline-flex"}}>
+                    <p>{this.state.likeNumber}</p>
                     <IconButton onClick={this.updateReaction} className="like">
                         <FontIcon
                             color={this.state.like ? blue500 : grey500}
@@ -130,19 +136,13 @@ class PictureDetails extends React.Component<any, any> {
 		);
 	}
 
-    private pictureIsLikedByCurrentUser(nextProps) {
-        let result = false;
-        if (nextProps.picture !== null && nextProps.picture.reactions !== null) {
-            const reactions = nextProps.picture.reactions;
-            let i = 0;
-            while (i < reactions.length && result === false) {
-                if (reactions[i].author === this.state.userId) {
-                    result = true;
-                }
-                i++;
-            }
+    private formatComments = (comments) => {
+        for (const comment of comments) {
+            delete comment.read;
+            delete comment.createdDate;
+            delete comment._id;
         }
-        return result;
+        return comments;
     }
 
     private deletePicture() {
@@ -152,7 +152,8 @@ class PictureDetails extends React.Component<any, any> {
     private updateReaction() {
         const previousState = this.state.like;
         this.props.updateReaction(this.props.picture.userId, this.props.picture.id);
-        this.setState({like: !previousState});
+        const count = previousState ? -1 : 1;
+        this.setState((prevState) => ({like: !previousState, likeNumber: prevState.likeNumber + count}));
     }
 
     private updatePicture() {
@@ -172,6 +173,11 @@ class PictureDetails extends React.Component<any, any> {
             message: document.getElementById("commentary")["value"],
         };
         this.props.sendCommentary(this.state.userId, this.props.picture.id, data);
+
+        const newComment = {author: this.state.userId, message: data.message};
+        this.setState((prevState) => ({
+            comments: [...prevState.comments, newComment],
+        }));
     }
 
     private displayInfos() {
@@ -270,22 +276,42 @@ class PictureDetails extends React.Component<any, any> {
         }
     }
 
-    private displayComms() {
-        console.log(this.props.picture);
+    private displayComms = () => {
+        const commentsList = this.state.comments.map(
+            (comment, i) => (
+                <ListItem
+                    key={i}
+                    secondaryText={
+                        <p>
+                        <span style={{color: darkBlack}}>{comment.author}</span> --{comment.message}
+                        </p>
+                    }
+                    secondaryTextLines={2}
+                />
+
+        ),
+        );
         return (
             <div className="picture-infos">
-                <div className="field-name">Commentaire: </div>
-                <TextField
-                    multiLine={true}
-                    className="field"
-                    id="commentary"
-                />
-                <RaisedButton
-                    label="Send"
-                    primary={true}
-                    className="size-button"
-                    onClick={this.sendComms}
-                />
+                <div>
+                    <List>
+                        {commentsList}
+                    </List>
+                </div>
+                <div>
+                    <div className="field-name">Commentaire: </div>
+                    <TextField
+                        multiLine={true}
+                        className="field"
+                        id="commentary"
+                    />
+                    <RaisedButton
+                        label="Send"
+                        primary={true}
+                        className="size-button"
+                        onClick={this.sendComms}
+                    />
+                </div>
             </div>
         );
     }
