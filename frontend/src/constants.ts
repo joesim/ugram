@@ -34,6 +34,9 @@ export type LOGIN = typeof LOGIN;
 export const DELETE_PICTURE = "DELETE_PICTURE";
 export type DELETE_PICTURE = typeof DELETE_PICTURE;
 
+export const UPDATE_REACTION = "UPDATE_REACTION";
+export type UPDATE_REACTION = typeof UPDATE_REACTION;
+
 export const UPDATE_PICTURE = "UPDATE_PICTURE";
 export type UPDATE_PICTURE = typeof UPDATE_PICTURE;
 
