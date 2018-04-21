@@ -172,12 +172,16 @@ class PictureDetails extends React.Component<any, any> {
         const data = {
             message: document.getElementById("commentary")["value"],
         };
+        if (data.message === "") {
+            return ;
+        }
         this.props.sendCommentary(this.state.userId, this.props.picture.id, data);
 
         const newComment = {author: this.state.userId, message: data.message};
         this.setState((prevState) => ({
             comments: [...prevState.comments, newComment],
         }));
+        document.getElementById("commentary")["value"] = "";
     }
 
     private displayInfos() {
@@ -294,11 +298,6 @@ class PictureDetails extends React.Component<any, any> {
         return (
             <div className="picture-infos">
                 <div>
-                    <List>
-                        {commentsList}
-                    </List>
-                </div>
-                <div>
                     <div className="field-name">Commentaire: </div>
                     <TextField
                         multiLine={true}
@@ -311,6 +310,11 @@ class PictureDetails extends React.Component<any, any> {
                         className="size-button"
                         onClick={this.sendComms}
                     />
+                </div>
+                <div className="picture-comms">
+                    <List>
+                        {commentsList}
+                    </List>
                 </div>
             </div>
         );
