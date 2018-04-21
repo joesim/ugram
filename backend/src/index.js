@@ -15,6 +15,7 @@ import cleanDB from "./common/cleanDB";
 
 const app = express();
 const server = http.createServer(app);
+
 const socket = io(server);
 
 const corsOptions = {

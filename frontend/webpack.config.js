@@ -30,6 +30,15 @@ module.exports = function(env) {
 			]
 		},
 		plugins: [
+			new webpack.DefinePlugin({
+				'process.env': {
+					'NODE_ENV': JSON.stringify('production')
+				},
+				'process.env.API_URL':                 JSON.stringify(process.env.API_URL),
+				'process.env.UNSPLASH_APPLICATION_ID': JSON.stringify(process.env.UNSPLASH_APPLICATION_ID),
+				'process.env.UNSPLASH_CALLBACK':       JSON.stringify(process.env.UNSPLASH_CALLBACK),
+				'process.env.UNSPLASH_SECRET':         JSON.stringify(process.env.UNSPLASH_SECRET)
+			}),
 			new Dotenv(),
 			new HtmlWebpackPlugin({
 				template: 'index.template.ejs'
@@ -40,12 +49,7 @@ module.exports = function(env) {
 			}),
 			new CopyWebpackPlugin([
 				{ from: 'assets/', to: 'assets/'}
-			]),
-			new webpack.DefinePlugin({
-                'process.env': {
-                    'NODE_ENV': JSON.stringify('production')
-                }
-			}),
+			])
 		]
 	};
 

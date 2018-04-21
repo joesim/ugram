@@ -34,7 +34,8 @@ import "../scss/app.scss";
 import * as io from "socket.io-client";
 import { API_URL } from "./constants";
 
-export const socket = io.connect(API_URL);
+const address = (API_URL.indexOf("localhost") !== -1) ? API_URL : `${API_URL}:80`;
+export const socket = io.connect(address);
 
 const token = window.localStorage.getItem("token-06");
 
