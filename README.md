@@ -19,7 +19,7 @@ Nous avons intégré le fournisseur de photos [Unsplash](https://unsplash.com/)
 
 ## API
 
-[Api documentation](https://documenter.getpostman.com/view/2900020/ugram-team06/RVnZgdc2)
+[Api documentation](https://documenter.getpostman.com/view/4118771/ugram-team06/RW1XK1QH)
 
 ## Installation
 
