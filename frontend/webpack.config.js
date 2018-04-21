@@ -34,10 +34,10 @@ module.exports = function(env) {
 				'process.env': {
 					'NODE_ENV': JSON.stringify('production')
 				},
-				'process.env.API_URL':                 process.env.API_URL,
-				'process.env.UNSPLASH_APPLICATION_ID': process.env.UNSPLASH_APPLICATION_ID,
-				'process.env.UNSPLASH_CALLBACK':       process.env.UNSPLASH_CALLBACK,
-				'process.env.UNSPLASH_SECRET':         process.env.UNSPLASH_SECRET
+				'process.env.API_URL':                 JSON.stringify(process.env.API_URL),
+				'process.env.UNSPLASH_APPLICATION_ID': JSON.stringify(process.env.UNSPLASH_APPLICATION_ID),
+				'process.env.UNSPLASH_CALLBACK':       JSON.stringify(process.env.UNSPLASH_CALLBACK),
+				'process.env.UNSPLASH_SECRET':         JSON.stringify(process.env.UNSPLASH_SECRET)
 			}),
 			new Dotenv(),
 			new HtmlWebpackPlugin({
