@@ -23,6 +23,12 @@ class NotificationsBell extends React.Component<any, any> {
 
     public componentDidMount() {
         socket.on("notification", (data) => {
+            let numberOfNotifications = "";
+            const totalUnreads = data.totalUnreads;
+            if (totalUnreads !== 0 && totalUnreads !== undefined) {
+                numberOfNotifications = `(${totalUnreads})`;
+            }
+            document.title = `Ugram ${numberOfNotifications}`;
             this.setState({
                 open: false,
             });
