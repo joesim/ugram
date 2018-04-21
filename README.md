@@ -29,6 +29,11 @@ Vous pouvez:
 ### Webcam
 Vous pouvez prendre une photo avec votre Webcam.
 
+**Attention**:
+
+Cette fonctionnalité n'est pas fonctionnelle sur chrome car celui-ci bloque l'utilisation de la Webcam quand une application Web n'est pas en **HTTPS**. Vous pouvez utiliser **Firefox** pour tester cette fonctionnalité.
+
+
 ### Notifications en temps réel
 Les notifications sont en temps réel grâce à Socket.IO
 
