@@ -16,7 +16,7 @@ import cleanDB from "./common/cleanDB";
 const app = express();
 const server = http.createServer(app);
 
-const socket = io(process.env.WS_SERVER_URL || server);
+const socket = io(server);
 
 const corsOptions = {
   origin: "*",
