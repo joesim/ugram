@@ -127,7 +127,7 @@ const create = (req, res) => {
 			errorMessage(res, 500, "Internal server error");
 		});
 	}, function(err) {
-		errorMessage(res, 500, "Internal server error");
+		errorMessage(res, 400, err.message);
 	}).catch(function(err) {
 		errorMessage(res, 400, "Missing parameter or unexisting user");
 	});
