@@ -4,6 +4,7 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
 const webpack = require('webpack');
+const Dotenv = require('dotenv-webpack');
 
 module.exports = function(env) {
 	const config = {
@@ -18,6 +19,7 @@ module.exports = function(env) {
 		},
 		module: {
 			rules: [
+				{test: /\.tsx?$/, enforce: 'pre', loader: 'tslint-loader', options: {failOnHint: true}},
 				{test: /\.tsx?$/, loader: 'ts-loader'},
 				{test: /\.scss$/,
 					use: ExtractTextPlugin.extract({
@@ -28,6 +30,7 @@ module.exports = function(env) {
 			]
 		},
 		plugins: [
+			new Dotenv(),
 			new HtmlWebpackPlugin({
 				template: 'index.template.ejs'
 			}),

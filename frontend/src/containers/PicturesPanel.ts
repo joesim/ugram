@@ -1,7 +1,6 @@
 import { connect, Dispatch, PropTypes } from "react-redux";
-import * as actions from "../actions/";
+import * as actions from "../actions/PicturesPanel";
 import PicturesPanel from "../components/PicturesPanel";
-import { StoreState } from "../types";
 
 export function mapStateToProps({ pictures_panel }, props) {
     return {
@@ -15,6 +14,13 @@ export function mapDispatchToProps(dispatch: Dispatch<actions.PicturesPanelActio
         getAllPictures: (page, perPage) => dispatch(actions.getAllPictures(page, perPage)),
         getAllPicturesFromUser: (page, perPage, userId) => {
             dispatch(actions.getAllPicturesFromUser(page, perPage, userId));
+        },
+
+        getAllPicturesFilteredDesc: (query, page, perPage) => {
+            dispatch(actions.getAllPicturesFilteredDesc(query, page, perPage));
+        },
+        getAllPicturesFilteredHashtags: (query, page, perPage) => {
+            dispatch(actions.getAllPicturesFilteredHashtags(query, page, perPage));
         },
     };
 }

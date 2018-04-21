@@ -1,0 +1,17 @@
+#unsplashError {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+
+	.errorIcon {
+		font-size: 23em;
+		color: #ccc;
+	}
+
+	.message {
+		font-size: 1.5em;
+		text-align: center;
+		padding: 8px;
+	}
+}

@@ -27,3 +27,16 @@ export function signupUser(formData) {
         );
     };
 }
+
+function fetchLogIn(formData) {
+    return axios.post(`/logIn`, formData);
+}
+
+export function logIn(formData) {
+    return (dispatch) => {
+        return fetchLogIn(formData).then(
+            (tokenUrl) => dispatch(redirectionToken(tokenUrl.request.responseURL)),
+            (error) => dispatch(throwError("LogIn", error)),
+        );
+    };
+}

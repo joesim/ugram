@@ -1,0 +1,16 @@
+#loginPage {
+	.loginForm {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+
+	.loginButtons {
+		display: flex;
+		flex-direction: column;
+
+		.button {
+			margin-top: 15px;
+		}
+	}
+}

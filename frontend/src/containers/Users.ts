@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import * as actions from "../actions/";
+import * as actions from "../actions/Users";
 import Users from "../components/Users";
 import { User } from "../types/";
 
@@ -9,6 +9,8 @@ interface StateProps {
 
 interface DispatchProps {
     getAllUsers: (page, perPage) => any;
+    getAllUsersFiltered: (query, page, perPage) => any;
+    receivingNewUsers: () => any;
 }
 
 function mapStateToProps(state): StateProps {
@@ -20,6 +22,8 @@ function mapStateToProps(state): StateProps {
 function mapDispatchToProps(dispatch): DispatchProps {
     return {
         getAllUsers: (page, perPage) => dispatch(actions.getAllUsers(page, perPage)),
+        getAllUsersFiltered: (query, page, perPage) => dispatch(actions.getAllUsersFiltered(query, page, perPage)),
+        receivingNewUsers: () => dispatch(actions.receivingNewUsers()),
     };
 }
 

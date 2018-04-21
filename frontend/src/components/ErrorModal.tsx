@@ -1,11 +1,11 @@
 import Dialog from "material-ui/Dialog";
 import FlatButton from "material-ui/FlatButton";
-import RaisedButton from "material-ui/RaisedButton";
 import * as React from "react";
 
 class ErrorModal extends React.Component<any, any> {
-  public state = {
-    open: false,
+	public state = {
+		open: false,
+		toClose: false,
 	};
 
 	public constructor(props) {
@@ -13,26 +13,44 @@ class ErrorModal extends React.Component<any, any> {
 	}
 
 	public componentDidUpdate(prevProps, prevState): void {
-		if (this.props.error === null && this.state.open === true) {
+		if (this.state.open && this.state.toClose === true) {
+			this.setState({open: false, toClose: false});
+		} else if (this.props.error === null && this.state.open === true) {
 			this.setState({open: false});
-		} else if (this.state.open === false) {
+		} else if (this.state.open === false && !prevState.toClose) {
 			this.setState({open: true});
 		}
 	}
 
-	public handleButton = (): void => {
+	public handleReload = (): void => {
 		window.location.reload();
 	}
 
+	public handleConfirm = (): void => {
+		this.setState({toClose: true});
+	}
+
 	public render() {
+		let error = this.props.errorMessage;
+		if (this.props.error && this.props.error.response && this.props.error.response.data.message) {
+			error = this.props.error.response.data.message;
+		}
 		const actions: object = [
 			(
 			  <FlatButton
 				  key={1}
 				  label="Reload application"
-				  primary={true}
-				  onClick={this.handleButton}
+				  secondary={true}
+				  onClick={this.handleReload}
 			  />
+			),
+			(
+				<FlatButton
+					key={1}
+					label="Continue"
+					primary={true}
+					onClick={this.handleConfirm}
+				/>
 			),
 		];
 
@@ -44,7 +62,7 @@ class ErrorModal extends React.Component<any, any> {
 					modal={true}
 					open={this.state.open}
 				>
-					{this.props.errorMessage}
+					{error}
 				</Dialog>
 		  </div>
 		);

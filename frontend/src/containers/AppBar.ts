@@ -1,5 +1,5 @@
 import { connect, Dispatch } from "react-redux";
-import * as actions from "../actions/";
+import { AppBarAction, setVisibilityUploadModal } from "../actions/AppBar";
 import AppBarUgram from "../components/AppBar";
 import { StoreState } from "../types";
 
@@ -9,9 +9,9 @@ export function mapStateToProps({ appbar }: StoreState) {
     };
 }
 
-export function mapDispatchToProps(dispatch: Dispatch<actions.AppBarAction>) {
+export function mapDispatchToProps(dispatch: Dispatch<AppBarAction>) {
     return {
-        onFileUploadModalClick: () => dispatch(actions.setVisibilityUploadModal()),
+        onFileUploadModalClick: () => dispatch(setVisibilityUploadModal()),
     };
 }
 

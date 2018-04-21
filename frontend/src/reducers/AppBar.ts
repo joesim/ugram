@@ -1,4 +1,4 @@
-import { AppBarAction } from "../actions";
+import { AppBarAction } from "../actions/AppBar";
 import { SET_VISIBILITY_UPLOAD_MODAL } from "../constants";
 
 const initialState = {

@@ -1,21 +1,21 @@
 import DatePicker from "material-ui/DatePicker";
 import Dialog from "material-ui/Dialog";
-import DropDownMenu from "material-ui/DropDownMenu";
 import FlatButton from "material-ui/FlatButton";
-import FloatingActionButton from "material-ui/FloatingActionButton";
-import MenuItem from "material-ui/MenuItem";
 import RaisedButton from "material-ui/RaisedButton";
-import ContentAdd from "material-ui/svg-icons/content/add";
+import IconButton from "material-ui/IconButton";
+import FontIcon from "material-ui/FontIcon";
 import TextField from "material-ui/TextField";
-import PropTypes from "prop-types";
 import * as React from "react";
+import { blue500, grey500 } from "material-ui/styles/colors";
+import axios from "../axios";
 
 class PictureDetails extends React.Component<any, any> {
     constructor(props) {
         super(props);
 
         this.state = {
-	        display: "image",
+            display: "image",
+            like: false,
 	        mentions: [],
 	        open: false,
 	        tags: [],
@@ -23,18 +23,57 @@ class PictureDetails extends React.Component<any, any> {
             value: [],
         };
 
+        this.download = this.download.bind(this);
         this.displayImage = this.displayImage.bind(this);
         this.displayInfos = this.displayInfos.bind(this);
         this.updatePicture = this.updatePicture.bind(this);
         this.deletePicture = this.deletePicture.bind(this);
+        this.updateReaction = this.updateReaction.bind(this);
+        this.pictureIsLikedByCurrentUser = this.pictureIsLikedByCurrentUser.bind(this);
+    }
+
+    public componentWillReceiveProps(nextProps) {
+        if (this.props.picture !== nextProps.picture) {
+           axios.get(`/users/${nextProps.picture.userId}/pictures/${nextProps.picture.id}`)
+               .then((response) => {
+                   const currentUser = response.data.reactions.find((r) => r.author === this.state.userId);
+                   const like = currentUser !== undefined;
+                   if (like !== this.state.like) {
+                       this.setState({ like });
+                   }
+               });
+        }
     }
 
 	public render() {
-		if (this.props.picture === null) { return <div/>; }
-		const actions = [
-			(
+        if (this.props.picture === null) { return <div/>; }
+        const actions = [
+            (
+                <div>
+                    <IconButton onClick={this.updateReaction} className="like">
+                        <FontIcon
+                            color={this.state.like ? blue500 : grey500}
+                            onLeftIconButtonClick=""
+                            className="material-icons"
+                            id="likeThumb"
+                        >
+                            thumb_up
+                        </FontIcon>
+                    </IconButton>
+                </div>
+            ),
+            (
                 <FlatButton
                     key={1}
+                    label="Download"
+                    primary={true}
+                    disabled={this.state.display === "download"}
+                    onClick={() => {this.setState({display: "download"}); }}
+                />
+			),
+			(
+                <FlatButton
+                    key={2}
                     label="Image"
                     primary={true}
                     disabled={this.state.display === "image"}
@@ -43,7 +82,7 @@ class PictureDetails extends React.Component<any, any> {
 			),
 			(
                 <FlatButton
-                    key={2}
+                    key={3}
                     label="Infos"
                     primary={true}
                     disabled={this.state.display === "infos"}
@@ -52,7 +91,7 @@ class PictureDetails extends React.Component<any, any> {
 			),
 			(
                 <FlatButton
-                    key={3}
+                    key={4}
                     label="Close"
                     primary={true}
                     onClick={this.props.closeDialog}
@@ -60,7 +99,7 @@ class PictureDetails extends React.Component<any, any> {
 			),
 		];
 
-		return (
+		      return (
             <Dialog
                 title={this.props.picture.description}
                 actions={actions}
@@ -81,8 +120,29 @@ class PictureDetails extends React.Component<any, any> {
 		);
 	}
 
+    private pictureIsLikedByCurrentUser(nextProps) {
+        let result = false;
+        if (nextProps.picture !== null && nextProps.picture.reactions !== null) {
+            const reactions = nextProps.picture.reactions;
+            let i = 0;
+            while (i < reactions.length && result === false) {
+                if (reactions[i].author === this.state.userId) {
+                    result = true;
+                }
+                i++;
+            }
+        }
+        return result;
+    }
+
     private deletePicture() {
         this.props.deletePicture(this.state.userId, this.props.picture.id);
+    }
+
+    private updateReaction() {
+        const previousState = this.state.like;
+        this.props.updateReaction(this.props.picture.userId, this.props.picture.id);
+        this.setState({like: !previousState});
     }
 
     private updatePicture() {
@@ -171,14 +231,29 @@ class PictureDetails extends React.Component<any, any> {
     }
 
     private displayImage() {
-        if (this.state.display !== "image") {
-            return this.displayInfos();
+        switch (this.state.display) {
+            case "download":
+                this.download();
+
+                return (
+                    <div className="image">
+                        <img src={this.props.picture.url_p} />
+                    </div>
+                );
+            case "infos":
+                return this.displayInfos();
+            default:
+                return (
+                    <div className="image">
+                        <img src={this.props.picture.url_p} />
+                    </div>
+                );
         }
-        return (
-            <div className="image">
-                <img src={this.props.picture.url} />
-            </div>
-        );
+    }
+
+    private download() {
+        window.open(this.props.picture.url);
+        this.setState({display: "image"});
     }
 }
 

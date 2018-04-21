@@ -1,5 +1,5 @@
 import { connect, Dispatch, PropTypes } from "react-redux";
-import * as actions from "../actions/";
+import * as actions from "../actions/Signup";
 import Signup from "../components/Signup";
 import { StoreState } from "../types";
 
@@ -11,6 +11,7 @@ export function mapStateToProps({signup}) {
 
 export function mapDispatchToProps(dispatch: Dispatch<actions.SignupAction>) {
     return {
+        logIn: (formData) => dispatch(actions.logIn(formData)),
         signupUser: (formData) => dispatch(actions.signupUser(formData)),
     };
 }

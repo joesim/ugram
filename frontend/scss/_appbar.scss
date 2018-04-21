@@ -1,5 +1,14 @@
+$color-secondary-appbar: #d3d3d3;
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
 .no-decoration {
   text-decoration: none!important;
+}
+.no-padding {
+  padding: 0!important;
 }
 
 .height-100{
@@ -11,9 +20,16 @@
   border-bottom: 1px solid lightgray;
   align-items: center;
 
-  .upload {
-    padding: 0 !important;
+  .logout {
+    margin-left: 8px !important;
   }
+}
+
+.bell-navbar {
+  padding-left: 10px !important;
+  padding-right: 10px !important;
+  padding-bottom: 0px !important;
+  padding-top: 0px !important;
 }
 
 .title-navbar {
@@ -22,7 +38,55 @@
   color: black;
 }
 
-.items-navbar {
-  padding-left:15px;
-  padding-right: 15px;
+.search {
+  width: 150px;
+  position: relative;
+}
+
+.width-search{
+  width: 200px;
+}
+
+@media (max-width: 617px) {
+  .search {
+    display: none;
+  }
+  .width-search{
+    width: 0px;
+  }
+}
+
+.searchTerm {
+  float: left;
+  width: 100%;
+  border: 2px solid $color-secondary-appbar;
+  padding: 5px;
+  height: 20px;
+  border-radius: 5px;
+  outline: none;
+  //color: #9dbfaf;
+}
+
+.searchTerm:focus{
+  color: black;
+}
+
+.searchButton {
+  position: absolute;
+  right: -48px;
+  width: 40px;
+  height: 34px;
+  border: 1px solid $color-secondary-appbar;
+  background: $color-secondary-appbar;
+  text-align: center;
+  color: #fff;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 30px;
+  outline: none;
+}
+
+.tooltip-root {
+  overflow: visible !important;
+  left: -31415px;
 }
