@@ -6,6 +6,7 @@ import { Page404 } from "./components/Page404";
 import Search from "./components/Search";
 import AppBarUgram from "./containers/AppBar";
 import ErrorModal from "./containers/ErrorModal";
+import ChatMessages from "./containers/ChatMessages";
 import Home from "./containers/Home";
 import Login from "./containers/Login";
 import Profile from "./containers/Profile";
@@ -100,6 +101,7 @@ ReactDOM.render(
     <MuiThemeProvider muiTheme={muiTheme}>
       <div>
         <ErrorModal />
+        <ChatMessages />
         <BrowserRouter>
           <HashRouter>
             <div>

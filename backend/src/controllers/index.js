@@ -3,6 +3,7 @@ import * as Users from './users';
 import * as Pictures from './pictures';
 import * as Reactions from './reactions';
 import * as Comments from "./comments";
+import * as Chat from "./chat";
 import * as Notifications from "./notifications";
 import * as Clients from './clients';
 
@@ -11,6 +12,7 @@ import * as Search from './search';
 import { isAuthenticated } from "../middlewares/authentification";
 import { isAuthorized } from "../middlewares/authorization";
 import { notifyClient } from "../middlewares/notifyClient";
+import { notifyMessage } from "../middlewares/notifyMessage";
 import { frontend_url } from "../constants";
 import multer from "multer";
 
@@ -36,6 +38,8 @@ const controllers = (app) => {
 	app.delete('/users/:userId/pictures/:pictureId', isAuthenticated, isAuthorized, Pictures.deleteOne);
 	app.delete('/users/:id', isAuthenticated, isAuthorized, Users.deleteOne);
 	app.get('/search', Search.search);
+	app.post('/messages', isAuthenticated, Chat.postMessage, notifyMessage);
+	app.get('/messages', Chat.readMessages);
 }
 
 export default controllers;
