@@ -7,6 +7,8 @@
 
 # Pour la correction
 
+Quand vous arrivez sur l'application en prod, faites attention à bien vérifier que vous avez bien la bonne version de l'app et pas une vieille version en cache (CTRL + F5 sur Windows / Linux ou SHIFT + Clique sur le bouton pour refresh sur Mac).
+
 ## Base de données
 Nous utilisons MongoDB, vous pouvez créer un compte sur mLab pour avoir une petite base de données gratuite ou en lancer une local (**Ne pas oublier de mettre les variabes d'environnement**)
 
