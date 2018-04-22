@@ -39,7 +39,7 @@ const controllers = (app) => {
 	app.delete('/users/:id', isAuthenticated, isAuthorized, Users.deleteOne);
 	app.get('/search', Search.search);
 	app.post('/messages', isAuthenticated, Chat.postMessage, notifyMessage);
-	app.get('/messages', Chat.readMessages);
+	app.get('/messages', isAuthenticated, Chat.readMessages);
 }
 
 export default controllers;

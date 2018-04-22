@@ -101,12 +101,12 @@ ReactDOM.render(
     <MuiThemeProvider muiTheme={muiTheme}>
       <div>
         <ErrorModal />
-        <ChatMessages />
         <BrowserRouter>
           <HashRouter>
             <div>
               <AppBarUgram currentUser={token} />
               <Notifications />
+              <ChatMessages />
               <Switch>
                 <PrivateRoute
                   exact={true}
