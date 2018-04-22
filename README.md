@@ -29,6 +29,9 @@ Vous pouvez:
 ### Webcam
 Vous pouvez prendre une photo avec votre Webcam.
 
+### Discussion en temps réel (chatbox)
+Avec Socket.IO, les utilisateurs peuvent discuter en temps réel.
+
 ### Notifications en temps réel
 Les notifications sont en temps réel grâce à Socket.IO
 
