@@ -33,6 +33,8 @@ Vous pouvez prendre une photo avec votre Webcam.
 
 Cette fonctionnalité n'est pas fonctionnelle sur chrome car celui-ci bloque l'utilisation de la Webcam quand une application Web n'est pas en **HTTPS**. Vous pouvez utiliser **Firefox** pour tester cette fonctionnalité.
 
+### Discussion en temps réel (chatbox)
+Avec Socket.IO, les utilisateurs peuvent discuter en temps réel.
 
 ### Notifications en temps réel
 Les notifications sont en temps réel grâce à Socket.IO

@@ -1,0 +1,15 @@
+.chatbox {
+	position: fixed;
+	z-index: 1000;
+	bottom: 0px;
+	right: 0px;
+	width: 200px;
+}	
+
+.chatbox-input {
+	padding: 0 8px;
+}
+
+.chatbox-item {
+	width: 300px;
+}

@@ -6,6 +6,7 @@ import { Page404 } from "./components/Page404";
 import Search from "./components/Search";
 import AppBarUgram from "./containers/AppBar";
 import ErrorModal from "./containers/ErrorModal";
+import ChatMessages from "./containers/ChatMessages";
 import Home from "./containers/Home";
 import Login from "./containers/Login";
 import Profile from "./containers/Profile";
@@ -105,8 +106,9 @@ ReactDOM.render(
         <BrowserRouter>
           <HashRouter>
             <div>
-              <AppBarUgram currentUser={token} />
-              <Notifications />
+              {token ? <AppBarUgram currentUser={token} /> : null}
+              {token ? <Notifications /> : null}
+              {token ? <ChatMessages /> : null}
               <Switch>
                 <PrivateRoute
                   exact={true}
