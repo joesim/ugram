@@ -44,7 +44,7 @@ Si le lien ne fonctionne pas, nous avons aussi mis un rapport sous format PDF de
 
 ## API
 
-[Api documentation](https://documenter.getpostman.com/view/2900020/ugram-team06/RVnZgdc2)
+[Api documentation](https://documenter.getpostman.com/view/4118771/ugram-team06/RW1XK1QH)
 
 ## Installation
 
