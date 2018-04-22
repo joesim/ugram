@@ -114,6 +114,7 @@ class ChatMessages extends React.Component<Props, any> {
 	private onKeyPressed(event) {
 		if (event.key === "Enter") {
 			const message = event.target.value;
+			event.target.value = "";
 			if (message !== "") {
 				this.props.postMessage(message);
 			}
