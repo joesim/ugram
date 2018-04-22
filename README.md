@@ -7,6 +7,8 @@
 
 # Pour la correction
 
+Quand vous arrivez sur l'application en prod, faites attention à bien vérifier que vous avez bien la bonne version de l'app et pas une vieille version en cache (CTRL + F5 sur Windows / Linux ou SHIFT + Clique sur le bouton pour refresh sur Mac).
+
 ## Base de données
 Nous utilisons MongoDB, vous pouvez créer un compte sur mLab pour avoir une petite base de données gratuite ou en lancer une local (**Ne pas oublier de mettre les variabes d'environnement**)
 
@@ -33,6 +35,8 @@ Vous pouvez prendre une photo avec votre Webcam.
 
 Cette fonctionnalité n'est pas fonctionnelle sur chrome car celui-ci bloque l'utilisation de la Webcam quand une application Web n'est pas en **HTTPS**. Vous pouvez utiliser **Firefox** pour tester cette fonctionnalité.
 
+### Discussion en temps réel (chatbox)
+Avec Socket.IO, les utilisateurs peuvent discuter en temps réel.
 
 ### Notifications en temps réel
 Les notifications sont en temps réel grâce à Socket.IO
