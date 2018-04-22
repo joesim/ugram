@@ -8,7 +8,7 @@ function formatNotifs(notifs) {
     };
 
     for (const notif of notifs.items) {
-        if (notif === "comment") {
+        if (notif.type === "comment") {
             results.comments.push(notif.id);
         } else if (notif.type === "reaction") {
             results.reactions.push(notif.id);

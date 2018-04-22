@@ -29,6 +29,10 @@ Vous pouvez:
 ### Webcam
 Vous pouvez prendre une photo avec votre Webcam.
 
+**Attention**:
+
+Cette fonctionnalité n'est pas fonctionnelle sur chrome car celui-ci bloque l'utilisation de la Webcam quand une application Web n'est pas en **HTTPS**. Vous pouvez utiliser **Firefox** pour tester cette fonctionnalité.
+
 ### Discussion en temps réel (chatbox)
 Avec Socket.IO, les utilisateurs peuvent discuter en temps réel.
 
@@ -42,7 +46,7 @@ Si le lien ne fonctionne pas, nous avons aussi mis un rapport sous format PDF de
 
 ## API
 
-[Api documentation](https://documenter.getpostman.com/view/2900020/ugram-team06/RVnZgdc2)
+[Api documentation](https://documenter.getpostman.com/view/4118771/ugram-team06/RW1XK1QH)
 
 ## Installation
 
