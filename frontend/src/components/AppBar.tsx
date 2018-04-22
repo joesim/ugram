@@ -18,6 +18,7 @@ class AppBarUgram extends React.Component<any, any> {
 		window.localStorage.clear();
 		location.href = "/#/login";
 		this.forceUpdate();
+		location.reload();
 	}
 
 	public render() {
