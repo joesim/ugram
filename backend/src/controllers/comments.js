@@ -1,5 +1,5 @@
-import { errorMessage } from "../services";
-import { PictureModel, UserModel } from "../models";
+import { errorMessage, findAuthor } from "../services";
+import { PictureModel } from "../models";
 
 const postComment = async (req, res, next) => {
 	try {
@@ -24,21 +24,6 @@ const addComment = async (pictureId, author, message) => {
 		{ $push: { comments: { author, message } } },
 		{ new: true }
 	);
-};
-
-const findAuthor = async req => {
-	let accessToken = retrieveToken(req);
-	let author;
-	accessToken = accessToken.replace("Bearer ", "");
-
-	const userModel = await UserModel.findOne({ accessToken });
-	author = userModel.id;
-
-	return author;
-};
-
-const retrieveToken = req => {
-	return req.headers["authorization"];
 };
 
 export { postComment };

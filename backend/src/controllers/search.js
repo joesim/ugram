@@ -1,6 +1,6 @@
 import { UserModel } from "../models/user";
 import { PictureModel } from "../models/picture";
-import { parseEntry, errorMessage } from "../services";
+import { parseEntry, errorMessage, parsePicture } from "../services";
 
 const search = async (req, res) => {
   let limit = parseInt(req.query.limit) || 3;
@@ -23,7 +23,6 @@ const search = async (req, res) => {
     const users = await queryUsers(query, limit);
     const pictures = await queryPictures(query, limit);
     const mentions = await queryMentions(query, limit);
-
     response = responseBuilder(users, pictures, mentions, options);
   } catch (error) {
     errorMessage(res, 500, "Internal server error");
@@ -105,7 +104,7 @@ const queryPictures = async (query, limit) => {
   })
     .limit(limit)
     .exec();
-  data = data.map(parseEntry);
+  data = data.map(parsePicture);
 
   return data;
 };
@@ -116,7 +115,7 @@ const queryMentions = async (query, limit) => {
   })
     .limit(limit)
     .exec();
-  data = data.map(parseEntry);
+  data = data.map(parsePicture);
 
   return data;
 };

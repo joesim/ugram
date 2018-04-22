@@ -23,6 +23,12 @@ export interface User {
     };
 }
 
+export interface Message {
+    userId: string;
+    message: string;
+    createdDate: number;
+}
+
 export interface Picture {
     id: number;
     createdDate: number;
