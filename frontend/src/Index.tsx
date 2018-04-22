@@ -104,9 +104,9 @@ ReactDOM.render(
         <BrowserRouter>
           <HashRouter>
             <div>
-              <AppBarUgram currentUser={token} />
-              <Notifications />
-              <ChatMessages />
+              {token ? <AppBarUgram currentUser={token} /> : null}
+              {token ? <Notifications /> : null}
+              {token ? <ChatMessages /> : null}
               <Switch>
                 <PrivateRoute
                   exact={true}

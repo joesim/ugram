@@ -6,8 +6,8 @@ import Avatar from "material-ui/Avatar";
 import { Message } from "../types/";
 import * as React from "react";
 import { socket } from "../Index";
-import RaisedButton from 'material-ui/RaisedButton';
-import Popover, {PopoverAnimationVertical} from 'material-ui/Popover';
+import RaisedButton from "material-ui/RaisedButton";
+import Popover, {PopoverAnimationVertical} from "material-ui/Popover";
 
 interface Props {
     messages: Message[];
@@ -24,20 +24,22 @@ class ChatMessages extends React.Component<Props, any> {
 			open: false,
 		};
 
-        this.onKeyPressed = this.onKeyPressed.bind(this);
-        this.onExpand = this.onExpand.bind(this);
-        this.onContract = this.onContract.bind(this);
+		this.onKeyPressed = this.onKeyPressed.bind(this);
+		this.onExpand = this.onExpand.bind(this);
+		this.onContract = this.onContract.bind(this);
 	}
 
     public componentDidMount() {
 		this.props.getAllMessages();
-		
-        socket.on("message", (data) => {
+
+		socket.on("message", (data) => {
 			this.props.addMessage(data);
-        });
+		});
     }
 
 	public render() {
+		let messageKey = 0;
+
 		if (this.props.messages !== undefined && this.props.messages.length > 0) {
 			return (
 			<div className="chatbox">
@@ -45,8 +47,8 @@ class ChatMessages extends React.Component<Props, any> {
 					<Popover
 						open={this.state.open}
 						anchorEl={this.state.anchorEl}
-						anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
-						targetOrigin={{horizontal: 'left', vertical: 'top'}}
+						anchorOrigin={{horizontal: "left", vertical: "bottom"}}
+						targetOrigin={{horizontal: "left", vertical: "top"}}
 						onRequestClose={this.onContract}
 						animation={PopoverAnimationVertical}
 					>
@@ -54,9 +56,10 @@ class ChatMessages extends React.Component<Props, any> {
 							<List>
 								{this.props.messages.map((message) =>
 									<ListItem
-										primaryText={ `${message.userId}: ${message.message}` }
+										key={messageKey++}
+										primaryText={`${message.userId}: ${message.message}`}
 										className="chatbox-item"
-									/>
+									/>,
 								)}
 							</List>
 							<Divider />
@@ -89,7 +92,7 @@ class ChatMessages extends React.Component<Props, any> {
 					</div>
 				</Paper>
 			</div>
-			);	
+			);
 		}
 	}
 
@@ -106,12 +109,12 @@ class ChatMessages extends React.Component<Props, any> {
 		this.setState({
 			open: false,
 		});
-	};
+	}
 
 	private onKeyPressed(event) {
-		if (event.key == "Enter") {
+		if (event.key === "Enter") {
 			const message = event.target.value;
-			if (message != "") {
+			if (message !== "") {
 				this.props.postMessage(message);
 			}
 		}

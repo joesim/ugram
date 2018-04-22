@@ -9,7 +9,7 @@ export function chatMessages(state = initialState, action): object {
 	switch (action.type) {
 		case RECEIVE_CHAT_MESSAGES:
 			state.chatMessages = action.messages.reverse();
-            return { ...state };
+			return { ...state };
 		case ADD_CHAT_MESSAGE:
 			state.chatMessages = Object.assign([], state.chatMessages);
 			state.chatMessages.push(action.message);
@@ -17,7 +17,7 @@ export function chatMessages(state = initialState, action): object {
 				state.chatMessages.shift();
 			}
 
-            return { ...state };
+			return { ...state };
 		default:
 			return state;
 	}
